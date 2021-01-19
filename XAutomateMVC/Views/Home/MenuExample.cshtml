@@ -1,0 +1,498 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home Page</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>XAutomate -Home Page</title>
+    <link href="http://13.74.176.44:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://13.74.176.44:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="http://13.74.176.44:5000/css/simple-sidebar.css" rel="stylesheet" />
+    <!-- Bootstrap core CSS -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/css/simple-sidebar.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+
+    <style>
+      
+        html, body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #wrapper {
+            min-height: 100vh;
+        }
+        .dropdown-container {
+  display: none;
+}
+        .dropdown2-container {
+            display: none;
+        }
+       
+        .bg-light {
+            background-color: rgb(169, 169, 169) !important
+        }
+        .hidden {
+            visibility: hidden;
+            max-height: 0;
+            border: unset;
+            padding: unset !important;
+            max-width: 0;
+        }
+
+        tr {
+            text-align: center;
+        }
+
+        thead {
+            background-color: gray;
+            color: white;
+        }
+
+        .clear {
+        }
+        .color {
+            padding: 1px;
+            text-align: center;
+            border-top: 1px solid #3a3434;
+            border-bottom: 1px solid #3a3434;
+            color: white;
+        }
+        input[type=button], input[type=submit], input[type=reset] {
+            background-color: unset;
+            border: none;
+            color: white;
+            padding: 10px 48px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 13px;
+            -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+            box-shadow: 0 10px 20px 0 #3a3434;
+            -webkit-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+            margin: 5px 10px 20px 10px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -ms-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        body {
+            line-height: 2 !important;
+        }
+
+        #sidebar-wrapper {
+            background-color: #261c1d !important;
+            color: white;
+        }
+
+        .list-group-flush > .list-group-item {
+            background-color: #261c1d !important;
+            color: white;
+        }
+        .bg-light1 {
+            background-color: #261c1d !important;
+        }
+        .nav-link {
+            color: white;
+        }
+
+        #sidebar-wrapper .list-group {
+            width: 9rem !important;
+        }
+
+        .border-right {
+            border-right: unset !important;
+        }
+    </style>
+
+    <script>
+        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+   
+
+        $(document).ready(function () {
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+
+            for (i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener("click", function () {
+                    debugger;
+                    this.classList.toggle("active");
+                    var dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
+            }
+
+            var screens = sessionStorage.getItem("Screen");
+            if (screens == null || screens == "" || screens == undefined) {
+                window.location.href = "/Home/Index";
+            }
+            var RoleName = sessionStorage.getItem("RoleName");
+            var Screensplit = screens.split("|");
+            for (var i = 0; i < Screensplit.length; i++) {
+                var val = Screensplit[i];
+                var show = val.split(",");
+                var val2 = show["0"];
+                var val1 = show["1"];
+                switch (val2) {
+                    case "Connection":
+                        if (val1 == "Show") {
+                            $("#Menuconnection").removeClass("hidden");
+                        }
+                        else {
+                            $("#Menuconnection").addClass("hidden");
+                        }
+                        break;
+                    case "Suite":
+                        if (val1 == "Show") {
+                            $("#MenuSuites").removeClass("hidden");
+                        }
+                        else {
+                            $("#MenuSuites").addClass("hidden");
+                        }
+                        break;
+                    case "Approach":
+                        if (val1 == "Show") {
+                            $("#MenuTestApproach").removeClass("hidden");
+                        }
+                        else {
+                            $("#MenuTestApproach").addClass("hidden");
+                        }
+                        break;
+                    case "Testcases":
+                        if (val1 == "Show") {
+                            $("#MenuTestcases").removeClass("hidden");
+                        }
+                        else {
+                            $("#MenuTestcases").addClass("hidden");
+                        }
+                        break;
+                    case "etldb":
+                        if (val1 == "Show") {
+                            $("#MenuEtlrules").removeClass("hidden");
+                        }
+                        else {
+                            $("#MenuEtlrules").addClass("hidden");
+                        }
+                        break;
+                    case "Release":
+                        if (val1 == "Show") {
+                            $("#MenuRelease").removeClass("hidden");
+                        }
+                        else {
+                            $("#MenuRelease").addClass("hidden");
+                        }
+                        break;
+                    case "Executions":
+                        if (val1 == "Show") {
+                            $("#MenuExecution").removeClass("hidden");
+                        }
+                        else {
+                            $("#MenuExecution").addClass("hidden");
+                        }
+                        break;
+                    case "TestReport":
+                        if (val1 == "Show") {
+                            $("#MenuTestReport").removeClass("hidden");
+                        }
+                        else {
+                            $("#MenuTestReport").addClass("hidden");
+                        }
+                        break;
+                    case "Analytics":
+                        if (val1 == "Show") {
+                            $("#MenuAnaltics").removeClass("hidden");
+                        }
+                        else {
+                            $("#MenuAnaltics").addClass("hidden");
+                        }
+                        break;
+                    case "Usermanage":
+                        if (val1 == "Show") {
+                            $("#MenuUserMangment").removeClass("hidden");
+                        }
+                        else {
+                            $("#MenuUserMangment").addClass("hidden");
+                        }
+                        break;
+                }
+
+            }
+        });
+
+
+    </script>
+    <div id="full">
+        <div class="d-flex" id="wrapper">
+
+            <!-- Sidebar -->
+            <div class="bg-light border-right" id="sidebar-wrapper" style="text-align:center">
+                <a href="/Home/MenuExample" style="cursor:pointer">
+                    <img src="~/Dash board Icon/logo-01.png" style=" width: 44%; " />
+                </a>
+             
+                <div class="list-group list-group-flush">
+
+                    <a href="/DbConfig/DbConfig" class="list-group-item list-group-item-action bg-light Admin color" id="Menuconnection">
+                        <img src="~/login icon/connections.png" style="width:30px" />
+                        <h6>CONNECTIONS</h6>
+                    </a>
+                    <a class="list-group-item list-group-item-action bg-light  dropdown-btn color">
+                        <img src="~/Image/tests.png" style="width:30px" />
+                        <h6> TESTS</h6>
+                    </a>
+                    <div class="dropdown-container" style="        background-color: #A9A9A9 !important">
+                        <a href="/Home/TestSuite" class="list-group-item list-group-item-action bg-light Admin color" id="MenuSuites">
+                            <img src="~/login icon/test suite.png" style="width:30px" />
+                            <h6>TEST SUITE</h6>
+                        </a>
+                        <a href="/Suites/Suite" class="list-group-item list-group-item-action bg-light Admin color" id="MenuTestApproach">
+                            <img src="~/login icon/test approach.png" style="width:30px" />
+                            <h6>TEST APPROACH</h6>
+                        </a>
+
+                        <a class="list-group-item list-group-item-action bg-light1  dropdown-btn color">
+                            <img src="~/login icon/testcase.png" style="width:30px" />
+                            <h6>
+                                TEST CASES
+                            </h6>
+                        </a>
+                        <div class="dropdown-container" >
+                            <div href="#" class=" list-group-item-action bg-light Admin color"  id="MenuTestcases">
+
+                                <a  href="/Web/Web" style="        border-bottom: 1px solid 1px solid #ba9122;color: white"  id="MenuTestcases">WEB</a><br />
+                                <a style="        border-bottom: 1px solid 1px solid #ba9122;color: white"  id="MenuTestcases">API</a><br />
+                                <a href="/Home/Dbetl" style="        border-bottom: 1px solid 1px solid #ba9122;color: white"  id="MenuTestcases">ETL/DB</a><br />
+                            </div>
+                            <a href="/DbConfig/RulesSet" class="list-group-item list-group-item-action bg-light Admin color" id="MenuEtlrules">
+                                <img src="~/Image/etl_rules.png" style="width:30px" />
+                                <h6>ETL/RULES</h6>
+                            </a>
+                        </div>
+                    </div>
+                    <a href="/Suites/Release" class="list-group-item list-group-item-action bg-light color" id="MenuRelease">
+                        <img src="~/login icon/release.png" style="width:30px" />
+                        <h6>RELEASE</h6>
+                    </a>
+                    <a href="/Execution/Execute" class="list-group-item list-group-item-action bg-light color" id="MenuExecution">
+                        <img src="~/Image/Picture1.png" style="width:30px" />
+                        <h6>EXECUTION</h6>
+                    </a>
+                    <a class="list-group-item list-group-item-action bg-light  dropdown-btn color">
+                        <img src="~/login icon/reports (1).png" style="width:30px" />
+                        <h6>
+                            REPORTS
+                        </h6>
+                    </a>
+                    <div class="dropdown-container" style="        background-color: #A9A9A9 !important">
+
+                        <a href="/Home/Report" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuTestReport">
+                            <img src="~/Image/Picture3.png" style="width:30px" />
+                            <h6>
+                                TEST REPORT
+                            </h6>
+                        </a>
+                        <a href="http://13.74.176.44:8080/" target="_blank " class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuAnaltics">
+                            <img src="~/Image/Picture3.png" style="width:30px" />
+                            <h6>
+                                ANALYTICS
+                            </h6>
+                        </a>
+                    </div>
+
+                    <a class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuUserMangment">
+                        <img src="~/Image/User_management.png" style="width:30px" />
+                        <h6>
+                            USER MANAGEMENT
+                        </h6>
+                    </a>
+                    <div class="dropdown-container" style=" background-color: #A9A9A9 !important">
+
+                        <a href="/UserManagement/Employee" class="list-group-item list-group-item-action bg-light  dropdown-btn color">
+
+                            <img src="~/Image/Layer 3.png" style="width:30px" />
+                            <h6>
+                                USER
+                            </h6>
+                        </a>
+                        <a href="/UserManagement/UserRole" class="list-group-item list-group-item-action bg-light  dropdown-btn color">
+
+                            <img src="~/Image/user-role.png" style="width:30px" />
+                            <h6>
+                                USER ROLE
+                            </h6>
+                        </a>
+                    </div>
+                    <a href="/Home/Index" class="list-group-item list-group-item-action bg-light color">
+                        <img src="~/Dash board Icon/logout up.png" style="width:30px" />
+                        <h6>LOGOUT</h6>
+                    </a>
+                </div>
+            </div>
+            <!-- /#sidebar-wrapper -->
+            <!-- Page Content -->
+
+
+            <div id="page-content-wrapper" style="        width: 100%;
+        background-color: #d5d5d5">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style=" background-color: #261c1d !important;">
+                    <a id="menu-toggle">
+                        <img src="~/Dash board Icon/logo name-01.png" style=" width: 145px; " />
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                            <li class="nav-item active" style="text-align:center">
+                                <a  href="#">
+                                    <img src="~/login icon/Group 50.png" />
+                                    <p class="nav-link" style="color: white;padding:unset">Profile <span class="sr-only">(current)</span></p>
+                                </a>
+                              
+                            </li>
+                            <li class="nav-item" style="        text-align: center; padding-left: 15px;">
+                                <a  href="/Home/Index" >
+                                    <img src="~/login icon/sign-out-alt.png" />
+                                    <p class="nav-link"style=" color: white;padding:unset">Logout</p>
+                                </a>
+                              
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid" style="  padding: unset;">
+                    <div class=" container-scroller">
+
+                        <div class="container-fluid page-body-wrapper" style="padding:unset">
+
+                            <div class="main-panel">
+                                <div class="content-wrapper" style="padding: unset;">
+                                    <form method="post" enctype="multipart/form-data" class="center-block" style="text-align:center">
+                                        <iframe src="http://13.74.176.44:3000/d/ow8mViEZk/robot-framework-grafana-dashboard?orgId=1&var-application=multiple_list&from=1607529122340&to=1610121122340" style="width: 100%;height: 650px;"frameborder="0"></iframe>
+                                     
+                                        @*<div class="form">
+
+
+
+                                            <div class="row" style="padding-bottom: 10px;">
+                                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3"></div>
+                                                <div class="col-lg-3 col-md-3 col-xs-5 col-sm-5" style="        text-align: center;
+        padding: 5px;
+        background-color: #473e3f">
+                                                    <img src="~/login icon/connections.png" style="" />
+
+                                                    <h6><a href="/DbConfig/RulesSet" style="color:white">CONNECTIONS</a></h6>
+                                                </div>
+                                                <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"></div>
+                                                <div class="col-lg-3 col-md-3 col-xs-5 col-sm-5" style="text-align: center; padding: 5px; background-color: #473e3f">
+                                                    <img src="~/login icon/reports (1).png" />
+                                                    <h6><a href="/Home/Report" style="color:white">REPORTS</a></h6>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-5 col-md-4 col-sm-5 col-xs-5">
+
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="        text-align: center; padding: 5px;  background-color: #473e3f;margin-bottom:10px">
+                                                    <img src="~/login icon/release.png" />
+                                                    <h6><a href="/Suites/Release" style="color:white">RELEASE</a></h6>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-bottom: 20px;">
+                                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3"></div>
+                                                <div class="col-lg-3 col-md-3 col-xs-5 col-sm-5" style="        text-align: center;  padding: 5px;  background-color: #473e3f">
+                                                    <img src="~/Image/tests.png" style="        width: 87px"  />
+                                                    <h6><a href="#" style="color:white">TESTS</a></h6>
+                                                </div>
+                                                <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"></div>
+                                                <div class="col-lg-3 col-md-3 col-xs-5 col-sm-5" style="        text-align: center; padding: 5px; background-color: #473e3f">
+                                                    <img src="~/Image/Picture1.png" style="        width: 87px" />
+                                                    <h6><a href="/Execution/Execute" style="color:white">EXECUTION</a></h6>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3"></div>
+                                            </div>
+                                        </div>*@
+                                    </form>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- partial:../../partials/_footer.html -->
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /#page-content-wrapper -->
+    <!-- /#wrapper -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="http://13.74.176.44:5000/vendor/jquery/jquery.min.js"></script>
+    <script src="http://13.74.176.44:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+</body>
+</html>

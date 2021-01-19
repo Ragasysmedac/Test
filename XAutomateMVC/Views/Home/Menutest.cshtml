@@ -1,0 +1,187 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <link href="http://13.74.176.44:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://13.74.176.44:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="http://13.74.176.44:5000/css/simple-sidebar.css" rel="stylesheet" />
+    <!-- Bootstrap core CSS -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/css/simple-sidebar.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Menutest</title>
+</head>
+<body>
+    
+    <style>
+        #sidebar-wrapper {
+            background-color: #261c1d !important;
+            color: white;
+        }
+
+        .list-group-flush > .list-group-item {
+            background-color: #261c1d !important;
+            color: white;
+        }
+        .nav-link{
+            color:white;
+        }
+        #sidebar-wrapper .list-group{
+            width:9rem !important;
+        }
+        .border-right {
+            border-right: unset !important;
+        }
+    </style>
+    <div>
+
+
+
+
+        <div class="d-flex" id="wrapper">
+
+            <!-- Sidebar -->
+            <div class="bg-light border-right" id="sidebar-wrapper">
+
+                <img src="~/login icon/connections.png" style=" width: 100%; " />
+                <div class="list-group list-group-flush">
+                  
+                    <a href="#" class="list-group-item list-group-item-action bg-light" style="        text-align: center;
+        border-top: 1px solid #3a3434;
+        border-bottom: 1px solid #3a3434">
+                        <img src="~/login icon/connections.png" />
+                        <h6>Connection</h6>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light" style="        text-align: center;
+        border-top: 1px solid #3a3434;
+        border-bottom: 1px solid #3a3434
+">
+
+                        <img src="~/login icon/test suite.png" />
+                        <h6>Test Approach</h6>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light" style="        text-align: center;
+        border-top: 1px solid #3a3434;
+        border-bottom: 1px solid #3a3434
+">
+
+                        <img src="~/Dash board Icon/rules config down-01.png" />
+                        <h6> Test</h6>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light" style="        text-align: center;
+        border-top: 1px solid #3a3434;
+        border-bottom: 1px solid #3a3434
+">
+                        <img src="~/Dash board Icon/test cases dwon-01.png" />
+                        <h6>Test Cases</h6>
+                        <h6 style=" border-top: 1px solid #261c1d;">WEB</h6>
+                        <h6 style=" border-top: 1px solid #261c1d;">API</h6>
+                        <h6 style=" border-top: 1px solid #261c1d;">ETL/DB</h6>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light" style="        text-align: center;
+        border-top: 1px solid #3a3434;
+        border-bottom: 1px solid #3a3434
+">
+                        <img src="~/Dash board Icon/active run down-01.png" />
+                        <h6>Execution</h6>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light" style="        text-align: center;
+        border-top: 1px solid #3a3434;
+        border-bottom: 1px solid #3a3434
+">
+                        <img src="~/Dash board Icon/report down-01.png" />
+                        <h6>Reports</h6>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light" style="        text-align: center;
+        border-top: 1px solid #3a3434;
+        border-bottom: 1px solid #3a3434
+">
+                        <img src="~/Dash board Icon/Visualisationdown.png" />
+                        <h6>Visulisation</h6>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light" style="        text-align: center;
+        border-top: 1px solid #3a3434;
+        border-bottom: 1px solid #3a3434
+">
+                        <img src="~/Dash board Icon/user down.png" />
+                        <h6>User Management</h6>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light" style="        text-align: center;
+        border-top: 1px solid #3a3434;
+        border-bottom: 1px solid #3a3434
+">
+                        <img src="~/Dash board Icon/log out down.png" />
+                        <h6>Logout</h6>
+                    </a>
+                </div>
+            </div>
+            <!-- /#sidebar-wrapper -->
+            <!-- Page Content -->
+
+
+            <div id="page-content-wrapper">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style=" background-color: #261c1d !important;">
+                    <a id="menu-toggle">
+                        <img src="~/Dash board Icon/logo name-01.png" style=" width: 145px; " />
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#"  style="color: white;">Profile <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" style=" color: white;">Logout</a>
+                            </li>
+                         
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="container-fluid">
+                    <h1 class="mt-4">Simple Sidebar</h1>
+                    <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
+                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+        <!-- Bootstrap core JavaScript -->
+        <script src="http://13.74.176.44:5000/vendor/jquery/jquery.min.js"></script>
+        <script src="http://13.74.176.44:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/vendor/jquery/jquery.min.js"></script>
+        <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Menu Toggle Script -->
+        <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        </script>
+    </div>
+</body>
+</html>

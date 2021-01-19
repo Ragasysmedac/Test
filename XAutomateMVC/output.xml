@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.2 (Python 3.9.0 on win32)" generated="20201030 09:36:49.234" rpa="false">
+<suite id="s1" name="Zapatadb" source="D:\Abinesh-learn\XAutomateMVC\XAutomateMVC\zapatadb">
+<suite id="s1-s1" name="Parameter" source="D:\Abinesh-learn\XAutomateMVC\XAutomateMVC\zapatadb\Parameter.robot">
+<kw name="Connect To Database" library="DatabaseLibrary" type="setup">
+<doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to
+connect to the database using `dbName`, `dbUsername`, and `dbPassword`.</doc>
+<arguments>
+<arg>pymysql</arg>
+<arg>${DBName}</arg>
+<arg>${DBUser}</arg>
+<arg>${DBPass}</arg>
+<arg>${DBHost}</arg>
+<arg>${DBPort}</arg>
+</arguments>
+<msg timestamp="20201030 09:36:49.867" level="INFO">Connecting using : pymysql.connect(db=zapatademo, user=Zapatademo, passwd=Sysmedac2020#, host=zapatademo.csp3xo41ydwh.us-west-1.rds.amazonaws.com, port=3306, charset=None) </msg>
+<status status="PASS" starttime="20201030 09:36:49.533" endtime="20201030 09:36:51.580"></status>
+</kw>
+<test id="s1-s1-t1" name="Testing Count">
+<kw name="Row Count Is 0" library="DatabaseLibrary">
+<doc>Check if any rows are returned from the submitted `selectStatement`. If there are, then this will throw an
+AssertionError. Set optional input `sansTran` to True to run command without an explicit transaction commit or
+rollback.</doc>
+<arguments>
+<arg>SELECT * FROM zapatademo.orders;</arg>
+</arguments>
+<msg timestamp="20201030 09:36:51.581" level="INFO">Executing : Row Count Is 0  |  SELECT * FROM zapatademo.orders; </msg>
+<msg timestamp="20201030 09:36:51.581" level="INFO">Executing : Row Count  |  SELECT * FROM zapatademo.orders; </msg>
+<msg timestamp="20201030 09:36:53.230" level="FAIL">Expected zero rows to be returned from 'SELECT * FROM zapatademo.orders;' but got rows back. Number of rows returned was 491</msg>
+<status status="FAIL" starttime="20201030 09:36:51.580" endtime="20201030 09:36:53.231"></status>
+</kw>
+<status status="FAIL" starttime="20201030 09:36:51.580" endtime="20201030 09:36:53.231" critical="yes">Expected zero rows to be returned from 'SELECT * FROM zapatademo.orders;' but got rows back. Number of rows returned was 491</status>
+</test>
+<test id="s1-s1-t2" name="table Name Validating">
+<kw name="Table Must Exist" library="DatabaseLibrary">
+<doc>Check if the table given exists in the database. Set optional input `sansTran` to True to run command without an
+explicit transaction commit or rollback.</doc>
+<arguments>
+<arg>orders</arg>
+</arguments>
+<msg timestamp="20201030 09:36:53.232" level="INFO">Executing : Table Must Exist  |  orders </msg>
+<msg timestamp="20201030 09:36:53.232" level="INFO">Executing : Row Count  |  SELECT * FROM information_schema.tables WHERE table_name='orders' </msg>
+<status status="PASS" starttime="20201030 09:36:53.232" endtime="20201030 09:36:54.113"></status>
+</kw>
+<status status="PASS" starttime="20201030 09:36:53.231" endtime="20201030 09:36:54.113" critical="yes"></status>
+</test>
+<test id="s1-s1-t3" name="COLOUMN Validating">
+<kw name="Row Count Is 0" library="DatabaseLibrary">
+<doc>Check if any rows are returned from the submitted `selectStatement`. If there are, then this will throw an
+AssertionError. Set optional input `sansTran` to True to run command without an explicit transaction commit or
+rollback.</doc>
+<arguments>
+<arg>SELECT Orders_ID FROM zapatademo.orders;</arg>
+</arguments>
+<msg timestamp="20201030 09:36:54.115" level="INFO">Executing : Row Count Is 0  |  SELECT Orders_ID FROM zapatademo.orders; </msg>
+<msg timestamp="20201030 09:36:54.115" level="INFO">Executing : Row Count  |  SELECT Orders_ID FROM zapatademo.orders; </msg>
+<msg timestamp="20201030 09:36:54.774" level="FAIL">Expected zero rows to be returned from 'SELECT Orders_ID FROM zapatademo.orders;' but got rows back. Number of rows returned was 491</msg>
+<status status="FAIL" starttime="20201030 09:36:54.115" endtime="20201030 09:36:54.774"></status>
+</kw>
+<status status="FAIL" starttime="20201030 09:36:54.114" endtime="20201030 09:36:54.774" critical="yes">Expected zero rows to be returned from 'SELECT Orders_ID FROM zapatademo.orders;' but got rows back. Number of rows returned was 491</status>
+</test>
+<test id="s1-s1-t4" name="Primary Validating">
+<kw name="Row Count Is 0" library="DatabaseLibrary">
+<doc>Check if any rows are returned from the submitted `selectStatement`. If there are, then this will throw an
+AssertionError. Set optional input `sansTran` to True to run command without an explicit transaction commit or
+rollback.</doc>
+<arguments>
+<arg>SELECT Orders_ID FROM zapatademo.orders GROUP BY Orders_ID HAVING COUNT(1) &gt; 1;</arg>
+</arguments>
+<msg timestamp="20201030 09:36:54.775" level="INFO">Executing : Row Count Is 0  |  SELECT Orders_ID FROM zapatademo.orders GROUP BY Orders_ID HAVING COUNT(1) &gt; 1; </msg>
+<msg timestamp="20201030 09:36:54.775" level="INFO">Executing : Row Count  |  SELECT Orders_ID FROM zapatademo.orders GROUP BY Orders_ID HAVING COUNT(1) &gt; 1; </msg>
+<status status="PASS" starttime="20201030 09:36:54.775" endtime="20201030 09:36:55.798"></status>
+</kw>
+<status status="PASS" starttime="20201030 09:36:54.775" endtime="20201030 09:36:55.798" critical="yes"></status>
+</test>
+<test id="s1-s1-t5" name="Check database">
+<kw name="Check If Exists In Database" library="DatabaseLibrary">
+<doc>Check if any row would be returned by given the input `selectStatement`. If there are no results, then this will
+throw an AssertionError. Set optional input `sansTran` to True to run command without an explicit transaction
+commit or rollback.</doc>
+<arguments>
+<arg>SELECT Orders_ID FROM zapatademo.orders WHERE OrderId = '200458';</arg>
+</arguments>
+<msg timestamp="20201030 09:36:55.799" level="INFO">Executing : Check If Exists In Database  |  SELECT Orders_ID FROM zapatademo.orders WHERE OrderId = '200458'; </msg>
+<msg timestamp="20201030 09:36:55.799" level="INFO">Executing : Query  |  SELECT Orders_ID FROM zapatademo.orders WHERE OrderId = '200458'; </msg>
+<status status="PASS" starttime="20201030 09:36:55.799" endtime="20201030 09:36:56.372"></status>
+</kw>
+<status status="PASS" starttime="20201030 09:36:55.798" endtime="20201030 09:36:56.372" critical="yes"></status>
+</test>
+<test id="s1-s1-t6" name="Parameter Check">
+<kw name="Row Count Is 0" library="DatabaseLibrary">
+<doc>Check if any rows are returned from the submitted `selectStatement`. If there are, then this will throw an
+AssertionError. Set optional input `sansTran` to True to run command without an explicit transaction commit or
+rollback.</doc>
+<arguments>
+<arg>${QueryName}</arg>
+</arguments>
+<msg timestamp="20201030 09:36:56.373" level="INFO">Executing : Row Count Is 0  |  SELECT * FROM zapatademo.orders </msg>
+<msg timestamp="20201030 09:36:56.373" level="INFO">Executing : Row Count  |  SELECT * FROM zapatademo.orders </msg>
+<msg timestamp="20201030 09:36:57.275" level="FAIL">Expected zero rows to be returned from 'SELECT * FROM zapatademo.orders' but got rows back. Number of rows returned was 491</msg>
+<status status="FAIL" starttime="20201030 09:36:56.373" endtime="20201030 09:36:57.275"></status>
+</kw>
+<status status="FAIL" starttime="20201030 09:36:56.373" endtime="20201030 09:36:57.276" critical="yes">Expected zero rows to be returned from 'SELECT * FROM zapatademo.orders' but got rows back. Number of rows returned was 491</status>
+</test>
+<kw name="Disconnect From Database" library="DatabaseLibrary" type="teardown">
+<doc>Disconnects from the database.</doc>
+<msg timestamp="20201030 09:36:57.277" level="INFO">Executing : Disconnect From Database</msg>
+<status status="PASS" starttime="20201030 09:36:57.277" endtime="20201030 09:36:57.277"></status>
+</kw>
+<doc>test</doc>
+<status status="FAIL" starttime="20201030 09:36:49.379" endtime="20201030 09:36:57.277"></status>
+</suite>
+<status status="FAIL" starttime="20201030 09:36:49.242" endtime="20201030 09:36:57.279"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="3">Critical Tests</stat>
+<stat pass="3" fail="3">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="3" fail="3" id="s1" name="Zapatadb">Zapatadb</stat>
+<stat pass="3" fail="3" id="s1-s1" name="Parameter">Zapatadb.Parameter</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

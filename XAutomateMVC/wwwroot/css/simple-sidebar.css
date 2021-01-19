@@ -1,0 +1,102 @@
+/*!
+ * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template/simple-sidebar)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
+ */
+
+ #wrapper {
+    overflow-x: hidden;
+ }
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+@font-face {
+    font-family: 'bebasneue-regular';
+    src: url('../font/bebasneue/otf/bebasneue-regular.otf') format('opentype');
+}
+@font-face {
+    font-family: 'opensanscondensed-bold';
+    src: url('../font/opensanscondensed-bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'opensans-regular';
+    src: url('../font/opensans-regular.ttf') format('truetype');
+}
+
+h1, h2, h3, h4, h5, h6, a {
+    font-family: 'Open Sans';
+    font-size: 16px;
+    font-weight: bold;
+    font-weight: normal;
+}
+
+label {
+    font-family: 'Open Sans';
+    font-size: 16px;
+    font-weight: normal;
+}
+
+#Searchlist {
+    margin: unset;
+    background-color: #c9a642;
+    margin-left: 10px;
+    height: 30px;
+}
+input[type=button], input[type=submit], input[type=reset], .button {
+    background-color: unset;
+    border: none;
+    color: white;
+    padding: 3px 43px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    box-shadow: 0 10px 20px 0 #3a3434;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    margin: 5px 10px 20px 10px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: 0;
+    }
+}

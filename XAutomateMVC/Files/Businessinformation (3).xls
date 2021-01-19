@@ -1,0 +1,2074 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>0.14480108618454013</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>
+                            <thead class="thead-bold">
+                                <tr style="background-color: #BFD0D8 !important;">
+                                    <th style="text-align:center">Reference No</th>
+                                    <th style="text-align:center">Name</th>
+                                    <th style="text-align:center">Mobile No</th>
+                                    <th style="text-align:center">Email Id</th>
+                                    <th style="text-align:center">Business Name</th>
+                                    <th style="text-align:center">Business Type</th>
+                                    <th style="text-align:center">Category</th>
+                                    <th style="text-align:center">Enter Url</th>
+                                    <th style="text-align:center">Language</th>
+                                    <th style="text-align:center">Website -1</th>
+                                    <th style="text-align:center">Website -2</th>
+                                    <th style="text-align:center">Website -3</th>
+                                    <th style="text-align:center">Website -4</th>
+                                    <th style="text-align:center">Personal Address -1 </th>
+                                    <th style="text-align:center"> Personal Address -2</th>
+                                    <th style="text-align:center">Personal City</th>
+                                    <th style="text-align:center">Personal State</th>
+                                    <th style="text-align:center">Personal Pincode</th>
+                                    <th style="text-align:center">Business Address -1 </th>
+                                    <th style="text-align:center"> Business Address -2</th>
+                                    <th style="text-align:center">Business City</th>
+                                    <th style="text-align:center">Business State</th>
+                                    <th style="text-align:center">Business Pincode</th>
+                                    <th style="text-align:center">Status</th>
+                                    <th style="text-align:center">Pan No</th>
+                                    <th style="text-align:center">Aadhaar No</th>
+                                    <th style="text-align:center">GST No</th>
+                                    <th style="text-align:center">Pan Doc</th>
+                                    <th style="text-align:center">Aadhaar Doc</th>
+
+                                    <th style="text-align:center">GST Doc</th>
+                                    <th style="text-align:center">Start Active</th>
+                                    <th style="text-align:center">Last Active</th>
+                                    <th style="text-align:center">Complete</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1043</td>
+                                    <td style="text-align:center" class="ng-binding">SivachandranUdhayasuriyan</td>
+                                    <td class="ng-binding">9043442646</td>
+                                    <td class="ng-binding">Sivauday55@gmail.com</td>
+                                    <td class="ng-binding">Sri Amman Maligai</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Groceries</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">English</td>
+                                    <td class="ng-binding">sriammanmaligai.com</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">No:109/1,North Street</td>
+                                    <td class="ng-binding">Vilvathampatty, Puliyampatty post</td>
+                                    <td class="ng-binding">Palani</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">624617</td>
+                                    <td class="ng-binding">No:109/1,North Street</td>
+                                    <td class="ng-binding">Vilvathampatty, Puliyampatty post</td>
+                                    <td class="ng-binding">Palani</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">624617</td>
+                                    <td class="ng-binding">InProgress</td>
+                                    <td class="ng-binding">FAWPS5911K</td>
+                                    <td class="ng-binding">709223559675</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">https://webapi.cartyogi.com//Uploads/Companydetails/eaa438dc-7fb1-4deb-bace-80c863845ea0_IMG_20190413_125906.jpg</td>
+
+                                    <td class="ng-binding">https://webapi.cartyogi.com//Uploads/Companydetails/e81278c5-a48f-4764-9ade-270a6e81b362_IMG-20181117-WA0013.jpg</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 17:35</td>
+                                    <td class="ng-binding">26/10/2020 12:40</td>
+                                    <td style="text-align:center" class="ng-binding">Yes</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1064</td>
+                                    <td style="text-align:center" class="ng-binding">Aquagrade</td>
+                                    <td class="ng-binding">9500601478</td>
+                                    <td class="ng-binding">pureincare@gmail.com</td>
+                                    <td class="ng-binding">Aquagrade Water Purifier System</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Electronics</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">Tamil</td>
+                                    <td class="ng-binding">Aquagrade</td>
+                                    <td class="ng-binding">Aquagrade</td>
+                                    <td class="ng-binding">Aquagrade</td>
+                                    <td class="ng-binding">Aquagrade</td>
+                                    <td class="ng-binding">No:6B,1st Floor, Victoria Road, Woraiyur,Trichy</td>
+                                    <td class="ng-binding">Trichy</td>
+                                    <td class="ng-binding">Trichy</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">620003</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 09:35</td>
+                                    <td class="ng-binding">26/10/2020 09:39</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1062</td>
+                                    <td style="text-align:center" class="ng-binding">VigneshRaja</td>
+                                    <td class="ng-binding">9791149759</td>
+                                    <td class="ng-binding">tttt@gmail.com</td>
+                                    <td class="ng-binding">Test</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Toys</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">English</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Chennai</td>
+                                    <td class="ng-binding">Chennai</td>
+                                    <td class="ng-binding">Chennai</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">600032</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 08:22</td>
+                                    <td class="ng-binding">26/10/2020 08:57</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1060</td>
+                                    <td style="text-align:center" class="ng-binding">AbineshG</td>
+                                    <td class="ng-binding">8667442058</td>
+                                    <td class="ng-binding">null</td>
+                                    <td class="ng-binding">India Store</td>
+                                    <td class="ng-binding">Partnerships</td>
+                                    <td class="ng-binding">Toys</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">English</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Demo</td>
+                                    <td class="ng-binding">test</td>
+                                    <td class="ng-binding">Salem</td>
+                                    <td class="ng-binding">Delhi</td>
+                                    <td class="ng-binding">636306</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">InProgress</td>
+                                    <td class="ng-binding">boa000122</td>
+                                    <td class="ng-binding">869574521360</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">https://webapi.cartyogi.com//Uploads/Companydetails/cd1e46c6-0343-4452-9d73-598a831b6838_Comeback Bharath Logo.png</td>
+
+                                    <td class="ng-binding">https://webapi.cartyogi.com//Uploads/Companydetails/a051c179-3baf-4fcf-8cff-6b8c349b86dc_Atma nirbar logo.png</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 07:12</td>
+                                    <td class="ng-binding">26/10/2020 08:49</td>
+                                    <td style="text-align:center" class="ng-binding">Yes</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1061</td>
+                                    <td style="text-align:center" class="ng-binding">BhuvaneswariGopal</td>
+                                    <td class="ng-binding">9943333874</td>
+                                    <td class="ng-binding">axiomglobalservice@gmail.com</td>
+                                    <td class="ng-binding">AXIOM GLOBAL SERVICE</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Services</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">English</td>
+                                    <td class="ng-binding">agsservice.com</td>
+                                    <td class="ng-binding">asgservice.in</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">G100</td>
+                                    <td class="ng-binding">1st floor,thiruvagoundanur bypass</td>
+                                    <td class="ng-binding">Salem</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">636005</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 08:19</td>
+                                    <td class="ng-binding">26/10/2020 08:23</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1053</td>
+                                    <td style="text-align:center" class="ng-binding">RaginiShukla</td>
+                                    <td class="ng-binding">9711855291</td>
+                                    <td class="ng-binding">raginishukla.11@gmail.com</td>
+                                    <td class="ng-binding">We choice store</td>
+                                    <td class="ng-binding">Limited Partnership</td>
+                                    <td class="ng-binding">Handcrafts</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">English</td>
+                                    <td class="ng-binding">We choice store</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">1/11437 A subhash park extn</td>
+                                    <td class="ng-binding">Street no.2 Naveen Shahdara</td>
+                                    <td class="ng-binding">Delhi</td>
+                                    <td class="ng-binding">Delhi</td>
+                                    <td class="ng-binding">110032</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 04:45</td>
+                                    <td class="ng-binding">26/10/2020 05:16</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1049</td>
+                                    <td style="text-align:center" class="ng-binding">ZafferR</td>
+                                    <td class="ng-binding">8072660090</td>
+                                    <td class="ng-binding">zaffer124@gmail.com</td>
+                                    <td class="ng-binding">Ambur Online</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Services</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">English</td>
+                                    <td class="ng-binding">Ambur Online</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Ambur</td>
+                                    <td class="ng-binding">SBI Bank Near</td>
+                                    <td class="ng-binding">Ambur</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">635802</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding">AAZPZ1417D</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 03:19</td>
+                                    <td class="ng-binding">26/10/2020 03:22</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1047</td>
+                                    <td style="text-align:center" class="ng-binding">SenthilKannan</td>
+                                    <td class="ng-binding">9843762345</td>
+                                    <td class="ng-binding">senthilkannan.com@gmail.com</td>
+                                    <td class="ng-binding">Sarees</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Clothing</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">Tamil</td>
+                                    <td class="ng-binding">Jay collections.com</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">13 A Ellapalayam road</td>
+                                    <td class="ng-binding">Erode</td>
+                                    <td class="ng-binding">Erode</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">638004</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 03:02</td>
+                                    <td class="ng-binding">26/10/2020 03:05</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1051</td>
+                                    <td style="text-align:center" class="ng-binding">SunderRaj</td>
+                                    <td class="ng-binding">9942475655</td>
+                                    <td class="ng-binding">sunder444@gmail.com</td>
+                                    <td class="ng-binding">Bubbles aquarium &amp;pets</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Other</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">English</td>
+                                    <td class="ng-binding">Aquastore</td>
+                                    <td class="ng-binding">Aquastore</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">No-8 Ams complex</td>
+                                    <td class="ng-binding">Annasalai</td>
+                                    <td class="ng-binding">Kodaikanal</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">624101</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">InProgress</td>
+                                    <td class="ng-binding">CIRPR2243B</td>
+                                    <td class="ng-binding">542389564149</td>
+                                    <td class="ng-binding">33CIRPR2243BIZE</td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 03:59</td>
+                                    <td class="ng-binding">26/10/2020</td>
+                                    <td style="text-align:center" class="ng-binding">Yes</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1057</td>
+                                    <td style="text-align:center" class="ng-binding">MahadevGanguly</td>
+                                    <td class="ng-binding">9007066799</td>
+                                    <td class="ng-binding">mahadevganguly12@gmail.com</td>
+                                    <td class="ng-binding">Cartfast</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Clothing</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">English</td>
+                                    <td class="ng-binding">Cartfast.com</td>
+                                    <td class="ng-binding">Cartfast.in</td>
+                                    <td class="ng-binding">Cartfast.co</td>
+                                    <td class="ng-binding">Cartfast.co.in</td>
+                                    <td class="ng-binding">Vill-Surulia,P.O.- Kaluhar, P.S.- Para, Near Surulia High School.</td>
+                                    <td class="ng-binding">Surulia Main Road,Surulia Kaluhar P.S.-Para Near Surulia High School</td>
+                                    <td class="ng-binding">Purulia</td>
+                                    <td class="ng-binding">West Bengal</td>
+                                    <td class="ng-binding">723126</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">InProgress</td>
+                                    <td class="ng-binding">BIDPG5060Q</td>
+                                    <td class="ng-binding">574065445908</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 06:53</td>
+                                    <td class="ng-binding">26/10/2020</td>
+                                    <td style="text-align:center" class="ng-binding">Yes</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1063</td>
+                                    <td style="text-align:center" class="ng-binding">Suresh KannanB</td>
+                                    <td class="ng-binding">8148511770</td>
+                                    <td class="ng-binding">null</td>
+                                    <td class="ng-binding">Sri Hayagriva Stores</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Groceries</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">English</td>
+                                    <td class="ng-binding">srihayagrivastores.com</td>
+                                    <td class="ng-binding">Srihayagrivastores.in</td>
+                                    <td class="ng-binding">srihayagrivastores.net</td>
+                                    <td class="ng-binding">srihayagrivastores.net</td>
+                                    <td class="ng-binding">Shop Number 2</td>
+                                    <td class="ng-binding">Pallava Garden, Pulipakkam</td>
+                                    <td class="ng-binding">Chengalpattu</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">603002</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Approved</td>
+                                    <td class="ng-binding">EGFPS4774A</td>
+                                    <td class="ng-binding">918656416505</td>
+                                    <td class="ng-binding">33EGFPS4774A1ZE</td>
+                                    <td class="ng-binding">https://webapi.cartyogi.com//Uploads/Companydetails/737e68ad-b029-4ce8-a098-4cbc4df1ebad_inbound8385639794942714119.pdf</td>
+
+                                    <td class="ng-binding">https://webapi.cartyogi.com//Uploads/Companydetails/098c0a66-f723-4530-83b0-315e92dfef22_inbound4326534288151140133.pdf</td>
+                                    <td class="ng-binding">https://webapi.cartyogi.com//Uploads/Companydetails/5c32ccb3-a26d-4936-bbb0-244927e63872_inbound4874399499548399112.pdf</td>
+                                    <td class="ng-binding">26/10/2020 08:52</td>
+                                    <td class="ng-binding">26/10/2020</td>
+                                    <td style="text-align:center" class="ng-binding">Yes</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1045</td>
+                                    <td style="text-align:center" class="ng-binding">SangeethaPachamuthu</td>
+                                    <td class="ng-binding">7010123134</td>
+                                    <td class="ng-binding">mayasang82@gmail.com</td>
+                                    <td class="ng-binding">J.s.traders</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Clothing</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">English</td>
+                                    <td class="ng-binding">J.s trade</td>
+                                    <td class="ng-binding">J.s trends</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">103;16 karthick complex</td>
+                                    <td class="ng-binding">Tiruvannamalai</td>
+                                    <td class="ng-binding">Tiruvannamalai</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">606601</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 18:41</td>
+                                    <td class="ng-binding">25/10/2020 18:47</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1041</td>
+                                    <td style="text-align:center" class="ng-binding">VeluSamy</td>
+                                    <td class="ng-binding">7299259525</td>
+                                    <td class="ng-binding">velumithunvr@gmail.com</td>
+                                    <td class="ng-binding">Ksr agencies</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Groceries</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">Tamil</td>
+                                    <td class="ng-binding">KSRagencies.com</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Vembuliyamman kovil street</td>
+                                    <td class="ng-binding">Karthikeyapuram madipakkam</td>
+                                    <td class="ng-binding">Chennai</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">600091</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 17:09</td>
+                                    <td class="ng-binding">25/10/2020 17:13</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1037</td>
+                                    <td style="text-align:center" class="ng-binding">VadivelanS</td>
+                                    <td class="ng-binding">9655157226</td>
+                                    <td class="ng-binding">vadivelan.madurai@gmail.com</td>
+                                    <td class="ng-binding">YAAL</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Other</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">Tamil</td>
+                                    <td class="ng-binding">YAALSANTHAI</td>
+                                    <td class="ng-binding">YAALTAMILSANTHAI</td>
+                                    <td class="ng-binding">YAALTAMILSHOPPING</td>
+                                    <td class="ng-binding">YAALTAMILVANIGAM</td>
+                                    <td class="ng-binding">21C/4-Kanakkar street.</td>
+                                    <td class="ng-binding">Koothiyarkundu</td>
+                                    <td class="ng-binding">Madurai</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">625008</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 15:33</td>
+                                    <td class="ng-binding">25/10/2020 15:39</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1030</td>
+                                    <td style="text-align:center" class="ng-binding">முத்துசெல்வன்</td>
+                                    <td class="ng-binding">8148177882</td>
+                                    <td class="ng-binding">tamilbazar2017@gmail.com</td>
+                                    <td class="ng-binding">தமிழ் பஜார்</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Other Food &amp; Drink</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">Tamil</td>
+                                    <td class="ng-binding">Tamilbazar.com</td>
+                                    <td class="ng-binding">Tamilbazar.in</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Anbu Nagar</td>
+                                    <td class="ng-binding">3rd Street</td>
+                                    <td class="ng-binding">Aruppukottai</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">626101</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 11:57</td>
+                                    <td class="ng-binding">25/10/2020 12:01</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1024</td>
+                                    <td style="text-align:center" class="ng-binding">MUKeshBhunwaliya</td>
+                                    <td class="ng-binding">9983811480</td>
+                                    <td class="ng-binding">null</td>
+                                    <td class="ng-binding">Books</td>
+                                    <td class="ng-binding">Private Limited</td>
+                                    <td class="ng-binding">Other</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">Hindi</td>
+                                    <td class="ng-binding">Books</td>
+                                    <td class="ng-binding">Staneeri</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">A-9madhuvan colony Tonk Phatak jaipur</td>
+                                    <td class="ng-binding">Jaipur</td>
+                                    <td class="ng-binding">JAIPUR</td>
+                                    <td class="ng-binding">Rajasthan</td>
+                                    <td class="ng-binding">302015</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 07:16</td>
+                                    <td class="ng-binding">25/10/2020 07:21</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1012</td>
+                                    <td style="text-align:center" class="ng-binding">MahendranV</td>
+                                    <td class="ng-binding">8680043254</td>
+                                    <td class="ng-binding">vmahendran753@gmail.com</td>
+                                    <td class="ng-binding">MVM AQUA FOODS</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Other Food &amp; Drink</td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding">English</td>
+                                    <td class="ng-binding">mvmaquafoods. Com</td>
+                                    <td class="ng-binding">mvmaquafoods. in</td>
+                                    <td class="ng-binding">asiaartemia.in</td>
+                                    <td class="ng-binding">asiaartemia. net</td>
+                                    <td class="ng-binding">1/142H</td>
+                                    <td class="ng-binding">Kovilmariyur</td>
+                                    <td class="ng-binding">Sayakudi</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">623703</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">24/10/2020 11:09</td>
+                                    <td class="ng-binding">24/10/2020 11:20</td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1013</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9409306868</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">24/10/2020 12:27</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1014</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9644133238</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">24/10/2020 12:44</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1015</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9786838581</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">24/10/2020 16:52</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1016</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9942178858</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 02:09</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1017</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9920092697</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 03:14</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1018</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9942414174</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 03:16</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1019</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9042600665</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 03:32</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1020</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9791108162</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 03:38</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1021</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9600299737</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 03:59</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1022</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9600017276</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 06:08</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1023</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9982457626</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 06:38</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1025</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9842496367</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 08:02</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1026</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9500681595</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 08:37</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1027</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9080505128</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 09:43</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1028</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9176969471</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 10:16</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1029</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9842111339</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 11:34</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1031</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9843550694</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 11:58</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1032</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9384093850</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 12:15</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1033</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9042043090</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 12:26</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1034</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">6374366416</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 13:24</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1035</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">7010500794</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 14:02</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1036</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9123795036</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 14:03</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1038</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">8754808181</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 15:38</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1039</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">8903136736</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 16:10</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1040</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">7373747413</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 17:09</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1042</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">8124361614</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 17:10</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1005</td>
+                                    <td style="text-align:center" class="ng-binding">PriyaSaran</td>
+                                    <td class="ng-binding">8838774658</td>
+                                    <td class="ng-binding">priya@gmail.com</td>
+                                    <td class="ng-binding">Narumugil store</td>
+                                    <td class="ng-binding">Sole Proprietorship</td>
+                                    <td class="ng-binding">Medical</td>
+                                    <td class="ng-binding">null</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">No 11 bharathi street</td>
+                                    <td class="ng-binding">Tambaram</td>
+                                    <td class="ng-binding">Chennai</td>
+                                    <td class="ng-binding">Tamil Nadu</td>
+                                    <td class="ng-binding">600112</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">BNZPM2501F</td>
+                                    <td class="ng-binding">666677779999</td>
+                                    <td class="ng-binding">44DFGHJ6789T1X1</td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1010</td>
+                                    <td style="text-align:center" class="ng-binding">JitendraTiwari</td>
+                                    <td class="ng-binding">9415324259</td>
+                                    <td class="ng-binding">jkreporter2012@gmail.com</td>
+                                    <td class="ng-binding">General store</td>
+                                    <td class="ng-binding">Nonprofit Organization</td>
+                                    <td class="ng-binding">Beauty</td>
+                                    <td class="ng-binding">Hindi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">जय बालाजी इंटरप्राइजेज</td>
+                                    <td class="ng-binding">9415324259</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Chanthu Janghai</td>
+                                    <td class="ng-binding">Allahabad Prayagraj</td>
+                                    <td class="ng-binding">Allahabad</td>
+                                    <td class="ng-binding">Uttar Pradesh</td>
+                                    <td class="ng-binding">212401</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1046</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">8508439037</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 01:49</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1044</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9842960475</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">25/10/2020 18:17</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1048</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9488804567</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 03:12</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1050</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9789725979</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 03:33</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1065</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">8838932727</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 09:54</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1066</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">7905825414</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 10:12</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1067</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">7010447160</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 12:37</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1058</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9083246970</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 07:02</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1059</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">6379329997</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 07:05</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1052</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">8599959959</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 04:43</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1054</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">8807975757</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 05:37</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1055</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">9808080453</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 05:55</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems --><tr ng-repeat="prod in allItems" class="ng-scope">
+                                    <td style="text-align:center" class="ng-binding">1056</td>
+                                    <td style="text-align:center" class="ng-binding"></td>
+                                    <td class="ng-binding">7550165704</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">Cartyogi</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">New</td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding"></td>
+                                    <td class="ng-binding">26/10/2020 06:21</td>
+                                    <td class="ng-binding"></td>
+                                    <td style="text-align:center" class="ng-binding">No</td>
+                                </tr><!-- end ngRepeat: prod in allItems -->
+                            </tbody>
+                        </table></body></html>
