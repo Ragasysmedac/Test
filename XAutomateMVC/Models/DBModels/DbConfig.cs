@@ -12,6 +12,7 @@ namespace XAutomateMVC.Models.DBModels
         }
 
         public long Dbconfigid { get; set; }
+        public string DatabaseType { get; set; }
         public string DbName { get; set; }
         public string DbHostName { get; set; }
         public string DbPort { get; set; }

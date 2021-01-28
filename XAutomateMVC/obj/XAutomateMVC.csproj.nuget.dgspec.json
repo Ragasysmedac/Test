@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Abinesh-learn\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj": {}
+    "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj": {}
   },
   "projects": {
-    "D:\\Abinesh-learn\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj": {
+    "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Abinesh-learn\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
+        "projectUniqueName": "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
         "projectName": "XAutomateMVC",
-        "projectPath": "D:\\Abinesh-learn\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
+        "projectPath": "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Abinesh-learn\\XAutomateMVC\\XAutomateMVC\\obj\\",
+        "outputPath": "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -98,6 +98,10 @@
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[3.2.4, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.2, )"
             },
             "UmbracoCms.Core": {
               "target": "Package",

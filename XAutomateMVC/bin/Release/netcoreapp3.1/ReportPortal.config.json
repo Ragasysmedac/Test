@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/reportportal/agent-net-vstest/master/ReportPortal.VSTest.TestLogger/ReportPortal.config.schema",
   "enabled": true,
   "server": {
-    "url": "http://13.74.176.44:8080/api/v1/",
+    "url": "http://52.178.152.165:8080/api/v1/",
     "project": "superadmin_personal",
     "authentication": {
       "uuid": "eabe2b14-03d9-443c-a394-eb0592cf6227"

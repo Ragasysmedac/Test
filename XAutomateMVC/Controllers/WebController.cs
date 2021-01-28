@@ -85,8 +85,8 @@ namespace XAutomateMVC.Controllers
             var Auth = (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-               //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+        //         TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+              TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -122,7 +122,7 @@ namespace XAutomateMVC.Controllers
             {
                 foreach (var file in files)
                 {
-                    var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\WebTestCases\\");
+                    var basePath = Path.Combine(Directory.GetCurrentDirectory() );
                     bool basePathExists = System.IO.Directory.Exists(basePath);
                     if (!basePathExists) Directory.CreateDirectory(basePath);
                     var fileName = Path.GetFileNameWithoutExtension(file.FileName);
@@ -158,9 +158,10 @@ namespace XAutomateMVC.Controllers
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                     decimal WebFileId = 0;
+                    var dircetor = Directory.GetCurrentDirectory();
                     if (filePath.ToLower().Contains("resource"))
                     {
-                        var filenamecheck = db.WebFiles.FirstOrDefault(x => x.FileName == file.FileName);
+                        var filenamecheck = db.WebFiles.FirstOrDefault(x => x.FileName == file.FileName && x.Status == "1");
                         if(filenamecheck != null)
                         {
                             filenamecheck.Status = "0";
@@ -168,7 +169,15 @@ namespace XAutomateMVC.Controllers
                         }
                         WebFiles Ins = new WebFiles();
                         Ins.FileType = "Resource";
-                        Ins.WebFilesPath = filePath;
+                        if (fileName.Contains("("))
+                        {
+                            Ins.WebFilesPath = dircetor+"/" + file.FileName +"'";
+                        }
+                        else
+                        {
+                            Ins.WebFilesPath = dircetor+ "/"+ file.FileName;
+                        }
+                     
                         Ins.FileName = file.FileName;
                         Ins.Status = "1";
                         db.WebFiles.Add(Ins);
@@ -176,20 +185,21 @@ namespace XAutomateMVC.Controllers
                     }
                     else
                     {
-                        var filenamecheck = db.WebFiles.FirstOrDefault(x => x.FileName == file.FileName);
+                        var filenamecheck = db.WebFiles.FirstOrDefault(x => x.FileName == file.FileName && x.Status =="1");
                         if (filenamecheck != null)
                         {
                             WebFileId = filenamecheck.WebFilesId;
                             filenamecheck.Status = "0";
                             db.SaveChanges();
                         }
+                        db_mateContext db1 = new db_mateContext();
                         WebFiles Ins = new WebFiles();
                         Ins.FileType = "Test Case";
                         Ins.WebFilesPath = filePath;
                         Ins.FileName = file.FileName;
                         Ins.Status = "1";
-                        db.WebFiles.Add(Ins);
-                        db.SaveChanges();
+                        db1.WebFiles.Add(Ins);
+                        db1.SaveChanges();
                         var Testcase = "";
                         var fileCount = new StreamReader(filePath).ReadToEnd(); // big string
                         string[] lines = fileCount.Split(new char[] { '\r' });           // big array
@@ -238,16 +248,19 @@ namespace XAutomateMVC.Controllers
                             Testcase = lines[i].Replace("\n", "");
                             if (Testcase == "*** Test Cases ***")
                             {
+                               
                                 i = i + 1;
+                                var test1 = lines[i].Replace("\n", "");
                                 var testcases = db.WebTestcases.FirstOrDefault(x => x.Webtestcase == lines[i].Replace("\n", "") && x.WebFilesId == WebFileId);
                                 if(testcases != null)
                                 {
                                     testcases.Status = "0";
                                     db.SaveChanges();
                                 }
+
                                 WebTestcases Ins1 = new WebTestcases();
                                 Ins1.WebFilesId = Ins.WebFilesId;
-                                Ins1.Webtestcase = lines[i].Replace("\n", "");
+                                Ins1.Webtestcase = test1;
                                 Ins1.Testcase = "T";
                                 Ins1.Status = "1";
                                 db.WebTestcases.Add(Ins1);
@@ -276,6 +289,7 @@ namespace XAutomateMVC.Controllers
                                     }
                                     
                                 }
+                                
                             }
                         }
 
@@ -294,9 +308,11 @@ namespace XAutomateMVC.Controllers
         }
 
 
-        public JsonResult WebExecute(string ResourceName, string tagno, string testcasefile, string testcasename, string releaseno)
+        public string WebExecute(string ResourceName, string tagno, string testcasefile, string testcasename, string releaseno)
         {
             var testcaseresult = "";
+            int zz = 0;
+            int res1 = 0;
             try
             {
                 List<Execute> list1 = new List<Execute>();
@@ -305,8 +321,8 @@ namespace XAutomateMVC.Controllers
                 var Auth = (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    //          TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+             //       TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -328,7 +344,7 @@ namespace XAutomateMVC.Controllers
                         proc.StartInfo.CreateNoWindow = true;
                         proc.Start();
 
-                        proc.StandardInput.WriteLine("cd  /srv/www/Xautomatedemo/");
+                        proc.StandardInput.WriteLine("cd  /srv/www/XAutomate/");
                         proc.StandardInput.WriteLine("rm -Rf  " + releaseno + "");
                         proc.StandardInput.WriteLine("mkdir  " + releaseno + " ");
                         proc.StandardInput.Flush();
@@ -339,7 +355,9 @@ namespace XAutomateMVC.Controllers
                         System.Diagnostics.Debug.WriteLine(proc.StandardOutput.ReadToEnd());
                         for (int i = 0; i < Resourcefile.Length; i++)
                         {
-                            int resourcefile = Convert.ToInt32(Resourcefile[i]);
+                            zz++;
+                           var  res = Resourcefile[i];
+                            int resourcefile = Convert.ToInt32(res);
                          //   int dbconfigid = Convert.ToInt32(dbconfig1[0]);
                           //  var connections = db.DbConfig.FirstOrDefault(x => x.Dbconfigid == dbconfigid);
 
@@ -355,9 +373,9 @@ namespace XAutomateMVC.Controllers
                                 proc.Start();
 
 
-                                proc.StandardInput.WriteLine("cd  /srv/www/Xautomatedemo/" + releaseno + "");
+                                proc.StandardInput.WriteLine("cd  /srv/www/XAutomate/" + releaseno + "");
 
-                            proc.StandardInput.WriteLine("cp " + result + "  /srv/www/Xautomatedemo/" + releaseno + "");
+                            proc.StandardInput.WriteLine("cp " + result + "  /srv/www/XAutomate/" + releaseno + "");
                             proc.StandardInput.Flush();
                                 proc.StandardInput.Close();
                                 proc.WaitForExit();
@@ -366,18 +384,27 @@ namespace XAutomateMVC.Controllers
                             
 
 
-                            var testapproach = (from c in db.WebTestcases where c.WebFilesId == resourcefile && c.Status == "1" select new { c.WebTestcasesid }).ToList();
+                            
                             var approach1 = testcasefile.Split(',');
-                           // var suiteapproach = db.TestApproach.FirstOrDefault(x => x.TestSuiteId == suiteid);
-                            foreach (var item2 in testapproach)
+                            // var suiteapproach = db.TestApproach.FirstOrDefault(x => x.TestSuiteId == suiteid);
+                            for (int k = 0; k < approach1.Length; k++)
                             {
-                                for (int k = 0; k < approach1.Length; k++)
-                                {
+                                zz++;
+                                var res2 = approach1[k];
+                                int resourcefile1 = Convert.ToInt32(res2);
+                                var testapproach = (from c in db.WebTestcases where c.WebFilesId == resourcefile1 && c.Status == "1" select new { c.WebTestcasesid }).ToList();
+
+                                foreach (var item2 in testapproach)
+                            {
+                                
+                                res1 = approach1.Length;
+                               
+                                    zz++;
                                     var testapproach1 = Convert.ToString(item2.WebTestcasesid);
                                     if (testapproach1 == approach1[k])
                                     {
 
-
+                                        zz++;
                                         //       proc.StartInfo.FileName = @"/bin/bash";
                                         //       proc.StartInfo.CreateNoWindow = true;
                                         //       proc.StartInfo.RedirectStandardInput = true;
@@ -407,52 +434,63 @@ namespace XAutomateMVC.Controllers
                                                      where b.WebTestcasesid == item2.WebTestcasesid && b.Status == "1"
                                                      select new
                                                      {
+                                                         b.WebTestcasesid,
                                                          b.CaseType,
                                                          b.Cases,
                                                      }).ToList();
                                         i = 0;
                                         foreach (var item in rules)
                                         {
-                                           
-                                               
-                                                proc.StartInfo.FileName = @"/bin/bash";
-                                                proc.StartInfo.CreateNoWindow = true;
-                                                proc.StartInfo.RedirectStandardInput = true;
-                                                proc.StartInfo.RedirectStandardOutput = true;
-                                                proc.StartInfo.UseShellExecute = false;
-                                                proc.StartInfo.CreateNoWindow = true;
-                                                proc.Start();
-                                                proc.StandardInput.WriteLine("cd /srv/www/Xautomatedemo/" + releaseno + "");
-                                                // proc.StandardInput.WriteLine("touch " + Name + ".robot ");
-                                                proc.StandardInput.WriteLine("cat >> " + result + "Main.robot ");
-                                                if(item.CaseType == "S")
+                                            var testcaselist1 = testcasename.Split(',');
+                                            for (int m=0;m < testcaselist1.Length; m++)
                                             {
-                                                if(i == 0)
+                                                if (item.WebTestcasesid ==  Convert.ToInt32(testcaselist1[m]))
                                                 {
-                                                    proc.StandardInput.WriteLine("*** Settings ***");
-                                                    proc.StandardInput.WriteLine(""+item.Cases+"");
-                                                    i++;
+
+                                                    zz++;
+
+
+                                                    proc.StartInfo.FileName = @"/bin/bash";
+                                                    proc.StartInfo.CreateNoWindow = true;
+                                                    proc.StartInfo.RedirectStandardInput = true;
+                                                    proc.StartInfo.RedirectStandardOutput = true;
+                                                    proc.StartInfo.UseShellExecute = false;
+                                                    proc.StartInfo.CreateNoWindow = true;
+                                                    proc.Start();
+                                                    proc.StandardInput.WriteLine("cd /srv/www/XAutomate/" + releaseno + "");
+                                                    // proc.StandardInput.WriteLine("touch " + Name + ".robot ");
+                                                    proc.StandardInput.WriteLine("cat >> " + result + "Main.robot ");
+                                                    if (item.CaseType == "S")
+                                                    {
+                                                        if (i == 0)
+                                                        {
+                                                            proc.StandardInput.WriteLine("*** Settings ***");
+                                                            proc.StandardInput.WriteLine("" + item.Cases + "");
+                                                            i++;
+                                                        }
+                                                        else
+                                                        {
+                                                            proc.StandardInput.WriteLine("" + item.Cases + "");
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        proc.StandardInput.WriteLine("" + item.Cases + "");
+                                                    }
+                                                    //    proc.StandardInput.WriteLine("i");
+                                                    // proc.StandardInput.WriteLine("*** Test Cases ***");
+                                                    //   proc.StandardInput.WriteLine("" + item.Description + ":" + Testcase);
+                                                    // proc.StandardInput.WriteLine("      [Tags]   " + item.Description);
+                                                    //proc.StandardInput.WriteLine("Suite Setup   Connect To Database   pymysql   ${DBName}  ${DBUser}  ${DBPass}  ${DBHost}  ${DBPort}");
+                                                    //   proc.StandardInput.WriteLine("      Connect To Database   pymysql   ${DBName}  ${DBUser}  ${DBPass}  ${DBHost}  ${DBPort}");
+                                                    // proc.StandardInput.WriteLine("      " + item1.ExceptedResult + "     " + demo + "");
+                                                    proc.StandardInput.Flush();
+                                                    proc.StandardInput.Close();
+                                                    proc.WaitForExit();
                                                 }
-                                                else
-                                                {
-                                                    proc.StandardInput.WriteLine("" + item.Cases + "");
-                                                }
+
                                             }
-                                            else
-                                            {
-                                                proc.StandardInput.WriteLine("" + item.Cases + "");
-                                            }
-                                                //    proc.StandardInput.WriteLine("i");
-                                               // proc.StandardInput.WriteLine("*** Test Cases ***");
-                                             //   proc.StandardInput.WriteLine("" + item.Description + ":" + Testcase);
-                                               // proc.StandardInput.WriteLine("      [Tags]   " + item.Description);
-                                                //proc.StandardInput.WriteLine("Suite Setup   Connect To Database   pymysql   ${DBName}  ${DBUser}  ${DBPass}  ${DBHost}  ${DBPort}");
-                                             //   proc.StandardInput.WriteLine("      Connect To Database   pymysql   ${DBName}  ${DBUser}  ${DBPass}  ${DBHost}  ${DBPort}");
-                                               // proc.StandardInput.WriteLine("      " + item1.ExceptedResult + "     " + demo + "");
-                                                proc.StandardInput.Flush();
-                                                proc.StandardInput.Close();
-                                                proc.WaitForExit();
-                                            
+                                          
 
 
                                         }
@@ -461,6 +499,7 @@ namespace XAutomateMVC.Controllers
                             }
 
                         }
+                        zz++;
                         proc.StartInfo.FileName = @"/bin/bash";
                         //     proc.StartInfo.FileName = "cmd.exe";
                         proc.StartInfo.CreateNoWindow = true;
@@ -471,12 +510,12 @@ namespace XAutomateMVC.Controllers
                         proc.Start();
 
                         proc.StandardInput.WriteLine("sudo su");
-                        proc.StandardInput.WriteLine("cd  /srv/www/Xautomatedemo/" + releaseno);
+                        proc.StandardInput.WriteLine("cd  /srv/www/XAutomate/" + releaseno + "");
                         //  proc.StandardInput.WriteLine("cd /d D:\\Abinesh-learn");
-                        proc.StandardInput.WriteLine("robot --listener robotframework_reportportal.listener --variable RP_ENDPOINT:http://13.74.176.44:8080 --variable RP_UUID:268f5445-764f-49c6-8e22-e0024d762a03 --variable RP_PROJECT:'default_personal' --variable RP_LAUNCH:'" + releaseno + "' -N  " + tagno + "  --report " + tagno + "" + releaseno + ".html  --removekeywords All  -d   /srv/www/Xautomatedemo/wwwroot/" + releaseno + "  " + result + "Main.robot");
-                        ///    proc.StandardInput.WriteLine("pybot --listener reportportal_listener --variable RP_ENDPOINT:http://13.74.176.44:8080 --variable RP_UUID:6df6d59c-e0f6-44b0-a8c7-5087f0f36eac --variable RP_LAUNCH:'superadmin_TEST_EXAMPLE' --variable RP_PROJECT:superadmin_personal --report " + SuiteId + "" + Version + ".html  -d  /srv/www/XAutomate/wwwroot/" + SuiteId + "  " + SuiteId + "");
+                        proc.StandardInput.WriteLine("robot --listener robotframework_reportportal.listener --variable RP_ENDPOINT:http://52.178.152.165:8080 --variable RP_UUID:268f5445-764f-49c6-8e22-e0024d762a03 --variable RP_PROJECT:'default_personal' --variable RP_LAUNCH:'" + releaseno + "' -N  " + tagno + "  --report " + tagno + "" + releaseno + ".html  --removekeywords All  -d   /srv/www/XAutomate/wwwroot/" + releaseno + "  " + result + "Main.robot");
+                        ///    proc.StandardInput.WriteLine("pybot --listener reportportal_listener --variable RP_ENDPOINT:http://52.178.152.165:8080 --variable RP_UUID:6df6d59c-e0f6-44b0-a8c7-5087f0f36eac --variable RP_LAUNCH:'superadmin_TEST_EXAMPLE' --variable RP_PROJECT:superadmin_personal --report " + SuiteId + "" + Version + ".html  -d  /srv/www/XAutomate/wwwroot/" + SuiteId + "  " + SuiteId + "");
                       //  proc.StandardInput.WriteLine("robot robotframework");
-                        proc.StandardInput.WriteLine("python -m dbbot.run -b mysql://root:password@13.74.176.44:3308/graphana /srv/www/Xautomatedemo/wwwroot/" + releaseno + "/output.xml");
+                        proc.StandardInput.WriteLine("python -m dbbot.run -b mysql://grafanatest:password@52.178.152.165:3309/graphana /srv/www/XAutomate/wwwroot/" + releaseno + "/output.xml");
                         proc.StandardInput.Flush();
                         proc.StandardInput.Close();
                         proc.WaitForExit();
@@ -484,7 +523,7 @@ namespace XAutomateMVC.Controllers
                         Console.WriteLine(proc.StandardOutput.ReadToEnd());
                         System.Diagnostics.Debug.WriteLine(proc.StandardOutput.ReadToEnd());
                         var Executetime = DateTime.Now.ToString("HH:mm");
-                        MySqlConnection sql = new MySqlConnection("Server=13.74.176.44;Port=3308;Database=graphana;User ID=root;Password=password;SslMode=none");
+                        MySqlConnection sql = new MySqlConnection("Server=52.178.152.165;Port=3309;Database=graphana;User ID=grafanatest;Password=password;SslMode=none");
                         sql.Open();
 
                         MySqlCommand com = new MySqlCommand("select * from graphana.suite_status order by id desc  Limit 1 ", sql);
@@ -515,24 +554,27 @@ namespace XAutomateMVC.Controllers
                         var totaltest = Errorcount[2].Split(" ");
 
                         var Failtest = Errorcount[4].Split(" ");
-                        return Json(list1);
+                   //     return Json(list1);
                         testcaseresult = totaltest[1] + " " + Errorcount[3] + " " + Failtest[0];
-
+                        return "";
 
                     }
                     else
                     {
-                        return Json("Auth Fail");
+                        // return Json("Auth Fail");
+                        return "";
                     }
                 }
                 else
                 {
-                    return Json("Auth Fail");
+                    //  return Json("Auth Fail");
+                    return "";
                 }
             }
             catch (Exception ex)
             {
-                return Json("");
+                //return Json("");
+                return ex.ToString() +" " + zz + "" + ResourceName + "   " + res1;
             }
 
         }

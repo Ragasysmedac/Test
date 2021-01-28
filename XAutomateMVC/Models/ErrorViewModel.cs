@@ -23,15 +23,13 @@ namespace XAutomateMVC.Models
 
         public string ExpectedResultVal { get; set; }
         public string ProductSearchId { get; set; }
-
-        public List<string> Multisuite { get; set; }
-        public List<SelectListItem> ProductSearchList { get; set; }
-
         public List<string> TestCaseFile { get; set; }
         public List<SelectListItem> TestCaseFileList { get; set; }
 
         public List<SelectListItem> ResourceFile { get; set; }
         public string ResourceFileName { get; set; }
+        public List<string> Multisuite { get; set; }
+        public List<SelectListItem> ProductSearchList { get; set; }
         public string  TestsuidId { get;  set; }
         public List<SelectListItem> TestSuiteList { get; set; }
         public string ReleaseId { get; set; }

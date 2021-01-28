@@ -29,9 +29,9 @@
     <meta name="author" content="">
 
     <title>XAutomate -Connection</title>
-    <link href="http://13.74.176.44:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="http://13.74.176.44:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="http://13.74.176.44:5000/css/simple-sidebar.css" rel="stylesheet" />
+    <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="http://52.178.152.165:5000/css/simple-sidebar.css" rel="stylesheet" />
     <!-- Bootstrap core CSS -->
     <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
@@ -292,6 +292,11 @@
                     $("#Error").html("Please Enter Database Port Number");
                     return false;
                 }
+                var Databasetype = $("#Databasetype").val();
+                if (Databasetype == null || Databasetype == "" || Databasetype == undefined) {
+                    $("#Error").html("please Select Database Type");
+                    return false;
+                }
                 var UserName = $("#dbusernaem").val();
                 if (UserName == null || UserName == "" || UserName == undefined) {
                     $("#Error").html("please Enter Database User Name");
@@ -306,6 +311,7 @@
                 if (Password == null || Password == "" || Password == undefined) {
                     Des = "";
                 }
+                
                 if ($('#Status').is(':checked')) {
                     Active = 1;
                 }
@@ -318,7 +324,7 @@
                         url: "/DbConfig/DbconfigSave", // Controller/View
                         datatype: "json",
                         data: {
-
+                            Databasetype1: Databasetype,
                             Dbname: Name,
                             Dbhost: DemoName,
                             DbPortname: DbPortname,
@@ -389,6 +395,11 @@
                     $("#Error").html("please Enter Database User Name");
                     return false;
                 }
+                var Databasetype = $("#Databasetype").val();
+                if (Databasetype == null || Databasetype == "" || Databasetype == undefined) {
+                    $("#Error").html("please Select Database Type");
+                    return false;
+                }
                 var Password = $("#password").val();
                 if (Password == null || Password == "" || Password == undefined) {
                     $("#Error").html("please Enter Database Password");
@@ -411,7 +422,7 @@
                         url: "/DbConfig/DbConfigUpdate", // Controller/View
                         datatype: "json",
                         data: {
-
+                            Databasetype1: Databasetype,
                             Dbname: Name,
                             Dbhost: DemoName,
                             DbPortname: DbPortname,
@@ -633,7 +644,8 @@
                         $("#dbPort").val(data["0"].dbPort);
                         $("#dbusernaem").val(data["0"].dbUser);
                         $("#password").val(data["0"].dbPassword);
-                        $("#Description").val(data["0"].description)
+                        $("#Description").val(data["0"].description);
+                        $("#Databasetype").val(data["0"].databaseType);
                         var status = data["0"].status;
                         if (status == "1") {
                             $("#Status").prop("checked", true);
@@ -726,7 +738,7 @@
                                 TEST REPORT
                             </h6>
                         </a>
-                        <a href="http://13.74.176.44:8080/" target="_blank" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuAnaltics">
+                        <a href="http://52.178.152.165:8080/" target="_blank" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuAnaltics">
                             <img src="~/Image/Picture3.png" style="width:30px" />
                             <h6>
                                 ANALYTICS
@@ -820,7 +832,14 @@
                                     <label><span style="color: red;">* </span>DB Port No</label><br />
                                     <input type="number" id="dbPort" class="txt-input form-control" maxlength="6" />
                                 </div>
-
+                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                                    <label><span style="color: red;">* </span>DataBase Type</label><br />
+                                    <select class="form-control" id="Databasetype">
+                                        <option selected disabled value="">Select DataBase Type</option>
+                                        <option value="SQL">SQL</option>
+                                        <option value="MYSQL">MYSQL</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="row" style="padding-top:10px">
@@ -961,8 +980,8 @@
         </div>
         <!-- /#wrapper -->
         <!-- Bootstrap core JavaScript -->
-        <script src="http://13.74.176.44:5000/vendor/jquery/jquery.min.js"></script>
-        <script src="http://13.74.176.44:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="http://52.178.152.165:5000/vendor/jquery/jquery.min.js"></script>
+        <script src="http://52.178.152.165:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="~/vendor/jquery/jquery.min.js"></script>
         <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

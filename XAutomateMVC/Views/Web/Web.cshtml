@@ -31,9 +31,9 @@
     <meta name="author" content="">
 
     <title>XAutomate -Web</title>
-    <link href="http://13.74.176.44:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="http://13.74.176.44:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="http://13.74.176.44:5000/css/simple-sidebar.css" rel="stylesheet" />
+    <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="http://52.178.152.165:5000/css/simple-sidebar.css" rel="stylesheet" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chosen/1.1.0/chosen.css" />
     <link href="~/css/choosen.css" rel="stylesheet" />
     <script src="//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.js"></script><!-- Bootstrap core CSS -->
@@ -364,6 +364,7 @@
                             'Authorization': localStorage.getItem("AuthoToken"),
                         },
                         success: function (data) {
+         debugger;
                             if (data == "Auth Fail") {
                                 $("#Error").html("Authentication Failed,Your Session Failed");
                                 return false;
@@ -381,7 +382,7 @@
                             $("#Success").html(statsus);
                         },
                         error: function (Result) {
-
+        debugger;
                         }
 
                     });
@@ -518,7 +519,7 @@
                                 TEST REPORT
                             </h6>
                         </a>
-                        <a href="http://13.74.176.44:8080/" target="_blank" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuAnaltics">
+                        <a href="http://52.178.152.165:8080/" target="_blank" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuAnaltics">
                             <img src="~/Image/Picture3.png" style="width:30px" />
                             <h6>
                                 ANALYTICS
@@ -698,8 +699,8 @@
         </div>
         <!-- /#wrapper -->
         <!-- Bootstrap core JavaScript -->
-        <script src="http://13.74.176.44:5000/vendor/jquery/jquery.min.js"></script>
-        <script src="http://13.74.176.44:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="http://52.178.152.165:5000/vendor/jquery/jquery.min.js"></script>
+        <script src="http://52.178.152.165:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="~/vendor/jquery/jquery.min.js"></script>
         <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

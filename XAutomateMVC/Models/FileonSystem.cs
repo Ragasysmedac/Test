@@ -8,7 +8,6 @@ namespace XAutomateMVC.Models
     public class FileonSystem : FileUpload
     {
       
-        public string FileName { get; set; }
             public string FilePath { get; set; }
         
     }

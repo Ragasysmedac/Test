@@ -37,7 +37,7 @@ namespace XAutomateMVC.Models.DBModels
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=13.74.176.44;port=3307;database=db_mate;user id=root;password=password;sslmode=none", x => x.ServerVersion("8.0.22-mysql"));
+                optionsBuilder.UseMySql("server=52.178.152.165;port=3310;database=db_mate;user id=root;password=password;sslmode=none", x => x.ServerVersion("8.0.22-mysql"));
             }
         }
 
@@ -46,6 +46,11 @@ namespace XAutomateMVC.Models.DBModels
             modelBuilder.Entity<DbConfig>(entity =>
             {
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.DatabaseType)
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("latin1")
+                    .HasCollation("latin1_swedish_ci");
 
                 entity.Property(e => e.DbHostName)
                     .HasColumnType("varchar(450)")

@@ -29,9 +29,9 @@
     <meta name="author" content="">
 
     <title>XAutomate -Test Case</title>
-    <link href="http://13.74.176.44:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="http://13.74.176.44:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="http://13.74.176.44:5000/css/simple-sidebar.css" rel="stylesheet" />
+    <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="http://52.178.152.165:5000/css/simple-sidebar.css" rel="stylesheet" />
     <!-- Bootstrap core CSS -->
     <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
@@ -575,12 +575,18 @@
                                 return false;
                             }
                             $("#selectrule").val('');
+                            var option1;
+                            option1 = $('<option/>');
+                            option1.append("<option value=''>Select Rule</option>");
+                            $('#selectrule').append(option1);
                             $("#Name").val('');
                             $("#ProductId").val('');
                             Bindrid();
                             $("#ExpectedResultVal").val('');
                             $("#TestCaseuppend").empty();
+                            $("#Description").val("");
                             $("#Testrule").addClass("hidden");
+                            $("#selectrule").empty();
                             $("#Success").html("Successfully Saved Test Case");
                             $("#ExpectedParameter").empty();
                         },
@@ -1124,7 +1130,7 @@
 
                                 var DBpara = '<div class="col-lg-3"  style="padding-top: 20px;padding-bottom: 20px;"> <label>' + data["0"].labelName[i].parameterName + '['+i+'] </label><br/>';
                                 if (LabelName != "schema" && LabelName != "table_name" && LabelName != "column_name") {
-                                    DBpara += ' <input class="form-control"  id="parameter' + [i] + '" placeholder="Values" />';
+                                    DBpara += ' <input class="form-control parameters"  id="parameter' + [i] + '" placeholder="Values" />';
                                 }
                                 else {
                                     DBpara += ' <select class="form-control parameters"  id="parameter' + [i] + '"><option disabled selected>Select Parameter </option></select>'
@@ -1238,7 +1244,7 @@
                                 TEST REPORT
                             </h6>
                         </a>
-                        <a href="http://13.74.176.44:8080/" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuAnaltics">
+                        <a href="http://52.178.152.165:8080/" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuAnaltics">
                             <img src="~/Image/Picture3.png" style="width:30px" />
                             <h6>
                                 ANALYTICS
@@ -1600,8 +1606,8 @@
     <!-- /#page-content-wrapper -->
     <!-- /#wrapper -->
     <!-- Bootstrap core JavaScript -->
-    <script src="http://13.74.176.44:5000/vendor/jquery/jquery.min.js"></script>
-    <script src="http://13.74.176.44:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="http://52.178.152.165:5000/vendor/jquery/jquery.min.js"></script>
+    <script src="http://52.178.152.165:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

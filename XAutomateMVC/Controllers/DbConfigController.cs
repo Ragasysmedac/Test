@@ -17,6 +17,7 @@ using NPOI.XSSF.UserModel;
 using XAutomateMVC.Models;
 using XAutomateMVC.Models.DBModels;
 using Ionic.Zip;
+using System.Data.SqlClient;
 
 namespace XAutomateMVC.Controllers
 {
@@ -371,7 +372,7 @@ namespace XAutomateMVC.Controllers
         }
 
         [HttpGet]
-        public String DbconfigSave(string Dbname, string Dbhost, string DbPortname, string Dbuser, string DbPassword,string Active,string Describtion)
+        public String DbconfigSave(string Databasetype1,string Dbname, string Dbhost, string DbPortname, string Dbuser, string DbPassword,string Active,string Describtion)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
@@ -391,6 +392,7 @@ namespace XAutomateMVC.Controllers
                     {
 
                         DbConfig Is = new DbConfig();
+                        Is.DatabaseType = Databasetype1;
                         Is.DbName = Dbname;
                         Is.DbHostName = Dbhost;
                         Is.DbPort = DbPortname;
@@ -403,42 +405,90 @@ namespace XAutomateMVC.Controllers
                         db.SaveChanges();
                         try
                         {
-                            MySqlConnection sql = new MySqlConnection("Server=" + Dbhost + ";Port=" + DbPortname + ";Database=" + Dbname + ";User ID=" + Dbuser + ";Password=" + DbPassword + ";SslMode=none");
-                            sql.Open();
-                            MySqlCommand com = new MySqlCommand("SELECT DISTINCT  COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS where  TABLE_SCHEMA='" + Dbname + "' ", sql);
-                            using (var reader = com.ExecuteReader())
+                            if(Databasetype1 == "MYSQL")
                             {
-                                db.Tablecolumn.RemoveRange(db.Tablecolumn.Where(x => x.Dbconfigid == Is.Dbconfigid));
-                                db.SaveChanges();
-                                while (reader.Read())
+                                MySqlConnection sql = new MySqlConnection("Server=" + Dbhost + ";Port=" + DbPortname + ";Database=" + Dbname + ";User ID=" + Dbuser + ";Password=" + DbPassword + ";SslMode=none");
+                                sql.Open();
+                                MySqlCommand com = new MySqlCommand("SELECT DISTINCT  COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS where  TABLE_SCHEMA='" + Dbname + "' ", sql);
+                                using (var reader = com.ExecuteReader())
                                 {
-
-                                    Tablecolumn Ins = new Tablecolumn();
-                                    Ins.Tablecolumn1 = reader["COLUMN_NAME"].ToString();
-                                    Ins.FieldName = "C";
-                                    Ins.Active = "1";
-                                    Ins.Dbconfigid = Is.Dbconfigid;
-                                    db.Tablecolumn.Add(Ins);
+                                    db.Tablecolumn.RemoveRange(db.Tablecolumn.Where(x => x.Dbconfigid == Is.Dbconfigid));
                                     db.SaveChanges();
+                                    while (reader.Read())
+                                    {
+
+                                        Tablecolumn Ins = new Tablecolumn();
+                                        Ins.Tablecolumn1 = reader["COLUMN_NAME"].ToString();
+                                        Ins.FieldName = "C";
+                                        Ins.Active = "1";
+                                        Ins.Dbconfigid = Is.Dbconfigid;
+                                        db.Tablecolumn.Add(Ins);
+                                        db.SaveChanges();
+                                    }
                                 }
+                                MySqlCommand com1 = new MySqlCommand("SELECT DISTINCT  TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS where  TABLE_SCHEMA='" + Dbname + "' ", sql);
+                                using (var reader = com1.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+
+                                        Tablecolumn Ins2 = new Tablecolumn();
+                                        Ins2.Tablecolumn1 = reader["TABLE_NAME"].ToString();
+                                        Ins2.FieldName = "T";
+                                        Ins2.Active = "1";
+                                        Ins2.Dbconfigid = Is.Dbconfigid;
+                                        db.Tablecolumn.Add(Ins2);
+
+                                        db.SaveChanges();
+                                    }
+                                }
+                                sql.Close();
                             }
-                            MySqlCommand com1 = new MySqlCommand("SELECT DISTINCT  TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS where  TABLE_SCHEMA='" + Dbname + "' ", sql);
-                            using (var reader = com1.ExecuteReader())
+                            else
                             {
-                                while (reader.Read())
+                                SqlConnection sql = new SqlConnection("Server=" + Dbhost + ";Database=" + Dbname + ";Uid=" + Dbuser + ";Pwd=" + DbPassword + ";");
+                                sql.Open();
+                                SqlCommand com = new SqlCommand("SELECT DISTINCT  COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS", sql);
+                                //  MySqlConnection sql = new MySqlConnection("Server=" + Dbhost + ";Port=" + DbPortname + ";Database=" + Dbname + ";User ID=" + Dbuser + ";Password=" + DbPassword + ";SslMode=none");
+                                // sql.Open();
+                                // MySqlCommand com = new MySqlCommand("SELECT DISTINCT  COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS where  TABLE_SCHEMA='" + Dbname + "' ", sql);
+                                using (var reader = com.ExecuteReader())
                                 {
-
-                                    Tablecolumn Ins2 = new Tablecolumn();
-                                    Ins2.Tablecolumn1 = reader["TABLE_NAME"].ToString();
-                                    Ins2.FieldName = "T";
-                                    Ins2.Active = "1";
-                                    Ins2.Dbconfigid = Is.Dbconfigid;
-                                    db.Tablecolumn.Add(Ins2);
-
+                                    db.Tablecolumn.RemoveRange(db.Tablecolumn.Where(x => x.Dbconfigid == Is.Dbconfigid));
                                     db.SaveChanges();
+                                    while (reader.Read())
+                                    {
+
+                                        Tablecolumn Ins = new Tablecolumn();
+                                        Ins.Tablecolumn1 = reader["COLUMN_NAME"].ToString();
+                                        Ins.FieldName = "C";
+                                        Ins.Active = "1";
+                                        Ins.Dbconfigid = Is.Dbconfigid;
+                                        db.Tablecolumn.Add(Ins);
+                                        db.SaveChanges();
+                                    }
                                 }
+                                SqlCommand com1 = new SqlCommand("SELECT DISTINCT  TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS ", sql);
+                                //  MySqlCommand com1 = new MySqlCommand("SELECT DISTINCT  TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS where  TABLE_SCHEMA='" + Dbname + "' ", sql);
+                                using (var reader = com1.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+
+                                        Tablecolumn Ins2 = new Tablecolumn();
+                                        Ins2.Tablecolumn1 = reader["TABLE_NAME"].ToString();
+                                        Ins2.FieldName = "T";
+                                        Ins2.Active = "1";
+                                        Ins2.Dbconfigid = Is.Dbconfigid;
+                                        db.Tablecolumn.Add(Ins2);
+
+                                        db.SaveChanges();
+                                    }
+                                }
+                                sql.Close();
+
                             }
-                            sql.Close();
+
 
 
                             Tablecolumn Ins3 = new Tablecolumn();
@@ -476,7 +526,7 @@ namespace XAutomateMVC.Controllers
         }
 
         [HttpGet]
-        public String DbConfigUpdate(string Dbname, string Dbhost, string DbPortname, string Dbuser, string DbPassword, string Active, string Describtion,int DbConfigId)
+        public String DbConfigUpdate(string Databasetype1, string Dbname, string Dbhost, string DbPortname, string Dbuser, string DbPassword, string Active, string Describtion,int DbConfigId)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
@@ -494,6 +544,7 @@ namespace XAutomateMVC.Controllers
                     var result = db.DbConfig.FirstOrDefault(x => x.Dbconfigid == DbConfigId);
                     if (result != null)
                     {
+                        result.DatabaseType = Databasetype1;
                         result.DbName = Dbname;
                         result.DbHostName = Dbhost;
                         result.DbPort = DbPortname;
@@ -757,6 +808,7 @@ namespace XAutomateMVC.Controllers
                                      {
                                          b.Dbconfigid,
                                          b.DbHostName,
+                                         b.DatabaseType,
                                          b.DbName,
                                          b.DbPassword,
                                          b.DbPort,

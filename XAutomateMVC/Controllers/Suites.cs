@@ -52,7 +52,6 @@ namespace XAutomateMVC.Controllers
 
         }
 
-        [HttpPost]
         public string UpdateTestApproach(int testId, int SName, string testapproachname, string DbName, string Active)
         {
             var header = this.Request.Headers.ToString();
