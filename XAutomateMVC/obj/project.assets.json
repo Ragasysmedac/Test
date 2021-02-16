@@ -2649,6 +2649,15 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
+      "TimeZoneConverter/3.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/TimeZoneConverter.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/TimeZoneConverter.dll": {}
+        }
+      },
       "UmbracoCms.Core/8.10.0": {
         "type": "package",
         "compile": {
@@ -8457,6 +8466,33 @@
         "system.xml.xdocument.nuspec"
       ]
     },
+    "TimeZoneConverter/3.3.0": {
+      "sha512": "OeXMqNZ1Xt/9ehELN2khz8vT8wckg8VVa6Rx+XeYTdEIMaKETlSXkCzj4TuCGQ0L2SgXdpjGSh1XwZVusZE2Yw==",
+      "type": "package",
+      "path": "timezoneconverter/3.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35/TimeZoneConverter.dll",
+        "lib/net35/TimeZoneConverter.xml",
+        "lib/net40/TimeZoneConverter.dll",
+        "lib/net40/TimeZoneConverter.xml",
+        "lib/net45/TimeZoneConverter.dll",
+        "lib/net45/TimeZoneConverter.xml",
+        "lib/net461/TimeZoneConverter.dll",
+        "lib/net461/TimeZoneConverter.xml",
+        "lib/net471/TimeZoneConverter.dll",
+        "lib/net471/TimeZoneConverter.xml",
+        "lib/netstandard1.1/TimeZoneConverter.dll",
+        "lib/netstandard1.1/TimeZoneConverter.xml",
+        "lib/netstandard1.3/TimeZoneConverter.dll",
+        "lib/netstandard1.3/TimeZoneConverter.xml",
+        "lib/netstandard2.0/TimeZoneConverter.dll",
+        "lib/netstandard2.0/TimeZoneConverter.xml",
+        "timezoneconverter.3.3.0.nupkg.sha512",
+        "timezoneconverter.nuspec"
+      ]
+    },
     "UmbracoCms.Core/8.10.0": {
       "sha512": "qs7hWxAaaDzRKsP4wLyoFXQ0yGNaYsYAglsDCATxFLz3xQIY86jlfbZfIEJuU0Ti3q/b7vOMI87yjXC7iWAVNw==",
       "type": "package",
@@ -8488,6 +8524,7 @@
       "NPOI >= 2.5.1",
       "Pomelo.EntityFrameworkCore.MySql >= 3.2.4",
       "System.Data.SqlClient >= 4.8.2",
+      "TimeZoneConverter >= 3.3.0",
       "UmbracoCms.Core >= 8.10.0",
       "chosen >= 1.2.0",
       "chosen.jquery >= 1.2.0"
@@ -8596,6 +8633,10 @@
           "System.Data.SqlClient": {
             "target": "Package",
             "version": "[4.8.2, )"
+          },
+          "TimeZoneConverter": {
+            "target": "Package",
+            "version": "[3.3.0, )"
           },
           "UmbracoCms.Core": {
             "target": "Package",

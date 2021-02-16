@@ -15,12 +15,12 @@
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
+    <!--<Popper.JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
@@ -28,7 +28,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css">
 
+    <script src="~/js/choosencdn.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css">
     <title>XAutomate -Test Approach</title>
     <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
@@ -44,6 +50,13 @@
     <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="~/css/simple-sidebar.css" rel="stylesheet" />
+
+
+    <script src="//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.js"></script><!-- Bootstrap core CSS -->
+
+    <script src="~/js/chosen.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chosen/1.1.0/chosen.css" />
+    <link href="~/css/choosen.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
     <title>Test Approach</title>
 </head>
@@ -183,8 +196,18 @@
                 $("#Error").html('');
                 $("#Success").html('');
                 var Active = 1;
-                var TSuiteName = $("#TestsuidId").val();
-                 
+               // var TSuiteName = $("#TestsuidId").val();
+               
+                var TSuiteName = "";
+                var TSuiteName1 = $("#TestsuidId").val();
+                for (var i = 0; i < TSuiteName1.length; i++) {
+                    if (TSuiteName == "") {
+                        TSuiteName = TSuiteName1[i];
+                    }
+                    else {
+                        TSuiteName += "," + TSuiteName1[i];
+                    }
+                }
                 if (TSuiteName == "" || TSuiteName == null || TSuiteName == "undefined" || TSuiteName == undefined) {
                     $("#Error").html("Please Select Test Suite Name");
                     return false;
@@ -201,11 +224,11 @@
                     $("#Error").html('Test Approach Should not Contain Whitespace');
                     return false;
                 }
-                var DbName = $("#ProductId").val();
-                if (DbName == "" || DbName == null || DbName == "undefined" || DbName == undefined) {
-                    $("#Error").html("Please Select Connection Name");
-                    return false;
-                }
+                //var DbName = $("#ProductId").val();
+                //if (DbName == "" || DbName == null || DbName == "undefined" || DbName == undefined) {
+                //    $("#Error").html("Please Select Connection Name");
+                //    return false;
+                //}
                 if ($('#Status').is(':checked')) {
                     Active = 1;
                 }
@@ -217,7 +240,7 @@
                         type: "GET", //HTTP POST Method
                         url: "/Suites/SaveSuite", // Controller/View
                         datatype: "json",
-                        data: { SName: SuiteName, DbNa: DbName, testsuite: TSuiteName, Active: Active },
+                        data: { SName: SuiteName, testsuite: TSuiteName, Active: Active },
                         headers: {
                             "Content-Type": JSON,
                             'Authorization': localStorage.getItem("AuthoToken"),
@@ -235,9 +258,11 @@
                             else {
                                 $("#Success").html("Test Approach Successfully Saved");
                             }
-                            $("#ProductId").val("");
+                           // $("#ProductId").val("");
                             $("#SName").val("");
                             $("#TestsuidId").val("");
+                            $("#TestsuidId").trigger("chosen:updated");
+                            $('.chosen').chosen("destroy").chosen();
                             debugger; BindGrid(1);
                         },
                         error: function (Result) {
@@ -256,6 +281,11 @@
                 $("#Error").html('');
                 $("#Success").html('');
                 $("#suitesave").html("");
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                $("#suitestatus").val("1");
+                $("#TestsuidId").trigger("chosen:updated");
+                $('.chosen').chosen("destroy").chosen();
                 var table = document.getElementById('example1');
                 var cells = table.getElementsByTagName('td');
                 for (var i = 0; i < cells.length; i++) {
@@ -273,9 +303,18 @@
             });
 
             $(document).on("click", "#update", function () {
+                debugger;
                 var Active = 1;
-                var TSuiteName = $("#TestsuidId").val();
-
+                var TSuiteName = "";
+                var TSuiteName1 = $("#TestsuidId").val();
+                for (var i = 0; i < TSuiteName1.length; i++) {
+                    if (TSuiteName == "") {
+                        TSuiteName = TSuiteName1[i];
+                    }
+                    else {
+                        TSuiteName += "," + TSuiteName1[i];
+                    }
+                }
                 if (TSuiteName == "" || TSuiteName == null || TSuiteName == "undefined" || TSuiteName == undefined) {
                     $("#Error").html("Please Select Test Suite Name");
                     return false;
@@ -292,11 +331,11 @@
                     $("#Error").html('Test Approach Should not Contain Whitespace');
                     return false;
                 }
-                var DbName = $("#ProductId").val();
-                if (DbName == "" || DbName == null || DbName == "undefined" || DbName == undefined) {
-                    $("#Error").html("Please Select Connection Name");
-                    return false;
-                }
+                //var DbName = $("#ProductId").val();
+                //if (DbName == "" || DbName == null || DbName == "undefined" || DbName == undefined) {
+                //    $("#Error").html("Please Select Connection Name");
+                //    return false;
+                //}
                 var TestapproachId = $("#suitesave1").val();
                 if ($('#Status').is(':checked')) {
                     Active = 1;
@@ -309,7 +348,7 @@
                         type: "GET", //HTTP POST Method
                         url: "/Suites/UpdateTestApproach", // Controller/View
                         datatype: "json",
-                        data: { testId: TestapproachId, SName: TSuiteName, testapproachname: SuiteName, DbName: DbName, Active: Active },
+                        data: { testId: TestapproachId, SName: TSuiteName, testapproachname: SuiteName, Active: Active },
                         headers: {
                             "Content-Type": JSON,
                             'Authorization': localStorage.getItem("AuthoToken"),
@@ -319,6 +358,11 @@
                             if (data == "Success") {
                                 $("#Success").html("Test Approach Updated Successfully");
 
+                            }
+                            else if (data == "Validate") {
+
+                                $("#Error").html('Please "Set As InActive" ETLDB,ETL Rules for this Test Approach');
+                                return false;
                             }
                             else if (data == "Auth Fail") {
 
@@ -336,9 +380,10 @@
                             $("#SuiteSave").removeClass("hidden");
                             $("#Status").prop("checked", true);
                             $("#SName").val("");
-                            $("#ProductId").val("");
+                         //   $("#ProductId").val("");
                             $("#TestsuidId").val("");
-                            
+                            $("#TestsuidId").trigger("chosen:updated");
+                            $('.chosen').chosen("destroy").chosen();
                             
                             BindGrid(1);
                         },
@@ -349,44 +394,7 @@
             });
 
             BindGrid(1);
-            function BindGrid(Active) {
-                $.ajax(
-                    {
-                        type: "GET", //HTTP POST Method
-                        url: "/Suites/SuiteBidGrid", // Controller/View
-                        datatype: "json",
-                        data: { Active: Active },
-                        headers: {
-                            "Content-Type": JSON,
-                            'Authorization': localStorage.getItem("AuthoToken"),
-                        },
-                        success: function (data) {
-                            if (data == "Auth Fail") {
-                                $("#Error").html("Authentication Failed,Your Session Failed");
-                                return false;
-                            }
-                            $('#tblAuthgrid').empty();
-                            var tr;
-                            if (data.length > 0) {
-                                for (var i = 0; i < data.length; i++) {
-
-                                    tr = $('<tr/>');
-                                    tr.append("<td  OnClick='display(this," + data[i].testApproachid +")' style='    cursor: pointer;'>" + data[i].testSuitename + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].testApproachid +")'  style='    cursor: pointer;'>" + data[i].testApproachName + "</td>");
-                                    tr.append("<td OnClick='display(this," + data[i].testApproachid +")' style='    cursor: pointer;'>" + data[i].connectionname + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].testApproachid +")'  style='    cursor: pointer;'>" + data[i].createdDate + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].testApproachid +")'  style='    cursor: pointer;'>" + data[i].status + "</td>");
-                                    $('#tblAuthgrid').append(tr);
-                                }
-                            }
-                            debugger;
-                        },
-                        error: function (Result) {
-                        }
-
-                    });
-            }
-
+            $("#suitestatus").val("1");
         });
         $(document).ready(function () {
             var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -455,10 +463,17 @@
                     }
                 });
             }
+            $('#formid').on('keyup keypress', function (e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
             $(document).on("click", "#Searchlist", function () {
                 debugger;
                 var searchres = $("#search").val();
-
+                var status = $("#suitestatus").val();
                 $.ajax(
                     {
                         type: "GET", //HTTP POST Method
@@ -466,6 +481,7 @@
                         datatype: "json",
                         data: {
                             search: searchres,
+                            status: status,
                         },
                         headers: {
                             "Content-Type": JSON,
@@ -484,7 +500,7 @@
                                     tr = $('<tr/>');
                                     tr.append("<td  OnClick='display(this," + data[i].testApproachid + ")' style='    cursor: pointer;'>" + data[i].testSuitename + "</td>");
                                     tr.append("<td  OnClick='display(this," + data[i].testApproachid + ")'  style='    cursor: pointer;'>" + data[i].testApproachName + "</td>");
-                                    tr.append("<td OnClick='display(this," + data[i].testApproachid + ")' style='    cursor: pointer;'>" + data[i].connectionname + "</td>");
+                               //     tr.append("<td OnClick='display(this," + data[i].testApproachid + ")' style='    cursor: pointer;'>" + data[i].connectionname + "</td>");
                                     tr.append("<td  OnClick='display(this," + data[i].testApproachid + ")'  style='    cursor: pointer;'>" + data[i].createdDate + "</td>");
                                     tr.append("<td  OnClick='display(this," + data[i].testApproachid + ")'  style='    cursor: pointer;'>" + data[i].status + "</td>");
                                     $('#tblAuthgrid').append(tr);
@@ -652,7 +668,8 @@
             $table.trigger('repaginate');
         });
 
-        function display(a,approachid) {
+        function display(a, approachid) {
+        //    $('.chosen').chosen("destroy").chosen();
             $("#Error").html("");
             $("#Success").html("");
             $("#update").removeClass("hidden");
@@ -684,10 +701,19 @@
                             $("#Error").html("Authentication Failed,Your Session Failed");
                             return false;
                         }
+                        var testid = "";
+                        var suitelentgth = data["0"].testSuiteId;
+                        if (suitelentgth != "") {
+                             testid = data["0"].testSuiteId.split(",");
+                           
+                        }
+                       
+                       
                         $("#suitesave1").val(data["0"].testApproachid);
-                        $("#TestsuidId").val(data["0"].testSuiteId);
+                        $("#TestsuidId").val(testid).trigger('chosen:updated');
+                        $('#TestsuidId').trigger('liszt:updated');
                         $("#SName").val(data["0"].testApproachName);
-                        $("#ProductId").val(data["0"].connectionname);
+                     //   $("#ProductId").val(data["0"].connectionname);
                         var status = data["0"].status;
                         if (status == "1") {
                             $("#Status").prop("checked", true);
@@ -703,7 +729,62 @@
 
                 });
         }
-     
+        function BindGrid(Active) {
+            debugger;
+           
+            if (Active == "1") {
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                $("#suitestatus").val("1");
+            }
+            else {
+                $("#InActive").addClass("hidden");
+                $("#Active").removeClass("hidden");
+                $("#suitestatus").val("0");
+            }
+            $.ajax(
+                {
+                    type: "GET", //HTTP POST Method
+                    url: "/Suites/SuiteBidGrid", // Controller/View
+                    datatype: "json",
+                    data: { Active: Active },
+                    headers: {
+                        "Content-Type": JSON,
+                        'Authorization': localStorage.getItem("AuthoToken"),
+                    },
+                    success: function (data) {
+                        if (data == "Auth Fail") {
+                            $("#Error").html("Authentication Failed,Your Session Failed");
+                            return false;
+                        }
+                        $('#tblAuthgrid').empty();
+                        var tr;
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+
+                                tr = $('<tr/>');
+                                tr.append("<td  OnClick='display(this," + data[i].testApproachid + ")' style='    cursor: pointer;'>" + data[i].testSuitename + "</td>");
+                                tr.append("<td  OnClick='display(this," + data[i].testApproachid + ")'  style='    cursor: pointer;'>" + data[i].testApproachName + "</td>");
+                                tr.append("<td OnClick='display(this," + data[i].testApproachid + ")' style='    cursor: pointer;'>" + data[i].connectionname + "</td>");
+                                tr.append("<td  OnClick='display(this," + data[i].testApproachid + ")'  style='    cursor: pointer;'>" + data[i].createdDate + "</td>");
+                                tr.append("<td  OnClick='display(this," + data[i].testApproachid + ")'  style='    cursor: pointer;'>" + data[i].status + "</td>");
+                                $('#tblAuthgrid').append(tr);
+                            }
+                        }
+                        debugger;
+                    },
+                    error: function (Result) {
+                    }
+
+                });
+        }
+        $(document).ready(function () {
+            debugger;
+            $("#TestsuidId").trigger("chosen:updated");
+            $('.chosen').chosen("destroy").chosen();
+        //    $(".chosen").chosen();
+
+        });
     </script>
     <div>
 
@@ -858,15 +939,15 @@
 
                             <div class="main-panel">
                                 <div class="content-wrapper" style="padding: 1.5rem .8rem .5rem 2rem;">
-                                    <form method="post" enctype="multipart/form-data">
+                                    <form method="post" id="formid" enctype="multipart/form-data">
                                         <div class="form">
                                             <div class="row" style="padding-bottom: 20px;">
                                                 <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
                                                     <label><span style="color: red;">* </span>Test Suite</label><br />
 
                                                     <select asp-for="TestsuidId"
-                                                            class="form-control"
-                                                            asp-items="@(new SelectList(Model.TestSuiteList,"Value", "Text"))">
+                                                            class="form-control chosen chosen-select"
+                                                            asp-items="@(new SelectList(Model.TestSuiteList,"Value", "Text"))" multiple="true">
                                                     </select>
                                                 </div>
 
@@ -874,14 +955,14 @@
                                                     <label><span style="color: red;">* </span>Test Approach</label><br />
                                                     <input type="text" id="SName" name="Name" maxlength="50" class="txt-input form-control" />
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
+                                                @*<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
                                                     <label><span style="color: red;">* </span>Connections</label><br />
 
                                                     <select asp-for="ProductId"
                                                             class="form-control"
                                                             asp-items="@(new SelectList(Model.Listofproducts,"Value", "Text"))">
                                                     </select>
-                                                </div>
+                                                </div>*@
 
                                             </div>
 
@@ -914,6 +995,7 @@
                             <input type="button" class="text-center center-block hidden" style="       color: white;background-color: #c9a642" id="update" value="Update">
                             <input type="button" class="text-center center-block clear" style="   color: black;" id="clear" value="Clear">
                             <input type="hidden" id="suitesave1" />
+                            <input type="hidden" id="suitestatus" />
                         </div>
                         
                     </div>
@@ -932,14 +1014,23 @@
                                      style="">
                                     <div class="col-lg-4"></div>
                                     <div class="col-lg-8 " style="padding-right:0px;">
-                                        <div class="form-group" style=" position: absolute;padding-left: 28%;">
+                                        <div class="form-group" style=" position: absolute;">
                                             <div class="input-group">
                                                 <input type="text" id="search" name="search" class="form-control" />
                                                 <button id="Searchlist" class="button" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Search">Search</button>
                                             </div>
 
                                         </div>
-                                        <div class="form-group" style="        padding-left: 91%;">
+                                        <div style=" padding-left: 60%;">
+                                            <button id="InActive" OnClick='BindGrid("0")' class="button" style="margin: unset; background-color: #c9a642;  margin-left: 10px;" value="In Active">
+                                                Inactive
+                                            </button>
+                                            <button id="Active" OnClick='BindGrid("1")' class="button hidden" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Active">
+                                                Active
+                                            </button>
+                                        </div>
+                                        <div class="form-group" style="        padding-left: 91%;
+        margin-top: -5%;">
 
 
                                             <button type="button" class="btn  btn-sm" id="excel">
@@ -997,10 +1088,7 @@
     </div>
     <!-- /#page-content-wrapper -->
     <!-- /#wrapper -->
-    <!-- Bootstrap core JavaScript -->
-    <script src="http://52.178.152.165:5000/vendor/jquery/jquery.min.js"></script>
     <script src="http://52.178.152.165:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Menu Toggle Script -->

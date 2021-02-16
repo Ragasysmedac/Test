@@ -14,12 +14,12 @@
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
+    <!--<Popper.JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
@@ -27,18 +27,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css">
 
+    <script src="~/js/choosencdn.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css">
     <title>XAutomate -Rules</title>
     <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="http://52.178.152.165:5000/css/simple-sidebar.css" rel="stylesheet" />
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>*@
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css" />
+
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>*@
     <!-- Bootstrap core CSS -->
     <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="~/css/simple-sidebar.css" rel="stylesheet" />
+
+
+    <script src="//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.js"></script><!-- Bootstrap core CSS -->
+
+    <script src="~/js/chosen.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chosen/1.1.0/chosen.css" />
+    <link href="~/css/choosen.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
-    <title>Rules</title>
+    <title>Test Approach</title>
 </head>
 <body>
 
@@ -203,11 +222,11 @@
             //    a.download = 'RuleTemplate.xls';//downloading template name
             //    a.click();
             //});
-
+            $("#Rulestatus").val("1");
             $(document).on("click", "#Searchlist", function () {
                 debugger;
                 var searchres = $("#search").val();
-
+                var status = $("#Rulestatus").val();
                 $.ajax(
                     {
                         type: "GET", //HTTP POST Method
@@ -215,6 +234,7 @@
                         datatype: "json",
                         data: {
                             search: searchres,
+                            Status: status,
                         },
                         headers: {
                             "Content-Type": JSON,
@@ -255,10 +275,26 @@
 
             $(document).on("click", "#Save", function () {
                 debugger;
+                $("#Error").html("");
+                $("#Success").html("");
                 var Active = 1;
-                var Rule = $("#ProductId").val();
-                if (Rule == null || Rule == "" || Rule == undefined) {
-                    $("#Error").html("Please Select on Suite Name");
+                //var Rule = $("#ProductId").val();
+                //if (Rule == null || Rule == "" || Rule == undefined) {
+                //    $("#Error").html("Please Select on Suite Name");
+                //    return false;
+                //}
+                var Rule = "";
+                var Rule1 = $("#ProductId").val();
+                for (var i = 0; i < Rule1.length; i++) {
+                    if (Rule == "") {
+                        Rule = Rule1[i];
+                    }
+                    else {
+                        Rule += "," + Rule1[i];
+                    }
+                }
+                if (Rule == "" || Rule == null || Rule == "undefined" || Rule == undefined) {
+                    $("#Error").html("Please Select Test Approach Name");
                     return false;
                 }
                 var Name = $("#RulesName").val();
@@ -282,6 +318,11 @@
                     $("#Error").html("Please Enter Rule Parameter");
                     return false;
                 }
+                //var DBparameter = $("#TestsuidId").val();
+                //if (DBparameter == null || DBparameter == "" || DBparameter == undefined) {
+                //    $("#Error").html("Please Select Connection");
+                //    return false;
+                //}
                 var rulesarray ="";
                 for (var i = 0; i < DemoName; i++) {
                     var values = $("#Ruleparameter" + i).val();
@@ -317,7 +358,8 @@
                             rulecond: Rulecondition,
                             Status: Active,
                             Description: des,
-                            Ruleparameter:rulesarray,
+                            Ruleparameter: rulesarray,
+                          //  connection: DBparameter,
                         },
                         headers: {
                             "Content-Type": JSON,
@@ -330,6 +372,7 @@
                                 Bindrid(1);
                                 clear();
                             }
+
                             else if (data == "Auth Fail") {
                                 $("#Error").html("Authentication Failed,Your Session Failed");
                                 return false;
@@ -348,10 +391,26 @@
 
             $(document).on("click", "#update", function () {
                 debugger;
+                $("#Error").html("");
+                $("#Success").html("");
                 var Active = 1;
-                var Rule = $("#ProductId").val();
-                if (Rule == null || Rule == "" || Rule == undefined) {
-                    $("#Error").html("Please Select on Suite Name");
+                //var Rule = $("#ProductId").val();
+                //if (Rule == null || Rule == "" || Rule == undefined) {
+                //    $("#Error").html("Please Select on Suite Name");
+                //    return false;
+                //}
+                var Rule = "";
+                var Rule1 = $("#ProductId").val();
+                for (var i = 0; i < Rule1.length; i++) {
+                    if (Rule == "") {
+                        Rule = Rule1[i];
+                    }
+                    else {
+                        Rule += "," + Rule1[i];
+                    }
+                }
+                if (Rule == "" || Rule == null || Rule == "undefined" || Rule == undefined) {
+                    $("#Error").html("Please Select Test Approach Name");
                     return false;
                 }
                 var Name = $("#RulesName").val();
@@ -390,6 +449,12 @@
                     }
 
                 }
+                //var DBparameter = $("#TestsuidId").val();
+                //if (DBparameter == null || DBparameter == "" || DBparameter == undefined) {
+                //    $("#Error").html("Please Select Connection");
+                //    return false;
+                //}
+
                 var des = $("#Description").val();
                 if ($('#Status').is(':checked')) {
                     Active = 1;
@@ -412,6 +477,7 @@
                             Description: des,
                             RulesId: RuleId,
                             Ruleparameter: rulesarray,
+                         //   connection: DBparameter,
                         },
                         headers: {
                             "Content-Type": JSON,
@@ -423,6 +489,9 @@
                                 $("#Success").html("Rule Successfully Saved");
                                 Bindrid(1);
                                 clear();
+                            } else if (data == "Validate") {
+                                $("#Error").html('Please "Set As InActive" ETLDB for this ETL Rules');
+                                return false;
                             }
                             else if (data == "Auth Fail") {
                                 $("#Error").html("Authentication Failed,Your Session Failed");
@@ -460,10 +529,15 @@
                 $("#ProductId").val('');
                 $("#Description").val('');
                 $("#RulesCondition").val('');
-                $("#ProductId").val('');
+                $("#Rulestatus").val("1");
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
                 $("#RuleId").val('');
                 $("#Save").removeClass("hidden");
+               // $("#TestsuidId").val('');
                 $("#update").addClass("hidden");
+                $("#ProductId").trigger("chosen:updated");
+                $('.chosen').chosen("destroy").chosen();
             }
 
             $(document).on("change", "#RuleParameter", function () {
@@ -496,10 +570,27 @@
                 a.download = 'ETL/Rules.xls';
                 a.click();
             });
+            $('#formid').on('keyup keypress', function (e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
         });
 
         Bindrid(1);
         function Bindrid(status) {
+            if (status == "1") {
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                $("#Rulestatus").val("1");
+            }
+            else {
+                $("#InActive").addClass("hidden");
+                $("#Active").removeClass("hidden");
+                $("#Rulestatus").val("0");
+            }
             $.ajax(
                 {
                     type: "GET", //HTTP POST Method
@@ -575,10 +666,18 @@
                         var result = data;
                         $("#RuleParameter").val(data["0"].ruleParameter);
                         $("#RulesName").val(data["0"].ruleName);
-                        $("#ProductId").val(data["0"].testApproachid);
+                        var testid = "";
+                        var testapproach = data["0"].testApproachid;
+                        if (testapproach != "") {
+                            testid = data["0"].testApproachid.split(",");
+                        }
+
+                        $("#ProductId").val(testid).trigger('chosen:updated');
+                        $('#ProductId').trigger('liszt:updated');
                         $("#Description").val(data["0"].description);
                         $("#RulesCondition").val(data["0"].ruleCondtion);
                         $("#RuleId").val(data["0"].rulesId);
+                       // $("#TestsuidId").val(data["0"].dbConfigId);
                         var Paramterlenth = data["0"].ruleParamtername.length;
                         $("#ParameterName").empty();
                         for (var i = 0; i < Paramterlenth; i++) {
@@ -696,6 +795,14 @@
             }
 
         }
+
+        $(document).ready(function () {
+            debugger;
+            $("#ProductId").trigger("chosen:updated");
+            $('#ProductId').chosen("destroy").chosen();
+            //    $(".chosen").chosen();
+
+        });
     </script>
     <div>
 
@@ -849,31 +956,40 @@
                             <div class="main-panel">
                                 <div class="content-wrapper" style="padding: 1.5rem .8rem .5rem 2rem;">
 
-                                    <form method="post" enctype="multipart/form-data">
+                                    <form method="post" id="formid" enctype="multipart/form-data">
                                         <div class="form">
                                             <div class="row" style="padding-bottom: 20px;">
                                                 <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
                                                     <label><span style="color: red;">* </span>Test Approach</label><br />
                                                     @*<select name="Suite" id="SuiteName" class="form-control">
-                                                <option value="">Select Suite</option>
-                                            <option></option>
-                                            </select>*@
+                <option value="">Select Suite</option>
+            <option></option>
+            </select>*@
                                                     <select asp-for="ProductId"
-                                                            class="form-control"
-                                                            asp-items="@(new SelectList(Model.Listofproducts,"Value", "Text"))">
+                                                            class="form-control chosen"
+                                                            asp-items="@(new SelectList(Model.Listofproducts,"Value", "Text"))" multiple="true">
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: left;">
                                                     <label><span style="color: red;">* </span>Rule Name</label><br />
                                                     <input type="text" id="RulesName" name="Name" class="txt-input form-control" />
                                                 </div>
-                                                <div class="col-lg-3 col-xs-3 col-md-3 col-xs-3" style="text-align: left;">
-                                                    <label><span style="color: red;">* </span>Rule</label><br />
-                                                    <input type="text" id="RulesCondition" name="Name" class="txt-input form-control" />
-                                                </div>
+
                                                 <div class="col-lg-3 col-xs-3 col-md-3 col-sm-3">
                                                     <label><span style="color: red;">* </span>Rule Parameter</label><br />
                                                     <input type="number" id="RuleParameter" name="RuleParameter" class="txt-input form-control" />
+                                                </div>
+                                                 @*<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
+                                                    <label><span style="color: red;">* </span>Connections</label><br />
+
+                                                    <select asp-for="TestsuidId"
+                                                            class="form-control"
+                                                            asp-items="@(new SelectList(Model.TestSuiteList,"Value", "Text"))">
+                                                    </select>
+                                                </div>*@
+                                                <div class="col-lg-12 col-xs-12 col-md-12 col-xs-12" style="text-align: left;">
+                                                    <label><span style="color: red;">* </span>Rule</label><br />
+                                                    <textarea type="text" id="RulesCondition" name="Name" class="txt-input form-control" style="resize:none" ></textarea>
                                                 </div>
                                             </div>
 
@@ -977,6 +1093,7 @@
                             <input type="button" class="text-center center-block hidden" style="       color: white;background-color: #c9a642" id="update" value="Update">
                             <input type="button" class="text-center center-block clear" style="   color: black;" id="Clear" value="Clear">
                             <input type="hidden" id="RuleId" />
+                            <input type="hidden" id="Rulestatus" />
                         </div>
 
                     </div>
@@ -995,14 +1112,23 @@
                                      style="">
                                     <div class="col-lg-4"></div>
                                     <div class="col-lg-8 " style="padding-right:0px;">
-                                        <div class="form-group" style=" position: absolute;padding-left: 28%;">
+                                        <div class="form-group" style=" position: absolute;">
                                             <div class="input-group">
                                                 <input type="text" id="search" name="search" class="form-control" />
                                                 <button id="Searchlist" class="button" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Search">Search</button>
                                             </div>
 
                                         </div>
-                                        <div class="form-group" style="        padding-left: 91%;">
+                                        <div style=" padding-left: 60%;">
+                                            <button id="InActive" OnClick='Bindrid("0")' class="button" style="margin: unset; background-color: #c9a642;  margin-left: 10px;" value="Inactive">
+                                                Inactive
+                                            </button>
+                                            <button id="Active" OnClick='Bindrid("1")' class="button hidden" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Active">
+                                                Active
+                                            </button>
+                                        </div>
+                                        <div class="form-group" style="        padding-left: 91%;
+        margin-top: -5%;">
 
 
                                             <button type="button" id="excel" class="btn  btn-sm">
@@ -1061,9 +1187,7 @@
     <!-- /#page-content-wrapper -->
     <!-- /#wrapper -->
     <!-- Bootstrap core JavaScript -->
-    <script src="http://52.178.152.165:5000/vendor/jquery/jquery.min.js"></script>
     <script src="http://52.178.152.165:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Menu Toggle Script -->

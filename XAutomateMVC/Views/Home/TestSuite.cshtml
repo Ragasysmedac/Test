@@ -201,6 +201,7 @@
                 });
             }
             debugger;
+            $("#testsuitestatus").val("1");
             $("#Status").prop("checked", true);
             $(document).on("click", "#SuiteSave", function () {
                 debugger;
@@ -268,9 +269,12 @@
                 debugger;;
                 $("#SuiteSave").removeClass("hidden");
                 $("#update").addClass("hidden");
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
                 $("#SName").val("");
                 $("#Error").html("");
                 $("#Success").html("");
+                $("#testsuitestatus").val("1");
                 $("#testsuiteid").val("");
                 var table = document.getElementById('example1');
                 var cells = table.getElementsByTagName('td');
@@ -286,44 +290,7 @@
 
             Bindrid(1);
           
-            function Bindrid(values) {
-                $.ajax(
-                    {
-                        type: "GET", //HTTP POST Method
-                        url: "/Suites/TestSuitegrid", // Controller/View
-                        datatype: "json",
-                        data: { status: values },
-                        headers: {
-                            "Content-Type": JSON,
-                            'Authorization': localStorage.getItem("AuthoToken"),
-                        },
-                        success: function (data) {
-                            debugger;
-                            if (data == "Auth Fail") {
-                                $("#Error").html("Authentication Failed,Your Session Failed");
-                                return false;
-                            }
-                            $('#tblAuthgrid').empty();
-                            if (data.length > 0) {
-                                for (var i = 0; i < data.length; i++) {
-                                    var tr;
-                                    tr = $('<tr/>');
-                                    tr.append("<td  OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].testSuitename + "</td>");
-                                    tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");' style='    cursor: pointer;'>" + data[i].createdDate + "</td>");
-                                    tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].status + "</td>");
-
-                                    $('#tblAuthgrid').append(tr);
-                                }
-
-                            }
-
-                        },
-                        error: function (Result) {
-
-                        }
-
-                    });
-            }
+       
 
 
             $(document).on("click", "#update", function () {
@@ -363,6 +330,10 @@
                             if (data == "Success") {
                                 $("#Success").html("Test Suite Updated Successfully");
                                
+                            }
+                            else if (data == "Validate") {
+                                $("#Error").html('Please "Set As InActive" ETLDB,ETL Rules and Test Approach for this Test Suite');
+                                return false;
                             }
                             else if (data == "Auth Fail") {
                                 $("#Error").html("Authentication Failed,Your Session Failed");
@@ -518,7 +489,7 @@
         $(document).on("click", "#Searchlist", function () {
             debugger;
             var searchres = $("#search").val();
-
+            var status = $("#testsuitestatus").val();
             $.ajax(
                 {
                     type: "GET", //HTTP POST Method
@@ -526,6 +497,7 @@
                     datatype: "json",
                     data: {
                         search: searchres,
+                        status: status,
                     },
                     headers: {
                         "Content-Type": JSON,
@@ -606,7 +578,54 @@
 
                 });
         }
-       
+        function Bindrid(values) {
+            if (values == "1") {
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                $("#testsuitestatus").val("1");
+            }
+            else {
+                $("#InActive").addClass("hidden");
+                $("#Active").removeClass("hidden");
+                $("#testsuitestatus").val("0");
+            }
+            $.ajax(
+                {
+                    type: "GET", //HTTP POST Method
+                    url: "/Suites/TestSuitegrid", // Controller/View
+                    datatype: "json",
+                    data: { status: values },
+                    headers: {
+                        "Content-Type": JSON,
+                        'Authorization': localStorage.getItem("AuthoToken"),
+                    },
+                    success: function (data) {
+                        debugger;
+                        if (data == "Auth Fail") {
+                            $("#Error").html("Authentication Failed,Your Session Failed");
+                            return false;
+                        }
+                        $('#tblAuthgrid').empty();
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                var tr;
+                                tr = $('<tr/>');
+                                tr.append("<td  OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].testSuitename + "</td>");
+                                tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");' style='    cursor: pointer;'>" + data[i].createdDate + "</td>");
+                                tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].status + "</td>");
+
+                                $('#tblAuthgrid').append(tr);
+                            }
+
+                        }
+
+                    },
+                    error: function (Result) {
+
+                    }
+
+                });
+        }
     </script>
     <div>
         <div class="d-flex" id="wrapper">
@@ -799,6 +818,7 @@
                             <input type="button" class="text-center center-block hidden" style="       color: white;background-color: #c9a642" id="update" value="Update">
                             <input type="button" class="text-center center-block clear" style="   color: black;" id="Clear" value="Clear">
                             <input type="hidden" id="testsuiteid" value="Save" />
+                            <input type="hidden" id="testsuitestatus" value="Save" />
                         </div>
                     </div>
 
@@ -818,14 +838,23 @@
                                      style="">
                                     <div class="col-lg-4"></div>
                                     <div class="col-lg-8 " style="padding-right:0px;">
-                                        <div class="form-group" style=" position: absolute;padding-left: 28%;">
+                                        <div class="form-group" style=" position: absolute;">
                                             <div class="input-group">
                                                 <input type="text" id="search" name="search" class="form-control" />
                                                 <button id="Searchlist" class="button" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Search">Search</button>
                                             </div>
 
                                         </div>
-                                        <div class="form-group" style="        padding-left: 91%;">
+                                        <div style=" padding-left: 60%;">
+                                            <button id="InActive" OnClick='Bindrid("0")' class="button" style="margin: unset; background-color: #c9a642;  margin-left: 10px;" value="In Active">
+                                                Inactive
+                                            </button>
+                                            <button id="Active" OnClick='Bindrid("1")' class="button hidden" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Active">
+                                                Active
+                                            </button>
+                                        </div>
+                                        <div class="form-group" style="        padding-left: 91%;
+        margin-top: -5%;">
 
 
                                             <button type="button" class="btn  btn-sm" id="excel">

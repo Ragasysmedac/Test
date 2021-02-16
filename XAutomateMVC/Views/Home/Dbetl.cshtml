@@ -14,12 +14,12 @@
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
+    <!--<Popper.JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
@@ -27,18 +27,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css">
 
-    <title>XAutomate -Test Case</title>
+    <script src="~/js/choosencdn.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css">
+    <title>XAutomate -Rules</title>
     <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="http://52.178.152.165:5000/css/simple-sidebar.css" rel="stylesheet" />
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>*@
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css" />
+
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>*@
     <!-- Bootstrap core CSS -->
     <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="~/css/simple-sidebar.css" rel="stylesheet" />
+
+
+    <script src="//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.js"></script><!-- Bootstrap core CSS -->
+
+    <script src="~/js/chosen.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chosen/1.1.0/chosen.css" />
+    <link href="~/css/choosen.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
-    <title>Test Case</title>
+    <title>Test Approach</title>
 </head>
 <body>
 
@@ -48,6 +67,7 @@
             margin: 0px;
             padding: 0px;
         }
+
         .color {
             padding: 1px;
             text-align: center;
@@ -55,6 +75,7 @@
             border-bottom: 1px solid #3a3434;
             color: white;
         }
+
         #wrapper {
             min-height: 100vh;
         }
@@ -62,10 +83,12 @@
         .dropdown-container {
             display: none;
         }
+
         .bg-light {
             background-color: rgb(169, 169, 169) !important
         }
-      .hidden {
+
+        .hidden {
             visibility: hidden;
             max-height: 0;
             border: unset;
@@ -114,9 +137,11 @@
         .border-right {
             border-right: unset !important;
         }
+
         .table th, .table td {
             padding: unset !important;
         }
+
         html, body {
             height: 100%;
             margin: 0px;
@@ -132,9 +157,11 @@
             background-color: #262626;
             padding-left: 8px;
         }
+
         .table tbody tr.highlight td {
-            background-color: #261c1d;  ;
+            background-color: #261c1d;
         }
+
         .table-layout {
             text-align: center;
             border: 1px solid black;
@@ -142,17 +169,19 @@
             font-family: "Trebuchet MS";
             margin: 0 auto 0;
         }
+
         .highlight {
             background-color: #261c1d;
-            color:white;
+            color: white;
         }
+
         .selected {
             color: white;
         }
     </style>
     <script>
         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-    
+
         $(document).ready(function ($) {
             debugger;
             var screens = sessionStorage.getItem("Screen");
@@ -293,6 +322,7 @@
                     }
                 });
             }
+            $("#Etlstatus").val("1");
             var option;
             option = $('<option/>');
             option.append("<option value=''>Select Rule</option>");
@@ -301,11 +331,11 @@
             option1.append("<option value=''>Select Rule</option>");
 
             $('#RulesId').append(option1);
-            $('#selectrule').append(option);
+           // $('#selectrule').append(option);
             $("#Status").prop("checked", true);
             $(document).on("change", "#ProductId", function () {
                 var SuiteName = $("#ProductId").val();
-            
+
                 $.ajax(
                     {
                         type: "GET", //HTTP POST Method
@@ -323,25 +353,38 @@
                                 $("#Error").html("Authentication Failed,Your Session Failed");
                                 return false;
                             }
-                            var option;
-                           // option = $('<option/>');
+                            $('#RulesId').empty();
+                            $("#ExpectedResultVal").val('');
+                            $("#TestCaseuppend").empty();
+                            $("#Testrulemodified").addClass("hidden");
+                            $("#Testrule").addClass("hidden");
+                            $("#ExpectedParameter").empty();
+                            $("#selectrule").empty();
+                            $("#Name").val('');
+                            $('#selectrule').empty();
+                            var option1;
+                            option1 = $('<option/>');
+                            option1.append("<option value='' disabled>Select Rules</option>");
+                            $('#selectrule').append(option1);
+                            //  var option;
+                            // option = $('<option/>');
                             for (var i = 0; i < data.length; i++) {
-                              
+
                                 $("#selectrule").append("<option value=" + data[i].rulesId + ">" + data[i].ruleName + "</option>");
-                                $('#selectrule').append(option);
+                                //  $('#selectrule').append(option);
                             }
                         },
                         error: function (Result) {
                         }
 
                     });
-               
+
             });
 
             $(document).on("change", "#ProductSearchId", function () {
                 $('#tblAuthgrid').empty();
                 var SuiteName = $("#ProductSearchId").val();
-               
+
                 $.ajax(
                     {
                         type: "GET", //HTTP POST Method
@@ -379,9 +422,9 @@
 
                     });
             });
-            $(document).on('change', '#selectrule', function () {
-              
-                var RuleId = $("#selectrule").val();
+            $(document).on('change', '#ProductId', function () {
+                debugger;
+                var RuleId = $("#ProductId").val();
 
                 $.ajax(
                     {
@@ -396,6 +439,7 @@
                             'Authorization': localStorage.getItem("AuthoToken"),
                         },
                         success: function (data) {
+                            debugger;
                             if (data == "Auth Fail") {
                                 $("#Error").html("Authentication Failed,Your Session Failed");
                                 return false;
@@ -418,18 +462,18 @@
 
                                     var LabelName = (data["0"].label[i].parameterName).toLowerCase();
 
-                                    var DBpara = '<div class="col-lg-3"  style="padding-bottom: 20px;"> <label>' + data["0"].label[i].parameterName + '[' + i +']</label><br/>';
-                                    if (LabelName != "schema" && LabelName != "table_name" && LabelName != "column_name"  ) {
-                                        DBpara += ' <input class="form-control"  id="parameter' + [i] + '" placeholder="Values" />'; 
+                                    var DBpara = '<div class="col-lg-3"  style="padding-bottom: 20px;"> <label>' + data["0"].label[i].parameterName + '[' + i + ']</label><br/>';
+                                    if (LabelName != "schema" && LabelName != "table_name" && LabelName != "column_name") {
+                                        DBpara += ' <input class="form-control parameters"  id="parameter' + [i] + '" placeholder="Values" />';
                                     }
                                     else {
-                                         DBpara +=  ' <select class="form-control parameters"  id="parameter' + [i] + '"><option disabled selected>Select Parameter </option></select>' 
-                                            
+                                        DBpara += ' <select class="form-control parameters"  id="parameter' + [i] + '"><option disabled selected>Select Parameter </option></select>'
+
                                     }
-                                     DBpara += '</div> ';
+                                    DBpara += '</div> ';
                                     $("#TestCaseuppend").append(DBpara);
-                                        for (var k = 0; k < data["0"].parameter.length; k++) {
-                                        $("#parameter" + [i]).append("<option value=" + data["0"].parameter[k].tablecolumn1 + " style='color: " + data["0"].parameter[k].color+"' >" + data["0"].parameter[k].tablecolumn1  + "</option>");
+                                    for (var k = 0; k < data["0"].parameter.length; k++) {
+                                        $("#parameter" + [i]).append("<option value=" + data["0"].parameter[k].tablecolumn1 + " style='color: " + data["0"].parameter[k].color + "' >" + data["0"].parameter[k].tablecolumn1 + "</option>");
                                     }
 
 
@@ -444,10 +488,10 @@
                     });
             });
 
-            $(document).on("change", "#RulesId", function () {
+            $(document).on("change", "#ProductSearchId", function () {
                 debugger;
-                var rulename = $("#RulesId").val();
-
+                var rulename = $("#ProductSearchId").val();
+               var Status = $("#Etlstatus").val();
                 $.ajax(
                     {
                         type: "GET", //HTTP POST Method
@@ -455,7 +499,7 @@
                         datatype: "json",
                         data: {
                             Rules: rulename,
-
+                            status: Status,
                         },
                         headers: {
                             "Content-Type": JSON,
@@ -471,15 +515,26 @@
                             var tr;
                             if (data.length > 0) {
                                 for (var i = 0; i < data.length; i++) {
+                                    var parameters = "";
+                                    for (var j = 0; j < data[i].testdata.length; j++) {
 
+                                        if (parameters == "") {
+                                            parameters = data[i].testdata[j].parameterName;
+                                        }
+                                        else {
+                                            parameters += "," + data[i].testdata[j].parameterName;
+                                        }
+
+                                    }
                                     tr = $('<tr/>');
+                                    tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCaseName + "'>" + data[i].testCaseName + "</td>");
                                     tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCasesId + "'>" + data[i].ruleName + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
+                                   // tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
 
-                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'  >" + data[i].testdata + "</td>");
+                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'  >" + parameters + "</td>");
                                     tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].exceptedResult + "</td>");
                                     tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].description + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >Active</td>");
+                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].status + "</td>");
                                     $('#tblAuthgrid').append(tr);
                                 }
                             }
@@ -491,14 +546,87 @@
                     });
             });
 
+
+            $(document).on("change", "#TestsuidId", function () {
+                $("#Error").html("");
+                var rule = $("#ProductId").val();
+                if (rule == null || rule == "") {
+                    $("#Error").html("Please Select Rule ");
+                    return false;
+                }
+
+                var Connection = $(this).val();
+                $.ajax(
+                    {
+                        type: "GET", //HTTP POST Method
+                        url: "/Home/Connectionchange", // Controller/View
+                        datatype: "json",
+                        data: {
+                            connections: Connection,
+                            rules: rule,
+                        },
+                        headers: {
+                            "Content-Type": JSON,
+                            'Authorization': localStorage.getItem("AuthoToken"),
+                        },
+                        success: function (data) {
+                            debugger;
+                            if (data == "Auth Fail") {
+                                $("#Error").html("Authentication Failed,Your Session Failed");
+                                return false;
+                            }
+                            $("#ProductId").val(data["0"].rulesId);
+                            var RuleID = String(data["0"].rulesId);
+                            debugger;
+                            $("#TestCaseuppend").empty();
+                            for (var i = 0; i < data["0"].ruleParameter; i++) {
+                                $("#Testrule").removeClass("hidden");
+                                $("#Testrule").val(data["0"].ruleCondtion);
+
+                                $("#Testrulemodified").val(data["0"].ruleCondtion);
+
+                                //div.append('<div class="col-lg-3"  style="padding-bottom: 20px;"> <label>Parameter ' + [i] + '</label><br/>'
+                                //    +' <input type="text" id="parameter' + [i] + '" name="testdata" class="txt-input form-control" />  </div> </div> ');
+
+                                var LabelName = (data["0"].label[i].parameterName).toLowerCase();
+
+                                var DBpara = '<div class="col-lg-3"  style="padding-bottom: 20px;"> <label>' + data["0"].label[i].parameterName + '[' + i + ']</label><br/>';
+                                if (LabelName != "schema" && LabelName != "table_name" && LabelName != "column_name") {
+                                    DBpara += ' <input class="form-control parameters"  id="parameter' + [i] + '" placeholder="Values" />';
+                                }
+                                else {
+                                    DBpara += ' <select class="form-control parameters"  id="parameter' + [i] + '"><option disabled selected>Select Parameter </option></select>'
+
+                                }
+                                DBpara += '</div> ';
+                                $("#TestCaseuppend").append(DBpara);
+                                for (var k = 0; k < data["0"].parameter.length; k++) {
+                                    $("#parameter" + [i]).append("<option value=" + data["0"].parameter[k].tablecolumn1 + " style='color: " + data["0"].parameter[k].color + "' >" + data["0"].parameter[k].tablecolumn1 + "</option>");
+                                }
+
+
+                            }
+                        },
+                        error: function (Result) {
+
+                        }
+
+                    });
+            });
+
             $(document).on("click", "#Save", function () {
-              
+
                 $("#Error").html('');
                 $("#Success").html('');
                 var Active = 1;
-                var Rule = $("#selectrule").val();
-                if (Rule == null || Rule == "" || Rule == undefined || Rule =="0") {
-                    $("#Error").html("Please Select on Rule");
+                //var Rule = $("#selectrule").val();
+                //if (Rule == null || Rule == "" || Rule == undefined || Rule == "0") {
+                //    $("#Error").html("Please Select on Rule");
+                //    return false;
+                //}
+                var DemoName = $("#ProductId").val();
+                if (DemoName == null || DemoName == "" || DemoName == undefined) {
+                    $("#Error").html("Please Select Rule");
                     return false;
                 }
                 var Name = $("#Name").val();
@@ -506,12 +634,12 @@
                     $("#Error").html("Please Enter Name");
                     return false;
                 }
-                var DemoName = $("#ProductId").val();
-                if (DemoName == null || DemoName == "" || DemoName == undefined) {
-                    $("#Error").html("Please Select Suite Name");
+               
+                var connection = $("#TestsuidId").val();
+                if (connection == null && connection == "" && connection == undefined) {
+                    $("#Error").html("Please Select Connection");
                     return false;
                 }
-
                 var parameter;
                 var lenthcount = $("#Length").val();
                 for (var i = 0; i < lenthcount; i++) {
@@ -519,7 +647,7 @@
                         parameter = $("#parameter" + i + "").val();
                     }
                     else {
-                        parameter = parameter + "," + $("#parameter" + i + "").val();
+                        parameter = parameter + ",,," + $("#parameter" + i + "").val();
                     }
 
                 }
@@ -533,7 +661,7 @@
                 }
                 var Exceptvalue = "";
                 if (Except == "Row Count Is Equal To X" || Except == "Row Count Is Greater Than X" || Except == "Row Count Is Less Than X") {
-                     Exceptvalue = $("#Expectedvalue").val();
+                    Exceptvalue = $("#Expectedvalue").val();
 
                     if (Exceptvalue == null || Exceptvalue == "" || Exceptvalue == undefined) {
                         $("#Error").html("Please Expected Values");
@@ -541,7 +669,7 @@
                     }
                     Except = Except.slice(0, -1);
                 }
-               
+
                 var des = $("#Description").val();
                 if ($('#Status').is(':checked')) {
                     Active = 1;
@@ -555,7 +683,7 @@
                         url: "/Home/SaveGrid", // Controller/View
                         datatype: "json",
                         data: {
-                            Rules: Rule,
+                           // Rules: Rule,
                             Name: Name,
                             SuiteName: DemoName,
                             Except: Except,
@@ -564,6 +692,7 @@
                             Description: des,
                             status: Active,
                             ExpectedValue: Exceptvalue,
+                            connection: connection,
                         },
                         headers: {
                             "Content-Type": JSON,
@@ -574,19 +703,20 @@
                                 $("#Error").html("Authentication Failed,Your Session Failed");
                                 return false;
                             }
-                            $("#selectrule").val('');
+                         //   $("#selectrule").val('');
                             var option1;
                             option1 = $('<option/>');
                             option1.append("<option value=''>Select Rule</option>");
-                            $('#selectrule').append(option1);
+                            //$('#selectrule').append(option1);
                             $("#Name").val('');
                             $("#ProductId").val('');
-                            Bindrid();
+                            Bindrid("1");
                             $("#ExpectedResultVal").val('');
                             $("#TestCaseuppend").empty();
+                            $("#TestsuidId").val('');
                             $("#Description").val("");
                             $("#Testrule").addClass("hidden");
-                            $("#selectrule").empty();
+                          //  $("#selectrule").empty();
                             $("#Success").html("Successfully Saved Test Case");
                             $("#ExpectedParameter").empty();
                         },
@@ -624,40 +754,40 @@
                                 $("#Error").html("Authentication Failed,Your Session Failed");
                                 return false;
                             }
-                            $("#selectrule").val(data["0"].rulesId);
+                            $("#ProductId").val(data["0"].rulesId);
                             var RuleID = String(data["0"].rulesId);
                             debugger;
-                            $.ajax(
-                                {
-                                    type: "GET", //HTTP POST Method
-                                    url: "/Home/RulesConfigset", // Controller/View
-                                    datatype: "json",
-                                    data: {
-                                        SuiteId: data["0"].testApproachid,
-                                    },
-                                    success: function (data) {
-                                        debugger;
-                                        var option;
-                                        $("#selectrule").empty();
-                                        for (var i = 0; i < data.length; i++) {
-                                            option = $('<option/>');
-                                            option.append("<option value=" + data[i].rulesId + ">" + data[i].ruleName + "</option>");
+                            //$.ajax(
+                            //    {
+                            //        type: "GET", //HTTP POST Method
+                            //        url: "/Home/RulesConfigset", // Controller/View
+                            //        datatype: "json",
+                            //        data: {
+                            //            SuiteId: data["0"].testApproachid,
+                            //        },
+                            //        success: function (data) {
+                            //            debugger;
+                            //            var option;
+                            //            $("#selectrule").empty();
+                            //            for (var i = 0; i < data.length; i++) {
+                            //                option = $('<option/>');
+                            //                option.append("<option value=" + data[i].rulesId + ">" + data[i].ruleName + "</option>");
 
 
 
-                                            $('#selectrule').append(option);
+                            //                $('#selectrule').append(option);
 
-                                        }
-                                        $("#selectrule").val(RuleID);
-                                    },
-                                    error: function (Result) {
+                            //            }
+                            //            $("#selectrule").val(RuleID);
+                            //        },
+                            //        error: function (Result) {
 
-                                    }
+                            //        }
 
-                                });
+                            //    });
 
                             $("#Name").val(data["0"].testCaseName);
-                            $("#ProductId").val(data["0"].testApproachid);
+                          //  $("#ProductId").val(data["0"].testApproachid);
                             $("#TestResult").val(data["0"].exceptedResult);
                             $("#TestCaseuppend").empty();
                             $("#Testrulemodified").removeClass("hidden");
@@ -744,12 +874,11 @@
                 $("#Testrule").addClass("hidden");
                 $("#updateis").val("");
                 $("#Description").val("");
-                $("#selectrule").empty();
-                Bindrid();
-                var option1;
-                option1 = $('<option/>');
-                option1.append("<option value=''>Select Rule</option>");
-                $('#selectrule').append(option1);
+                $("#testsuitestatus").val("1");
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                Bindrid("1");
+                $("#TestsuidId").val("");
                 var table = document.getElementById('example');
                 var cells = table.getElementsByTagName('td');
                 for (var i = 0; i < cells.length; i++) {
@@ -770,22 +899,27 @@
                 $("#Error").html('');
                 $("#Success").html('');
                 var Active = 1;
-                var Rule = $("#selectrule").val();
-                if (Rule == null && Rule == "" && Rule == undefined) {
-                    $("#Error").html("Please Select on Rule");
+                //var Rule = $("#selectrule").val();
+                //if (Rule == null && Rule == "" && Rule == undefined) {
+                //    $("#Error").html("Please Select on Rule");
+                //    return false;
+                //}
+                var DemoName = $("#ProductId").val();
+                if (DemoName == null && DemoName == "" && DemoName == undefined) {
+                    $("#Error").html("Please Select Rule Name");
                     return false;
                 }
+
                 var Name = $("#Name").val();
                 if (Name == null && Name == "" && Name == undefined) {
                     $("#Error").html("Please Enter Name");
                     return false;
                 }
-                var DemoName = $("#ProductId").val();
-                if (DemoName == null && DemoName == "" && DemoName == undefined) {
-                    $("#Error").html("Please Select Suite Name");
+                var connection = $("#TestsuidId").val();
+                if (connection == null && connection == "" && connection == undefined) {
+                    $("#Error").html("Please Select Connection");
                     return false;
                 }
-
                 var parameter;
                 var lenthcount = $("#Length").val();
                 for (var i = 0; i < lenthcount; i++) {
@@ -793,7 +927,7 @@
                         parameter = $("#parameter" + i + "").val();
                     }
                     else {
-                        parameter = parameter + "," + $("#parameter" + i + "").val();
+                        parameter = parameter + ",,," + $("#parameter" + i + "").val();
                     }
 
                 }
@@ -829,7 +963,7 @@
                         url: "/Home/UpdateGrid", // Controller/View
                         datatype: "json",
                         data: {
-                            Rules: Rule,
+                           // Rules: Rule,
                             Name: Name,
                             SuiteName: DemoName,
                             Except: Except,
@@ -839,6 +973,7 @@
                             status: Active,
                             Describtion: des,
                             Exceptvalues: Exceptvalue,
+                            connection: connection,
                         },
                         headers: {
                             "Content-Type": JSON,
@@ -857,6 +992,7 @@
                             $("#updateis").val("");
                             $("#Description").val("");
                             $("#Update").addClass("hidden");
+                            $("#TestsuidId").val('');
                             $("#Save").removeClass("hidden");
                             $("#selectrule").empty();
                             $("#ExpectedParameter").empty();
@@ -865,7 +1001,8 @@
                             option1.append("<option value=''>Select Rule</option>");
                             $('#selectrule').append(option1);
                             $("#TestCaseuppend").empty();
-                            Bindrid();
+                            $("#Testrulemodified").addClass("hidden");
+                            Bindrid("1");
                             $("#Success").html("Successfully Updated Test Case");
                         },
                         error: function (Result) {
@@ -879,8 +1016,8 @@
             $("#Save").removeClass("hidden");
             var Oldvalues;
             $(document).on("click", ".parameters", function () {
-                
-                 Oldvalues = $(this).val();
+
+                Oldvalues = $(this).val();
 
 
             });
@@ -899,10 +1036,10 @@
 
                     rules = rules.replaceAll(Oldvalues, values);
                 }
-              
+
                 $("#Testrulemodified").val(rules);
             });
-          
+
             $(document).on("change", "#ExpectedResultVal", function () {
                 debugger;
                 $("#ExpectedParameter").empty();
@@ -917,7 +1054,7 @@
             $(document).on("click", "#Searchlist", function () {
                 debugger;
                 var searchres = $("#search").val();
-
+                var statsu = $("#Etlstatus").val();
                 $.ajax(
                     {
                         type: "GET", //HTTP POST Method
@@ -925,6 +1062,7 @@
                         datatype: "json",
                         data: {
                             search: searchres,
+                            status: statsu,
                         },
                         headers: {
                             "Content-Type": JSON,
@@ -940,13 +1078,25 @@
                             var tr;
                             if (data.length > 0) {
                                 for (var i = 0; i < data.length; i++) {
-                                    tr = $('<tr/>');
-                                    tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCasesId + "'>" + data[i].ruleName + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
+                                    var parameters = "";
+                                    for (var j = 0; j < data[i].testdata.length; j++) {
+                                       
+                                        if (parameters == "") {
+                                            parameters = data[i].testdata[j].parameterName;
+                                        }
+                                        else {
+                                            parameters += "," + data[i].testdata[j].parameterName;
+                                        }
 
-                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testdata + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].exceptedResult + "</td>");
+                                    }
+                                    tr = $('<tr/>');
+                                    tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCaseName + "'>" + data[i].testCaseName + "</td>");
+                                    tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCasesId + "'>" + data[i].ruleName + "</td>");
+                                //    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
                                     tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'>" + data[i].description + "</td>");
+                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + parameters + "</td>");
+                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].exceptedResult + "</td>");
+
                                     tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'  >Active</td>");
                                     $('#tblAuthgrid').append(tr);
                                 }
@@ -959,74 +1109,89 @@
 
                     });
             });
-            //$("#Templete").click(function () {
+            $('#formid').on('keyup keypress', function (e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+          
+            Bindrid("1");
 
-            //    var uri = 'data:application/vnd.ms-excel;base64,'
-            //        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-            //        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-            //        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-            //    var table = document.getElementById("exampleimport");
-            //    var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML };
-            //    var url = uri + base64(format(template, ctx));
-            //    var a = document.createElement('a');
-            //    a.href = url;
 
-            //    a.download = 'TeastCaseTemplate.xls';//downloading template name
-            //    a.click();
-            //});
-             Bindrid();
-            function Bindrid() {
-                $.ajax(
-                    {
-                        type: "GET", //HTTP POST Method
-                        url: "/Home/ETLBindGrid", // Controller/View
-                        datatype: "json",
-                        headers: {
-                            "Content-Type": JSON,
-                            'Authorization': localStorage.getItem("AuthoToken"),
-                        },
-                        success: function (data) {
-                            debugger;
-                            if (data == "Auth Fail") {
-                                $("#Error").html("Authentication Failed,Your Session Failed");
-                                return false;
-                            }
-                            $('#tblAuthgrid').empty();
-                            var tr;
-                            if (data.length > 0) {
-                                for (var i = 0; i < data.length; i++) {
-
-                                    tr = $('<tr/>');
-                                    tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCasesId + "'>" + data[i].ruleName + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
-
-                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testdata + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].exceptedResult + "</td>");
-                                    tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'>" + data[i].description + "</td>");
-                                    tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'  >Active</td>");
-                                    $('#tblAuthgrid').append(tr);
-                                }
-                            }
-
-                        },
-                        error: function (Result) {
-
-                        }
-
-                    });
-            }
-         
             $('#example tbody tr td').click(function () {
                 debugger;
                 $(this).addClass('highlight').siblings().removeClass('highlight');
             });
         });
-       
-       
-        function display(a,val) {
+
+        function Bindrid(Active) {
+            if (Active == "1") {
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                $("#Etlstatus").val("1");
+            }
+            else {
+                $("#InActive").addClass("hidden");
+                $("#Active").removeClass("hidden");
+                $("#Etlstatus").val("0");
+            }
+            $.ajax(
+                {
+                    type: "GET", //HTTP POST Method
+                    url: "/Home/ETLBindGrid", // Controller/View
+                    datatype: "json",
+                    data: { status: Active },
+                    headers: {
+                        "Content-Type": JSON,
+                        'Authorization': localStorage.getItem("AuthoToken"),
+                    },
+                    success: function (data) {
+                        debugger;
+                        if (data == "Auth Fail") {
+                            $("#Error").html("Authentication Failed,Your Session Failed");
+                            return false;
+                        }
+                        $('#tblAuthgrid').empty();
+                        var tr;
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                var parameters = "";
+                                tr = $('<tr/>');
+                                tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCaseName + "'>" + data[i].testCaseName + "</td>");
+                                tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCasesId + "'>" + data[i].ruleName + "</td>");
+                                //  tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
+                                for (var j = 0; j < data[i].testdata.length; j++){
+                                    if (parameters == "") {
+                                        parameters = data[i].testdata[j].parameterName;
+                                    }
+                                    else {
+                                        parameters += "," + data[i].testdata[j].parameterName;
+                                    }
+                                    
+                                }
+
+                                tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'>" + data[i].description + "</td>");
+                                tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + parameters + "</td>");
+                                tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].exceptedResult + "</td>");
+
+                                tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'  >" + data[i].status + "</td>");
+                                $('#tblAuthgrid').append(tr);
+                            }
+                        }
+
+                    },
+                    error: function (Result) {
+
+                    }
+
+                });
+        }
+        function display(a, val) {
             debugger;
             $("#ExpectedParameter").empty();
-          $("#Error").html("");
+            $("#Error").html("");
             $("#Success").html("");
             $("#Save").addClass("hidden");
             $("#Update").removeClass("hidden");
@@ -1057,53 +1222,54 @@
                         }
                         var result = data;
                         $("#updateis").val(data["0"].testCasesId)
-                        $("#selectrule").val(data["0"].rulesId);
+                        $("#ProductId").val(data["0"].rulesId);
+                        $("#TestsuidId").val(data["0"].connection);
                         var RuleID = (data["0"].rulesId);
-                        $.ajax(
-                            {
-                                type: "GET", //HTTP POST Method
-                                url: "/Home/RulesConfigset", // Controller/View
-                                datatype: "json",
-                                data: {
-                                    SuiteId: data["0"].testApproachid,
-                                },
-                                headers: {
-                                    "Content-Type": JSON,
-                                    'Authorization': localStorage.getItem("AuthoToken"),
-                                },
-                                success: function (data) {
-                                   
-                                    var option;
-                                    $("#selectrule").empty();
-                                    var option1;
-                                    option1 = $('<option/>');
-                                    option1.append("<option value=''>Select Rules</option>");
-                                    $('#selectrule').append(option1);
-                                    for (var i = 0; i < data.length; i++) {
-                                        option = $('<option/>');
-                                        $('#selectrule').append("<option value=" + data[i].rulesId + ">" + data[i].ruleName + "</option>");
+                        //$.ajax(
+                        //    {
+                        //        type: "GET", //HTTP POST Method
+                        //        url: "/Home/RulesConfigset", // Controller/View
+                        //        datatype: "json",
+                        //        data: {
+                        //            SuiteId: data["0"].testApproachid,
+                        //        },
+                        //        headers: {
+                        //            "Content-Type": JSON,
+                        //            'Authorization': localStorage.getItem("AuthoToken"),
+                        //        },
+                        //        success: function (data) {
 
-                                    }
-                                    $('#selectrule').val(RuleID);
-                                },
-                                error: function (Result) {
+                        //            var option;
+                        //            $("#selectrule").empty();
+                        //            var option1;
+                        //            option1 = $('<option/>');
+                        //            option1.append("<option value=''>Select Rules</option>");
+                        //            $('#selectrule').append(option1);
+                        //            for (var i = 0; i < data.length; i++) {
+                        //                option = $('<option/>');
+                        //                $('#selectrule').append("<option value=" + data[i].rulesId + ">" + data[i].ruleName + "</option>");
 
-                                }
+                        //            }
+                        //            $('#selectrule').val(RuleID);
+                        //        },
+                        //        error: function (Result) {
 
-                            });
+                        //        }
+
+                        //    });
                         var Exxpectedparameter = data["0"].expextedparameter;
                         var result = data["0"].exceptedResult;
                         $("#ExpectedParameter").empty();
                         if (Exxpectedparameter != null && Exxpectedparameter != "") {
                             result = result.slice(0, -1);
                             result = result + "X";
-                            $("#ExpectedParameter").append("<label>Expected Parameter</label><input type='text' class='form-control' Id='Expectedvalue' value='" + Exxpectedparameter+"' />")
+                            $("#ExpectedParameter").append("<label>Expected Parameter</label><input type='text' class='form-control' Id='Expectedvalue' value='" + Exxpectedparameter + "' />")
                         }
                         $("#Name").val(data["0"].testCaseName);
-                        $("#ProductId").val(data["0"].testApproachid);
+                       // $("#ProductId").val(data["0"].testApproachid);
                         $("#ExpectedResultVal").val(result);
                         $("#TestCaseuppend").empty();
-                        
+
                         var option;
                         var div;
                         div = $('<div class="row">');
@@ -1116,19 +1282,19 @@
                                 $("#Testrule").removeClass("hidden");
                                 $("#Testrulemodified").removeClass('hidden');
                                 $("#Testrule").val(data["0"].ruleCondtion);
-                          
-                               
+
+
 
                                 //div.append('<div class="col-lg-3"  style="padding-bottom: 20px;"> <label>Parameter ' + [i] + '</label><br/><input type = "text" id = "parameter' + [i] + '" value="' + datalis[i] + '" name = "testdata" class= "txt-input form-control" />  </div> </div>  ');
 
 
-
+                                debugger;
 
                                 //$("#TestCaseuppend").append(div);
 
                                 var LabelName = (data["0"].labelName[i].parameterName).toLowerCase();
 
-                                var DBpara = '<div class="col-lg-3"  style="padding-top: 20px;padding-bottom: 20px;"> <label>' + data["0"].labelName[i].parameterName + '['+i+'] </label><br/>';
+                                var DBpara = '<div class="col-lg-3"  style="padding-top: 20px;padding-bottom: 20px;"> <label>' + data["0"].labelName[i].parameterName + '[' + i + '] </label><br/>';
                                 if (LabelName != "schema" && LabelName != "table_name" && LabelName != "column_name") {
                                     DBpara += ' <input class="form-control parameters"  id="parameter' + [i] + '" placeholder="Values" />';
                                 }
@@ -1143,16 +1309,16 @@
                                 }
 
                                 debugger;
-                                $("#parameter" + [i]).val(datalis[i]);
+                                $("#parameter" + [i]).val(data["0"].testcaseparameter[i].parameterName);
                                 condition = condition.replaceAll("[", "");
                                 condition = condition.replaceAll("]", "");
-                                condition = condition.replaceAll(i, datalis[i]);
+                                condition = condition.replaceAll(i, data["0"].testcaseparameter[i].parameterName);
 
                             }
                             $("#Testrulemodified").val(condition);
                         }
 
-                      
+
 
                         var status = data["0"].status;
                         if (status == "1") {
@@ -1169,7 +1335,7 @@
 
                 });
         }
-       
+
     </script>
     <div>
 
@@ -1212,7 +1378,7 @@
                         <div class="dropdown2-container">
                             <div href="#" class=" list-group-item-action bg-light Admin color" id="MenuTestcases">
 
-                                <a  href="/Web/Web" style="        border-bottom: 1px solid 1px solid #ba9122;color: white">WEB</a><br />
+                                <a href="/Web/Web" style="        border-bottom: 1px solid 1px solid #ba9122;color: white">WEB</a><br />
                                 <a style="        border-bottom: 1px solid 1px solid #ba9122;color: white">API</a><br />
                                 <a href="/Home/Dbetl" style="        border-bottom: 1px solid 1px solid #ba9122;color: white">ETL/DB</a><br />
                             </div>
@@ -1325,33 +1491,41 @@
                             <div class="main-panel">
                                 <div class="content-wrapper" style="padding: 1.5rem .8rem .5rem 2rem;">
 
-                                    <form method="post" enctype="multipart/form-data">
+                                    <form method="post" id="formid" enctype="multipart/form-data">
                                         <div class="form">
                                             <div class="row" style="padding-bottom: 20px;">
                                                 <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
-                                                    <label>Test Approach</label><br />
+                                                    <label>Rule</label><br />
                                                     <select asp-for="ProductId"
                                                             class="form-control"
                                                             asp-items="@(new SelectList(Model.Listofproducts,"Value", "Text"))">
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: left;">
+                                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
+                                                    <label><span style="color: red;">* </span>Connections</label><br />
+
+                                                    <select asp-for="TestsuidId"
+                                                            class="form-control"
+                                                            asp-items="@(new SelectList(Model.TestSuiteList,"Value", "Text"))">
+                                                    </select>
+                                                </div>
+                                                @*<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: left;">
                                                     <label>Rule</label><span style="color: red;">*</span><br />
                                                     <select class="form-control" name="selectrule" id="selectrule">
                                                     </select>
-                                                </div>
+                                                </div>*@
                                                 <div class="col-lg-3 col-xs-3 col-md-3 col-xs-3" style="text-align: left;">
                                                     <label>Name</label><span style="color: red;">*</span><br />
                                                     <input type="text" id="Name" name="Name" class="txt-input form-control" />
                                                 </div>
                                                 @*<div class="col-lg-3 col-xs-3 col-md-3 col-sm-3">
-                                            <label>Rule Parameter</label><br />
-                                            <input type="text" id="RuleParameter" name="RuleParameter" class="txt-input form-control" />
-                                        </div>*@
+                                                        <label>Rule Parameter</label><br />
+                                                        <input type="text" id="RuleParameter" name="RuleParameter" class="txt-input form-control" />
+                                                    </div>*@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12 col-lg-12">
-                                                    <input type="text" disabled id="Testrule" class="hidden form-control" />
+                                                    <textarea type="text" disabled id="Testrule" class="hidden form-control"></textarea>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -1380,7 +1554,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12">
-                                                    <input type="text" disabled id="Testrulemodified" class="hidden form-control" />
+                                                    <textarea type="text" disabled id="Testrulemodified" class="hidden form-control"></textarea>
                                                 </div>
                                             </div>
                                             <input type="hidden" id="Length" />
@@ -1396,7 +1570,7 @@
                                                 </div>
                                                 <div class="col-lg-3 col-xs-12" style="padding-top:30px;">
 
-                                                    <button Id="Templete" type="submit" style="color: white;background-color: #c9a642" class=" button text-center center-block"  asp-controller="Home" asp-action="Tescasetemplate" > Template</button>
+                                                    <button Id="Templete" type="submit" style="color: white;background-color: #c9a642" class=" button text-center center-block" asp-controller="Home" asp-action="Tescasetemplate"> Template</button>
 
                                                 </div>
                                             </div>
@@ -1404,10 +1578,7 @@
                                             <table id="exampleimport" border="1" style="display:none; border:1px solid">
                                                 <thead class="thead-bold" style="border: 1px solid black;">
                                                     <tr style="background-color: #BFD0D8 !important;">
-                                                        <th class="th-bold">
-                                                            Test Approach
-
-                                                        </th>
+                                                        
                                                         <th class="th-bold">
                                                             Rule Name
 
@@ -1424,6 +1595,8 @@
 
                                                         </th>
                                                         <th class="th-bold">
+                                                        <th class="th-bold">
+
                                                             Value
                                                         </th>
                                                         <th class="th-bold">
@@ -1468,6 +1641,7 @@
                             <input type="button" class="text-center center-block hidden" style="       color: white;background-color: #c9a642" id="Update" value="Update">
                             <input type="button" class="text-center center-block clear" style="   color: black;" id="Clear" value="Clear">
                             <input type="hidden" id="updateis" />
+                            <input type="hidden" id="Etlstatus" />
                         </div>
 
                     </div>
@@ -1492,46 +1666,56 @@
                                                         <div class="col-lg-12 form-inline"
                                                              style="border: 1px solid #9c9fa6; padding: 5px;background-color: #f0f0f1">
                                                             <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3"></div>
-                                                            <div class="col-lg-9 col-md-9 col-xs-12 col-sm-12 " style="padding-right:0px;">
+                                                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 " style="padding-right:0px;">
 
-                                                                <div class="form-group" style=" position: absolute;">
-                                                                    <div class="input-group">
+                                                                <div style=" position: absolute;">
+                                                                    <div class="">
                                                                         <input type="text" id="search" name="search" />
                                                                         <button id="Searchlist" class="button" style=" margin: unset;   background-color: #c9a642; margin-left: 10px" value="Search">Search</button>
                                                                     </div>
 
                                                                 </div>
 
-                                                                <div class="form-group" style="        position: absolute;right: 33%; width: 22%">
-                                                                    <div class="input-group">
+                                                                <div class="form-group" style="        position: absolute;right: 41%; width: 22%">
+                                                                    @*<div class="input-group">
                                                                         <select asp-for="ProductSearchId"
                                                                                 class="form-control"
                                                                                 asp-items="@(new SelectList(Model.ProductSearchList,"Value", "Text"))">
                                                                         </select>
-                                                                    </div>
+                                                                    </div>*@
                                                                 </div>
 
 
-                                                                <div class="form-group" style="padding-left:69%;">
+                                                                <div class="form-group" style="padding-left:60%;">
                                                                     <div class="input-group">
                                                                         <!-- <label style="padding-right: 25px;">Search</label> -->
                                                                         @*<select asp-for="RulesId"
-                                                                        class="form-control"
-                                                                        asp-items="@(new SelectList(Model.RuleList,"Value", "Text"))">
-                                                                </select>*@
-                                                                        <select class="form-control" name="Rules" id="RulesId">
+                                                                                    class="form-control"
+                                                                                    asp-items="@(new SelectList(Model.RuleList,"Value", "Text"))">
+                                                                            </select>*@
+                                                                         <select asp-for="ProductSearchId"
+                                                                                class="form-control"
+                                                                                asp-items="@(new SelectList(Model.ProductSearchList,"Value", "Text"))">
                                                                         </select>
                                                                         <!-- <input type="text" class="form-control"
-                                                                placeholder="Search..." aria-label="Search..."
-                                                                aria-describedby="basic-addon2">
-                                                            <div class="input-group-append">
-                                                                <button class="btn btn-sm btn-gradient-danger"
-                                                                    type="button">Search</button>
-                                                            </div> -->
+                                                                            placeholder="Search..." aria-label="Search..."
+                                                                            aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <button class="btn btn-sm btn-gradient-danger"
+                                                                                type="button">Search</button>
+                                                                        </div> -->
+                                                                    </div>
+                                                                    <div>
+                                                                        <button id="InActive" OnClick='Bindrid("0")' class="button" style="margin: unset; background-color: #c9a642;  margin-left: 10px;" value="Inactive">
+                                                                            Inactive
+                                                                        </button>
+                                                                        <button id="Active" OnClick='Bindrid("1")' class="button hidden" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Active">
+                                                                            Active
+                                                                        </button>
                                                                     </div>
                                                                     @*<button type="button" class="btn btn-sm ">
-                                                                <img src="../../assets/ExportPDF.png" />
-                                                            </button>*@
+                                                                            <img src="../../assets/ExportPDF.png" />
+                                                                        </button>*@
                                                                     <button type="button" id="excel" class="btn  btn-sm">
 
                                                                         <img src="~/ExportExcel.png" />
@@ -1546,11 +1730,19 @@
                                                             <table id="example" class="table table-hover" style="width: 100%;" border="1">
                                                                 <thead style=" background-color: gray; color: white;">
                                                                     <tr>
-                                                                        <td style="width:50px">
-                                                                            Test Case
+                                                                        <td class="th-bold">
+                                                                            Name
+
                                                                         </td>
                                                                         <td style="width:50px">
-                                                                            Test Suite
+                                                                            Rule Name
+                                                                        </td>
+                                                                        @*<td style="width:50px">
+                                                                            Test Approach
+                                                                        </td>*@
+                                                                        <td style="width:300px">
+                                                                            Description
+
                                                                         </td>
                                                                         <td style="width:100px">
                                                                             Test Data
@@ -1559,10 +1751,7 @@
                                                                             Expected Result
 
                                                                         </td>
-                                                                        <td style="width:300px">
-                                                                            Description
 
-                                                                        </td>
                                                                         <td style="width:50px">
                                                                             Status
                                                                         </td>
@@ -1584,7 +1773,7 @@
                                             <div class="col-lg-4"></div>
                                             <div class="col-lg-4">
                                                 <!-- <p class="text-primary" style="float:right"><i>
-                                    &nbsp;</i>Page 1,2,3,4<i>&nbsp;></i></p> -->
+                                                &nbsp;</i>Page 1,2,3,4<i>&nbsp;></i></p> -->
                                             </div>
 
                                         </div>
@@ -1600,7 +1789,7 @@
             <!-- partial:../../partials/_footer.html -->
 
         </div>
-        </div>
+    </div>
 
     </div>
     <!-- /#page-content-wrapper -->

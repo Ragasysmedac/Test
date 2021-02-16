@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TimeZoneConverter;
 using XAutomateMVC.Models;
 using XAutomateMVC.Models.DBModels;
 
@@ -40,7 +41,8 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -90,7 +92,8 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -144,7 +147,8 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -194,7 +198,8 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -211,7 +216,7 @@ namespace XAutomateMVC.Controllers
                                     b.EmployeeNo,
                                     b.Password,
                                     Description = (b.Description == null ? "" : b.Description),
-                                    Status = b.Status == 1 ? "Active" : "InActive",
+                                    Status = b.Status == 1 ? "Active" : "Inactive",
                                     b.LoginId,
 
                                 };
@@ -232,7 +237,141 @@ namespace XAutomateMVC.Controllers
                 return null;
             }
         }
+        public JsonResult SearchEmployee(int status,string search)
+        {
+            try
+            {
+                var header = this.Request.Headers.ToString();
+                var header1 = this.Request.Headers.ToList();
+                var Auth = (string)this.Request.Headers["Authorization"];
+                if (Auth != "" && Auth != null && Auth != "max-age=0")
+                {
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
+                    string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
+                    TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
+                    DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
+                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    if (resultToken != null)
+                    {
+                        if (search == "" || search == null || search == "undefiened")
+                        {
 
+                            var a = from b in db.Login
+                                    where b.Status == status
+                                    select new
+                                    {
+                                        b.EmployeeName,
+                                        b.EmailId,
+                                        b.EmployeeNo,
+                                        b.Password,
+                                        Description = (b.Description == null ? "" : b.Description),
+                                        Status = b.Status == 1 ? "Active" : "Inactive",
+                                        b.LoginId,
+
+                                    };
+                            return Json(a);
+                        }
+
+                        else
+                        {
+                            var a = (from b in db.Login
+                                     where b.Status == status
+                                     select new
+                                     {
+                                         b.EmployeeName,
+                                         b.EmailId,
+                                         b.EmployeeNo,
+                                         b.Password,
+                                         Description = (b.Description == null ? "" : b.Description),
+                                         Status = b.Status == 1 ? "Active" : "Inactive",
+                                         b.LoginId,
+
+                                     }).Where(x => x.EmployeeName.Contains(search) || x.EmailId.Contains(search) || x.EmployeeNo.Contains(search) || x.Description.Contains(search));
+                            return Json(a);
+                        }
+                     
+                    }
+                    else
+                    {
+                        return Json("Auth Fail");
+                    }
+                }
+                else
+                {
+                    return Json("Auth Fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public JsonResult SearchUserRole(string status, string search)
+        {
+            try
+            {
+                var header = this.Request.Headers.ToString();
+                var header1 = this.Request.Headers.ToList();
+                var Auth = (string)this.Request.Headers["Authorization"];
+                if (Auth != "" && Auth != null && Auth != "max-age=0")
+                {
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
+                    string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
+                    TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
+                    DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
+                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    if (resultToken != null)
+                    {
+                        if (search == "" || search == null || search == "undefiened")
+                        {
+
+                            var a = from b in db.Role
+                                    where b.Status == status
+                                    select new
+                                    {
+                                        b.RoleId,
+                                        b.RoleName,
+                                        Description = (b.Description == null ? "" : b.Description),
+                                        Status = b.Status == "1" ? "Active" : "Inactive",
+                                    };
+                            return Json(a);
+                        }
+
+                        else
+                        {
+                            var a = (from b in db.Role
+                                     where b.Status == status
+                                     select new
+                                     {
+                                         b.RoleId,
+                                         b.RoleName,
+                                         Description = (b.Description == null ? "" : b.Description),
+                                         Status = b.Status == "1" ? "Active" : "Inactive",
+                                     }).Where(x => x.RoleName.Contains(search) || x.Description.Contains(search));
+                            return Json(a);
+                        }
+
+                    }
+                    else
+                    {
+                        return Json("Auth Fail");
+                    }
+                }
+                else
+                {
+                    return Json("Auth Fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         public string SaveRole(string R_Name,string Role,string Status,string Description)
         {
             try
@@ -242,7 +381,8 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -290,7 +430,8 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -305,7 +446,7 @@ namespace XAutomateMVC.Controllers
                                     b.RoleId,
                                     b.RoleName,
                                     Description = (b.Description == null ? "" : b.Description),
-                                    Status = b.Status == "1" ? "Active" : "InActive",
+                                    Status = b.Status == "1" ? "Active" : "Inactive",
                                 };
                         return Json(a);
                     }
@@ -332,7 +473,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -374,7 +516,8 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;

@@ -7,13 +7,14 @@ namespace XAutomateMVC.Models.DBModels
     {
         public DbConfig()
         {
+            Rules = new HashSet<Rules>();
             Tablecolumn = new HashSet<Tablecolumn>();
             TestApproach = new HashSet<TestApproach>();
         }
 
         public long Dbconfigid { get; set; }
-        public string DatabaseType { get; set; }
         public string DbName { get; set; }
+        public string DatabaseType { get; set; }
         public string DbHostName { get; set; }
         public string DbPort { get; set; }
         public string DbUser { get; set; }
@@ -23,6 +24,7 @@ namespace XAutomateMVC.Models.DBModels
         public string SuiteName { get; set; }
         public DateTime? CreateDate { get; set; }
 
+        public virtual ICollection<Rules> Rules { get; set; }
         public virtual ICollection<Tablecolumn> Tablecolumn { get; set; }
         public virtual ICollection<TestApproach> TestApproach { get; set; }
     }

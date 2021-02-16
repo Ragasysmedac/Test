@@ -63,6 +63,7 @@
     <PackageReference Include="NPOI" Version="2.5.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.4" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="TimeZoneConverter" Version="3.3.0" />
     <PackageReference Include="UmbracoCms.Core" Version="8.10.0" />
   </ItemGroup>
 

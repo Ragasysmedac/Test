@@ -282,6 +282,7 @@
 
             }
             debugger;
+            $("#ReleaseStatus").val("1");
             var Active = 1;
             $("#Status").attr('checked', true);
             $(document).on("click", "#ReleaseSave", function () {
@@ -354,7 +355,7 @@
             $(document).on("click", "#Searchlist", function () {
                 debugger;
                 var searchres = $("#search").val();
-
+                var status = $("#ReleaseStatus").val();
                 $.ajax(
                     {
                         type: "GET", //HTTP POST Method
@@ -362,6 +363,7 @@
                         datatype: "json",
                         data: {
                             search: searchres,
+                            status: status,
                         },
                         headers: {
                             "Content-Type": JSON,
@@ -505,49 +507,17 @@
                 $("#ReleasenoId").val('');
                 $("#ReleaseSave").removeClass("hidden");
                 $("#update").addClass("hidden");
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                $("#ReleaseStatus").val("1");
             }
             BindGrid(1);
-            function BindGrid(active) {
-                $.ajax(
-                    {
-                        type: "GET", //HTTP POST Method
-                        url: "/Home/ReleaseBidGrid", // Controller/View
-                        datatype: "json",
-                        data: { Statuss: active },
-                        headers: {
-                            "Content-Type": JSON,
-                            'Authorization': localStorage.getItem("AuthoToken"),
-                        },
-                        success: function (data) {
-                            if (data == "Auth Fail") {
-                                $("#Error").html("Authentication Failed,Your Session Failed");
-                                return false;
-                            }
-                            $('#tblAuthgrid').empty();
-                            var tr;
-                            if (data.length > 0) {
-                                for (var i = 0; i < data.length; i++) {
-
-                                    tr = $('<tr/>');
-                                    tr.append("<td   OnClick='display(this," + data[i].releasenoId + ");'  style='    cursor: pointer;'>" + data[i].releaseNo1 + "</td>");
-                                    tr.append("<td   OnClick='display(this," + data[i].releasenoId + ");'  style='    cursor: pointer;'>" + data[i].releaseName + "</td>");
-                                    tr.append("<td   OnClick='display(this," + data[i].releasenoId + ");'  style='    cursor: pointer;'>" + data[i].createdDate + "</td>");
-                                    tr.append("<td   OnClick='display(this," + data[i].releasenoId + ");'  style='    cursor: pointer;'>Active</td>");
-                                    $('#tblAuthgrid').append(tr);
-                                }
-                            }
-                            debugger;
-                        },
-                        error: function (Result) {
-                        }
-
-                    });
-            }
+       
 
         });
         function display(a, val) {
-            $("#Error").html("");
-            $("#Success").html("");
+            $("#Error").html('');
+            $("#success").html('');
             $("#ReleaseSave").addClass("hidden");
             $("#update").removeClass("hidden");
             var table = document.getElementById('example');
@@ -595,7 +565,52 @@
 
                 });
         }
-    
+        function BindGrid(active) {
+            if (active == "1") {
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                $("#ReleaseStatus").val("1");
+            }
+            else {
+                $("#InActive").addClass("hidden");
+                $("#Active").removeClass("hidden");
+                $("#ReleaseStatus").val("0");
+            }
+            $.ajax(
+                {
+                    type: "GET", //HTTP POST Method
+                    url: "/Home/ReleaseBidGrid", // Controller/View
+                    datatype: "json",
+                    data: { Statuss: active },
+                    headers: {
+                        "Content-Type": JSON,
+                        'Authorization': localStorage.getItem("AuthoToken"),
+                    },
+                    success: function (data) {
+                        if (data == "Auth Fail") {
+                            $("#Error").html("Authentication Failed,Your Session Failed");
+                            return false;
+                        }
+                        $('#tblAuthgrid').empty();
+                        var tr;
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+
+                                tr = $('<tr/>');
+                                tr.append("<td   OnClick='display(this," + data[i].releasenoId + ");'  style='    cursor: pointer;'>" + data[i].releaseNo1 + "</td>");
+                                tr.append("<td   OnClick='display(this," + data[i].releasenoId + ");'  style='    cursor: pointer;'>" + data[i].releaseName + "</td>");
+                                tr.append("<td   OnClick='display(this," + data[i].releasenoId + ");'  style='    cursor: pointer;'>" + data[i].createdDate + "</td>");
+                                tr.append("<td   OnClick='display(this," + data[i].releasenoId + ");'  style='    cursor: pointer;'>Active</td>");
+                                $('#tblAuthgrid').append(tr);
+                            }
+                        }
+                        debugger;
+                    },
+                    error: function (Result) {
+                    }
+
+                });
+        }
     </script>
     <div>
         <div class="d-flex" id="wrapper">
@@ -634,7 +649,7 @@
                         <div class="dropdown-container">
                             <div href="#" class=" list-group-item-action bg-light Admin color" id="MenuTestcases">
 
-                                <a  href="/Web/Web" style="        border-bottom: 1px solid 1px solid #ba9122;color: white">WEB</a><br />
+                                <a href="/Web/Web" style="        border-bottom: 1px solid 1px solid #ba9122;color: white">WEB</a><br />
                                 <a style="        border-bottom: 1px solid 1px solid #ba9122;color: white">API</a><br />
                                 <a href="/Home/Dbetl" style="        border-bottom: 1px solid 1px solid #ba9122;color: white">ETL/DB</a><br />
                             </div>
@@ -652,26 +667,24 @@
                         <img src="~/Image/Picture1.png" style="width:30px" />
                         <h6>EXECUTION</h6>
                     </a>
-                    <a class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuUserMangment">
-                        <img src="~/Image/User_management.png" style="width:30px" />
+                    <a class="list-group-item list-group-item-action bg-light  dropdown-btn color">
+                        <img src="~/login icon/reports (1).png" style="width:30px" />
                         <h6>
-                            USER MANAGEMENT
+                            REPORTS
                         </h6>
                     </a>
-                    <div class="dropdown-container" style=" background-color: #A9A9A9 !important">
+                    <div class="dropdown-container" style="        background-color: #A9A9A9 !important">
 
-                        <a href="/UserManagement/Employee" class="list-group-item list-group-item-action bg-light  dropdown-btn color">
-
-                            <img src="~/Image/Layer 3.png" style="width:30px" />
+                        <a href="/Home/Report" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuTestReport">
+                            <img src="~/Image/Picture3.png" style="width:30px" />
                             <h6>
-                                USER
+                                TEST REPORT
                             </h6>
                         </a>
-                        <a href="/UserManagement/UserRole" class="list-group-item list-group-item-action bg-light  dropdown-btn color">
-
-                            <img src="~/Image/user-role.png" style="width:30px" />
+                        <a href="http://52.178.152.165:8080/" target="_blank" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuAnaltics">
+                            <img src="~/Image/Picture3.png" style="width:30px" />
                             <h6>
-                                USER ROLE
+                                ANALYTICS
                             </h6>
                         </a>
                     </div>
@@ -789,6 +802,7 @@
                             <input type="button" class="text-center center-block hidden" style="       color: white;background-color: #c9a642" id="update" value="Update">
                             <input type="button" class="text-center center-block clear" style="   color: black;" id="Clear" value="Clear">
                             <input type="hidden" id="ReleasenoId" />
+                            <input type="hidden" id="ReleaseStatus" />
                         </div>
 
                     </div>
@@ -807,14 +821,23 @@
                                      style="">
                                     <div class="col-lg-4"></div>
                                     <div class="col-lg-8 " style="padding-right:0px;">
-                                        <div class="form-group" style=" position: absolute;padding-left: 28%;">
-                                            <div class="input-group">
+                                        <div style=" position: absolute;">
+                                            <div>
                                                 <input type="text" id="search" name="search" class="form-control" />
                                                 <button id="Searchlist" class="button" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Search">Search</button>
                                             </div>
 
                                         </div>
-                                        <div class="form-group" style="        padding-left: 91%;">
+                                        <div style=" padding-left: 60%;">
+                                            <button id="InActive" OnClick='BindGrid("0")' class="button" style="margin: unset; background-color: #c9a642;  margin-left: 10px;" value="In Active">
+                                                Inactive
+                                            </button>
+                                            <button id="Active" OnClick='BindGrid("1")' class="button hidden" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Active">
+                                                Active
+                                            </button>
+                                        </div>
+                                        <div class="form-group" style="        padding-left: 91%;
+        margin-top: -5%;">
 
 
                                             <button type="button" class="btn  btn-sm" id="excel">

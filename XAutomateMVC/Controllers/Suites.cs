@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TimeZoneConverter;
 using XAutomateMVC.Models;
 using XAutomateMVC.Models.DBModels;
 
@@ -37,14 +38,14 @@ namespace XAutomateMVC.Controllers
                             select new SelectListItem()
                             {
                                 Text = Suite.TestSuitename,
-                                Value = Suite.TestSuiteId.ToString(),
+                                Value = Suite.TestSuitename.ToString(),
                             }).ToList();
 
-            TestSuite.Insert(0, new SelectListItem()
-            {
-                Text = "Select Test Suite",
-                Value = string.Empty
-            });
+            //TestSuite.Insert(0, new SelectListItem()
+            //{
+            //    Text = "Select Test Suite",
+            //    Value = string.Empty
+            //});
             ProductViewModel productViewModel = new ProductViewModel();
             productViewModel.Listofproducts = SuiteList;
             productViewModel.TestSuiteList = TestSuite;
@@ -52,14 +53,16 @@ namespace XAutomateMVC.Controllers
 
         }
 
-        public string UpdateTestApproach(int testId, int SName, string testapproachname, string DbName, string Active)
+        public string UpdateTestApproach(int testId, string SName, string testapproachname, string Active)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
-             var Auth= (string)this.Request.Headers["Authorization"];
+            var Auth = (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -70,12 +73,35 @@ namespace XAutomateMVC.Controllers
                     var result = db.TestApproach.FirstOrDefault(c => c.TestApproachid == testId);
                     if (result != null)
                     {
-                        result.TestSuiteId = SName;
-                        result.TestApproachName = testapproachname;
-                        result.Connectionname = Convert.ToString(DbName);
-                        result.Dbconfigid = Convert.ToInt32(DbName);
-                        result.Status = Active;
-                        db.SaveChanges();
+                        if (Active == "0")
+                        {
+                            var approach = db.Rules.FirstOrDefault(x => x.TestApproachid == result.TestApproachid && x.Status == "1");
+                            if (approach == null)
+                            {
+                                result.SuiteIds = SName;
+                                result.TestApproachName = testapproachname;
+                               // result.Connectionname = Convert.ToString(DbName);
+                                //result.Dbconfigid = Convert.ToInt32(DbName);
+                                result.Status = Active;
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                return "Validate";
+                            }
+
+                        }
+                        else
+                        {
+                            result.SuiteIds = SName;
+                            result.TestApproachName = testapproachname;
+                          //  result.Connectionname = Convert.ToString(DbName);
+                           // result.Dbconfigid = Convert.ToInt32(DbName);
+                            result.Status = Active;
+                            db.SaveChanges();
+                        }
+
+
 
                     }
                     return "Success";
@@ -95,7 +121,7 @@ namespace XAutomateMVC.Controllers
         {
             List<Rules> ca = new List<Rules>();
             var a = from b in db.Rules
-                    where b.SuiteName == suitename
+                    where b.TestApproachName == suitename
                     select new
                     {
                         b.RuleName,
@@ -113,7 +139,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -148,14 +175,15 @@ namespace XAutomateMVC.Controllers
             }
         }
 
-        public string UpdateTestSuite(int testId, string SName,string Active)
+        public string UpdateTestSuite(int testId, string SName, string Active)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
-             var Auth= (string)this.Request.Headers["Authorization"];
+            var Auth = (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -164,11 +192,31 @@ namespace XAutomateMVC.Controllers
                 if (resultToken != null)
                 {
                     var result = db.TestSuite.FirstOrDefault(x => x.TestSuiteId == testId);
+
                     if (result != null)
                     {
-                        result.TestSuitename = SName;
-                        result.Status = Active;
-                        db.SaveChanges();
+                        if (Active == "0")
+                        {
+                            var approach = db.TestApproach.FirstOrDefault(x => x.TestSuiteId == result.TestSuiteId && x.Status == "1");
+                            if (approach == null)
+                            {
+                                result.TestSuitename = SName;
+                                result.Status = Active;
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                return "Validate";
+                            }
+                        }
+                        else
+                        {
+                            result.TestSuitename = SName;
+                            result.Status = Active;
+                            db.SaveChanges();
+                        }
+
+
                     }
                     return "Success";
                 }
@@ -183,15 +231,16 @@ namespace XAutomateMVC.Controllers
             }
         }
 
-
         public JsonResult TestSuitegrid(string status)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
-             var Auth= (string)this.Request.Headers["Authorization"];
+            var Auth = (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -206,7 +255,7 @@ namespace XAutomateMVC.Controllers
                                 b.TestSuitename,
                                 b.CreatedDate,
                                 b.TestSuiteId,
-                                STATUS = b.Status == "1" ? "Active" : "InActive",
+                                STATUS = b.Status == "1" ? "Active" : "Inactive",
                             };
                     return Json(a);
                 }
@@ -221,7 +270,6 @@ namespace XAutomateMVC.Controllers
             }
 
         }
-
         public JsonResult Editvalue(int SuiteId)
         {
             var header = this.Request.Headers.ToString();
@@ -229,7 +277,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -262,10 +311,12 @@ namespace XAutomateMVC.Controllers
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
-             var Auth= (string)this.Request.Headers["Authorization"];
+            var Auth = (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -275,14 +326,15 @@ namespace XAutomateMVC.Controllers
                 {
                     List<Rules> ca = new List<Rules>();
                     var a = from b in db.TestApproach
-                            join c in db.TestSuite on b.TestSuiteId equals c.TestSuiteId
+                         //  join c in db.TestSuite on b.TestSuiteId equals c.TestSuiteId
                             where b.Status == Active
                             select new
                             {
-                                c.TestSuitename,
+                                //c.TestSuitename,
+                                TestSuitename =( b.SuiteIds == null ? "" : b.SuiteIds),
                                 b.CreatedDate,
-                                status = b.Status == "1" ? "Active" : "InActive",
-                                Connectionname = db.DbConfig.FirstOrDefault(x => x.Dbconfigid == Convert.ToInt32(b.Connectionname)).DbName,
+                                status = b.Status == "1" ? "Active" : "Inactive",
+                                Connectionname = (db.DbConfig.FirstOrDefault(x => x.Dbconfigid == Convert.ToInt32(b.Connectionname)).DbName != null ? db.DbConfig.FirstOrDefault(x => x.Dbconfigid == Convert.ToInt32(b.Connectionname)).DbName : ""),
                                 b.TestApproachName,
                                 b.TestApproachid,
 
@@ -300,15 +352,15 @@ namespace XAutomateMVC.Controllers
                 return Json("Auth Fail");
             }
         }
-
-        public JsonResult SearchTestApproach(string search)
+        public JsonResult SearchTestApproach(string search,string status)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -321,13 +373,14 @@ namespace XAutomateMVC.Controllers
                     {
                         var a = from b in db.TestApproach
                                 join c in db.TestSuite on b.TestSuiteId equals c.TestSuiteId
-                                where b.Status == "1"
+                                where b.Status == status
                                 select new
                                 {
-                                    c.TestSuitename,
+                                    //    c.TestSuitename,
+                                    TestSuitename= (b.SuiteIds == null ? "" : b.SuiteIds),
                                     b.CreatedDate,
-                                    status = b.Status == "1" ? "Active" : "InActive",
-                                    Connectionname = db.DbConfig.FirstOrDefault(x => x.Dbconfigid == Convert.ToInt32(b.Connectionname)).DbName,
+                                    status = b.Status == "1" ? "Active" : "Inactive",
+                                    Connectionname = (db.DbConfig.FirstOrDefault(x => x.Dbconfigid == Convert.ToInt32(b.Connectionname)).DbName != null ? db.DbConfig.FirstOrDefault(x => x.Dbconfigid == Convert.ToInt32(b.Connectionname)).DbName : ""),
                                     b.TestApproachName,
                                     b.TestApproachid,
 
@@ -337,20 +390,21 @@ namespace XAutomateMVC.Controllers
                     }
                     else
                     {
-                        var a = from b in db.TestApproach
+                        var a =( from b in db.TestApproach
                                 join c in db.TestSuite on b.TestSuiteId equals c.TestSuiteId
-                                where b.Status == "1" && c.TestSuitename.Contains(search) || b.TestApproachName.Contains(search)
+                                where b.Status == status 
                                 select new
                                 {
-                                    c.TestSuitename,
+                                    TestSuitename = (b.SuiteIds == null ? "" : b.SuiteIds),
+                                    // c.TestSuitename,
                                     b.CreatedDate,
-                                    status = b.Status == "1" ? "Active" : "InActive",
-                                    Connectionname = db.DbConfig.FirstOrDefault(x => x.Dbconfigid == Convert.ToInt32(b.Connectionname)).DbName,
+                                    status = b.Status == "1" ? "Active" : "Inactive",
+                                    Connectionname = (db.DbConfig.FirstOrDefault(x => x.Dbconfigid == Convert.ToInt32(b.Connectionname)).DbName != null ? db.DbConfig.FirstOrDefault(x => x.Dbconfigid == Convert.ToInt32(b.Connectionname)).DbName : ""),
                                     b.TestApproachName,
                                     b.TestApproachid,
 
 
-                                };
+                                }).Where(x=> x.TestSuitename.Contains(search) || x.TestApproachName.Contains(search));
                         return Json(a);
                     }
                 }
@@ -366,14 +420,15 @@ namespace XAutomateMVC.Controllers
             }
 
         }
-        public JsonResult SearchSuite( string search)
+        public JsonResult SearchSuite( string search,string status)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -384,26 +439,26 @@ namespace XAutomateMVC.Controllers
                     if (search == "" || search == null || search == "undefiened")
                     {
                         var a = from b in db.TestSuite
-                                where b.Status == "1"
+                                where b.Status == status
                                 select new
                                 {
                                     b.TestSuitename,
                                     b.CreatedDate,
                                     b.TestSuiteId,
-                                    STATUS = b.Status == "1" ? "Active" : "InActive",
+                                    STATUS = b.Status == "1" ? "Active" : "Inactive",
                                 };
                         return Json(a);
                     }
                     else
                     {
                         var a = from b in db.TestSuite
-                                where b.Status == "1" && b.TestSuitename.Contains(search)
+                                where b.Status == "1" && b.TestSuitename.Contains(search) && b.Status == status
                                 select new
                                 {
                                     b.TestSuitename,
                                     b.CreatedDate,
                                     b.TestSuiteId,
-                                    STATUS = b.Status == "1" ? "Active" : "InActive",
+                                    STATUS = b.Status == "1" ? "Active" : "Inactive",
                                 };
                         return Json(a);
                     }
@@ -426,7 +481,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -440,9 +496,10 @@ namespace XAutomateMVC.Controllers
                             {
                                 b.TestApproachid,
                                 b.TestApproachName,
-                                b.TestSuiteId,
+                                //b.TestSuiteId,
                                 b.Status,
                                 b.Connectionname,
+                                TestSuiteId =  ( b.SuiteIds == null ? "" : b.SuiteIds),
 
                             };
                     return Json(a);
@@ -472,8 +529,9 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                   // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -518,8 +576,9 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
                     //TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -555,14 +614,15 @@ namespace XAutomateMVC.Controllers
         }
 
         [HttpGet]
-        public string SaveSuite(string SName,string DbNa,int testsuite,string Active)
+        public string SaveSuite(string SName,int testsuite,string Active)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -575,10 +635,11 @@ namespace XAutomateMVC.Controllers
                     {
                         TestApproach Ins = new TestApproach()
                         {
-                            TestApproachName = SName,
+                           // TestApproachName = SName,
                             TestSuiteId = testsuite,
-                            Connectionname = DbNa,
-                            Dbconfigid = Convert.ToInt32(DbNa),
+                            //  Connectionname = DbNa,
+                            //   Dbconfigid = Convert.ToInt32(DbNa),
+                            SuiteIds = SName,
                             Status = Active,
                             CreatedDate = DateTime.Now,
                         };

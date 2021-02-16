@@ -278,6 +278,7 @@
         }
         var Roles = "";
         //   $("input[type='radio']").prop("checked", true);
+        $("#UserRoleStatus").val("1");
         $("#Status").prop('checked', true);
         $("#update").addClass("hidden");
         $(document).on("click", "#update", function () {
@@ -424,6 +425,9 @@
             $("#Status").prop('checked', true);
             $("#update").addClass("hidden");
             $("#Save").removeClass("hidden");
+            $("#InActive").removeClass("hidden");
+            $("#Active").addClass("hidden");
+            $("#UserRoleStatus").val("1");
             $("#Description").val("");
 
         }
@@ -544,7 +548,7 @@
                             $("#Error").html("Authentication Failed,Your Session Failed");
                             return false;
                         }
-                        if (data == "Success") {
+                        if (data == "success") {
                             $("#Success").html("User Role Successfully Saved");
                             Bindrid(1);
                             clear();
@@ -560,13 +564,19 @@
                 });
         });
         Bindrid(1);
-        function Bindrid(status) {
+        $(document).on("click", "#Searchlist", function () {
+            debugger;
+            var searchres = $("#search").val();
+            var status = $("#UserRoleStatus").val();
             $.ajax(
                 {
                     type: "GET", //HTTP POST Method
-                    url: "/UserManagement/UserBinds", // Controller/View
+                    url: "/UserManagement/SearchUserRole", // Controller/View
                     datatype: "json",
-                    data: { status: status },
+                    data: {
+                        search: searchres,
+                        status: status,
+                    },
                     headers: {
                         "Content-Type": JSON,
                         'Authorization': localStorage.getItem("AuthoToken"),
@@ -577,8 +587,8 @@
                             $("#Error").html("Authentication Failed,Your Session Failed");
                             return false;
                         }
-
                         $('#tblAuthgrid').empty();
+                        var tr;
                         if (data.length > 0) {
                             for (var i = 0; i < data.length; i++) {
                                 var tr;
@@ -589,7 +599,6 @@
 
                                 $('#tblAuthgrid').append(tr);
                             }
-
                         }
 
                     },
@@ -598,9 +607,59 @@
                     }
 
                 });
-        }
+        });
 
     });
+    function Bindrid(status) {
+        if (status == "1") {
+            $("#InActive").removeClass("hidden");
+            $("#Active").addClass("hidden");
+            $("#UserRoleStatus").val("1");
+        }
+        else {
+            $("#InActive").addClass("hidden");
+            $("#Active").removeClass("hidden");
+            $("#UserRoleStatus").val("0");
+        }
+        $.ajax(
+            {
+                type: "GET", //HTTP POST Method
+                url: "/UserManagement/UserBinds", // Controller/View
+                datatype: "json",
+                data: { status: status },
+                headers: {
+                    "Content-Type": JSON,
+                    'Authorization': localStorage.getItem("AuthoToken"),
+                },
+                success: function (data) {
+                    debugger;
+                    if (data == "Auth Fail") {
+                        $("#Error").html("Authentication Failed,Your Session Failed");
+                        return false;
+                    }
+
+                    $('#tblAuthgrid').empty();
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            var tr;
+                            tr = $('<tr/>');
+                            tr.append("<td OnClick='display(" + data[i].roleId + ");'  style='    cursor: pointer;'>" + data[i].roleName + "</td>");
+                            tr.append("<td OnClick='display(" + data[i].roleId + ");'  style='    cursor: pointer;'>" + data[i].description + "</td>");
+                            tr.append("<td OnClick='display(" + data[i].roleId + ");'  style='    cursor: pointer;'>" + data[i].status + "</td>");
+
+                            $('#tblAuthgrid').append(tr);
+                        }
+
+                    }
+
+                },
+                error: function (Result) {
+
+                }
+
+            });
+    }
+
     function display(roles) {
         $("#update").removeClass("hidden");
         $("#Save").addClass("hidden");
@@ -1077,6 +1136,7 @@
                     <input type="button" class="text-center center-block hidden" style="       color: white;background-color: #c9a642" id="update" value="Update">
                     <input type="button" class="text-center center-block clear" OnClick="clear()" style="   color: black;" id="Clear" value="Clear">
                     <input type="hidden" id="UserRoleId" />
+                    <input type="hidden" id="UserRoleStatus" />
                 </div>
 
             </div>
@@ -1095,14 +1155,23 @@
                              style="">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-8 " style="padding-right:0px;">
-                                <div class="form-group" style=" position: absolute;padding-left: 28%;">
-                                    <div class="input-group">
+                                <div style=" position: absolute;">
+                                    <div>
                                         <input type="text" id="search" name="search" class="form-control" />
                                         <button id="Searchlist" class="button" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Search">Search</button>
                                     </div>
 
                                 </div>
-                                <div class="form-group" style="        padding-left: 91%;">
+                                <div style=" padding-left: 60%;">
+                                    <button id="InActive" OnClick='Bindrid("0")' class="button" style="margin: unset; background-color: #c9a642;  margin-left: 10px;" value="In Active">
+                                        Inactive
+                                    </button>
+                                    <button id="Active" OnClick='Bindrid("1")' class="button hidden" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Active">
+                                        Active
+                                    </button>
+                                </div>
+                                <div class="form-group" style="        padding-left: 91%;
+        margin-top: -5%;">
 
 
                                     <button type="button" id="excel" class="btn  btn-sm">

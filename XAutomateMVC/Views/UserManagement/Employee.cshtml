@@ -264,6 +264,7 @@
         }
         $("#Status").prop('checked', true);
         $("#update").addClass("hidden");
+        $("#EmployeeStatus").val("1");
         $(document).on("click", "#Save", function () {
             debugger;
             $("#Success").html("");
@@ -430,21 +431,31 @@
             $("#Save").removeClass("hidden");
             $("#LoginId").val("");
             $("#Employee_Name").val("");
+            $("#EmployeeStatus").val("1");
             $("#Description").val("");
             $("#Employee_No").val("");
             $("#password").val("");
             $("#ProductId").val("");
             $("#Employee_emailId").val("");
+            $("#InActive").removeClass("hidden");
+            $("#Active").addClass("hidden");
+            $("#EmployeeStatus").val("1");
         }
 
         Bindrid(1);
-        function Bindrid(status) {
+        $(document).on("click", "#Searchlist", function () {
+            debugger;
+            var searchres = $("#search").val();
+            var status = $("#EmployeeStatus").val();
             $.ajax(
                 {
                     type: "GET", //HTTP POST Method
-                    url: "/UserManagement/BindEmployee", // Controller/View
+                    url: "/UserManagement/SearchEmployee", // Controller/View
                     datatype: "json",
-                    data: { status: status },
+                    data: {
+                        search: searchres,
+                        status: status,
+                    },
                     headers: {
                         "Content-Type": JSON,
                         'Authorization': localStorage.getItem("AuthoToken"),
@@ -456,6 +467,7 @@
                             return false;
                         }
                         $('#tblAuthgrid').empty();
+                        var tr;
                         if (data.length > 0) {
                             for (var i = 0; i < data.length; i++) {
                                 var tr;
@@ -467,7 +479,6 @@
                                 tr.append("<td OnClick='display(" + data[i].loginId + ");'  style='    cursor: pointer;'>" + data[i].status + "</td>");
                                 $('#tblAuthgrid').append(tr);
                             }
-
                         }
 
                     },
@@ -476,7 +487,8 @@
                     }
 
                 });
-        }
+        });
+     
     });
     function display(Login) {
         $("#Success").html("");
@@ -523,7 +535,55 @@
 
             });
     }
-   
+    function Bindrid(status) {
+        if (status == "1") {
+            $("#InActive").removeClass("hidden");
+            $("#Active").addClass("hidden");
+            $("#EmployeeStatus").val("1");
+        }
+        else {
+            $("#InActive").addClass("hidden");
+            $("#Active").removeClass("hidden");
+            $("#EmployeeStatus").val("0");
+        }
+        $.ajax(
+            {
+                type: "GET", //HTTP POST Method
+                url: "/UserManagement/BindEmployee", // Controller/View
+                datatype: "json",
+                data: { status: status },
+                headers: {
+                    "Content-Type": JSON,
+                    'Authorization': localStorage.getItem("AuthoToken"),
+                },
+                success: function (data) {
+                    debugger;
+                    if (data == "Auth Fail") {
+                        $("#Error").html("Authentication Failed,Your Session Failed");
+                        return false;
+                    }
+                    $('#tblAuthgrid').empty();
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            var tr;
+                            tr = $('<tr/>');
+                            tr.append("<td OnClick='display(" + data[i].loginId + ");'  style='    cursor: pointer;'>" + data[i].employeeNo + "</td>");
+                            tr.append("<td OnClick='display(" + data[i].loginId + ");'  style='    cursor: pointer;'>" + data[i].employeeName + "</td>");
+                            tr.append("<td OnClick='display(" + data[i].loginId + ");'  style='    cursor: pointer;'>" + data[i].emailId + "</td>");
+                            tr.append("<td OnClick='display(" + data[i].loginId + ");'  style='    cursor: pointer;'>" + data[i].description + "</td>");
+                            tr.append("<td OnClick='display(" + data[i].loginId + ");'  style='    cursor: pointer;'>" + data[i].status + "</td>");
+                            $('#tblAuthgrid').append(tr);
+                        }
+
+                    }
+
+                },
+                error: function (Result) {
+
+                }
+
+            });
+    }
 </script>
 
 <!-- Sidebar -->
@@ -681,7 +741,7 @@
                                 <div class="form">
                                     <div class="row" style="padding-bottom: 20px;">
                                         <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
-                                            <label><span style="color: red;">* </span>Emplyoee No</label><br />
+                                            <label><span style="color: red;">* </span>User Id</label><br />
                                             @*<select name="Suite" id="SuiteName" class="form-control">
                                                 <option value="">Select Suite</option>
                                             <option></option>
@@ -693,7 +753,7 @@
                                     <div class="row" style="padding-bottom: 20px;">
 
                                         <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
-                                            <label><span style="color: red;">* </span>Emplyoee Name</label><br />
+                                            <label><span style="color: red;">* </span>User Name</label><br />
                                             @*<select name="Suite" id="SuiteName" class="form-control">
                                                 <option value="">Select Suite</option>
                                             <option></option>
@@ -773,6 +833,7 @@
                     <input type="button" class="text-center center-block hidden" style="       color: white;background-color: #c9a642" id="update" value="Update">
                     <input type="button" class="text-center center-block clear" style="   color: black;" id="Clear" value="Clear">
                     <input type="hidden" id="LoginId" />
+                    <input type="hidden" id="EmployeeStatus" />
                 </div>
 
             </div>
@@ -791,14 +852,23 @@
                              style="">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-8 " style="padding-right:0px;">
-                                <div class="form-group" style=" position: absolute;padding-left: 28%;">
-                                    <div class="input-group">
+                                <div style=" position: absolute;">
+                                    <div>
                                         <input type="text" id="search" name="search" class="form-control" />
                                         <button id="Searchlist" class="button" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Search">Search</button>
                                     </div>
 
                                 </div>
-                                <div class="form-group" style="        padding-left: 91%;">
+                                <div style=" padding-left: 60%;">
+                                    <button id="InActive" OnClick='Bindrid("0")' class="button" style="margin: unset; background-color: #c9a642;  margin-left: 10px;" value="In Active">
+                                        Inactive
+                                    </button>
+                                    <button id="Active" OnClick='Bindrid("1")' class="button hidden" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Active">
+                                        Active
+                                    </button>
+                                </div>
+                                <div class="form-group" style="        padding-left: 91%;
+        margin-top: -5%;">
 
 
                                     <button type="button" id="excel" class="btn  btn-sm">
@@ -815,10 +885,10 @@
                                     <thead>
                                         <tr>
                                             <td style="width:120px">
-                                                Employee No
+                                                User No
                                             </td>
                                             <td style="width:50px">
-                                                Employee Name
+                                                User Name
                                             </td>
                                             <td style="width:20px">
                                                 Email Id

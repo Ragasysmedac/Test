@@ -375,11 +375,26 @@
                             $('#ReleaseId').val('');
                             $('#selectrule').val('');
                             $('#tagid').val('');
-
+                            $("progress").hide();
                             var statsus = "Passed  " + data["0"].passed + ",Failed  " + data["0"].failed + ",Total Tests " + data["0"].total_test;
                             // var tes = "~/" + SuiteName + "/" + SuiteName + "" + Version + ".html";
                             alert("Test Cases Execute Successfully");
                             $("#Success").html(statsus);
+                        },
+                        xhr: function () {
+                            var fileXhr = $.ajaxSettings.xhr();
+                            if (fileXhr.upload) {
+                                $("progress").show();
+                                fileXhr.upload.addEventListener("progress", function (e) {
+                                    if (e.lengthComputable) {
+                                        $("#fileProgress").attr({
+                                            value: e.loaded,
+                                            max: e.total
+                                        });
+                                    }
+                                }, false);
+                            }
+                            return fileXhr;
                         },
                         error: function (Result) {
         debugger;
@@ -654,8 +669,9 @@
                                             <label style="text-align:center;color:red" id="Error"></label>
                                             <label style="text-align:center;color:green" id="Success"></label>
                                         </div>
+                                        <progress id="fileProgress" style="display: none"></progress>
                                         @*<input type="button" class="text-center center-block" style="margin-top:20px;        color: white;background-color: #c9a642" id="Trigger" value="Execute">*@
-                                        <button type="button" class="button" style="color: white;background-color: #c9a642;" id="WebExecute" >Execute </button>
+                                        <button type="button" class="button" style="color: white;background-color: #c9a642;" id="WebExecute">Execute </button>
                                     </div>
                                     @*<div class="row">
                 <div class="col-lg-12 col-md-12">

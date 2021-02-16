@@ -5,6 +5,11 @@ namespace XAutomateMVC.Models.DBModels
 {
     public partial class TestCases
     {
+        public TestCases()
+        {
+            TestCaseParameters = new HashSet<TestCaseParameters>();
+        }
+
         public long TestCasesId { get; set; }
         public string TestCaseName { get; set; }
         public string TestcaseTitle { get; set; }
@@ -19,5 +24,6 @@ namespace XAutomateMVC.Models.DBModels
 
         public virtual Rules Rules { get; set; }
         public virtual TestApproach TestApproach { get; set; }
+        public virtual ICollection<TestCaseParameters> TestCaseParameters { get; set; }
     }
 }

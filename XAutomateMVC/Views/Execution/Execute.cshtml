@@ -14,35 +14,51 @@
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
+    <!--<Popper.JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css">
 
-    <title>XAutomate -Execution</title>
+    <script src="~/js/choosencdn.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css">
+    <title>XAutomate Execute</title>
     <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="http://52.178.152.165:5000/css/simple-sidebar.css" rel="stylesheet" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/chosen/1.1.0/chosen.css" />
-    <link href="~/css/choosen.css" rel="stylesheet" />
-    <script src="//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.js"></script><!-- Bootstrap core CSS -->
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>*@
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css" />
+
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>*@
+    <!-- Bootstrap core CSS -->
     <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="~/css/simple-sidebar.css" rel="stylesheet" />
+
+
+    <script src="//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.js"></script><!-- Bootstrap core CSS -->
+
     <script src="~/js/chosen.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chosen/1.1.0/chosen.css" />
+    <link href="~/css/choosen.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
-    <title>Execution</title>
+    <title>Test Approach</title>
 </head>
 <body>
 
@@ -283,7 +299,19 @@
                     }
                 });
             }
-
+        $(document).on("change", "#selectrule", function () {
+                $("#Error").html("");
+            });
+            $(document).on("change", "#TestsuidId", function () {
+                
+                $("#Error").html("");
+            });
+            $(document).on("change", "#ReleaseId", function () {
+                $("#Error").html("");
+            });
+            $(document).on("change", "#tagid", function () {
+                $("#Error").html("");
+            });
             $(document).on("click", "#Trigger", function () {
                 $("#Trigger").attr("disabled", true);
                 debugger;
@@ -304,18 +332,6 @@
          $("#Trigger").attr("disabled", false);
                     return false;
                 }
-                var tag = $("#tagid").val();
-                if (tag == null || tag == "") {
-                    $("#Trigger").attr("disabled", false);
-                    alert("Please Enter Tag");
-                    return false;
-                }
-                var inValid = /\s/;
-                if ((inValid.test(tag))) {
-                    $("#Trigger").attr("disabled", false);
-                    $("#Error").html('Tag should not contain whitespaces');
-                    return false;
-                }
                 var approach = $('#selectrule').val();
                 for (var i = 0; i < approach.length; i++) {
                     if (approach1 == "") {
@@ -330,26 +346,42 @@
                     $("#Error").html("Please Select Test Approach");
                     return false;
                 }
-                var releaseno = $('#ReleaseId').val();
-                if (releaseno == null || releaseno == "") {
-                    $("#Trigger").attr("disabled", false);
-                    $("#Error").html("Please Select Release No");
-                    return false;
-                }
-                var connection = $('#TestsuidId').val();
-                for (var i = 0; i < connection.length; i++) {
-                    if (connection1 == "") {
-                        connection1 = connection[i];
-                    }
-                    else {
-                        connection1 += "," + connection[i];
-                    }
-                }
+                var connection1 = $('#TestsuidId').val();
+                //for (var i = 0; i < connection.length; i++) {
+                //    if (connection1 == "") {
+                //        connection1 = connection[i];
+                //    }
+                //    else {
+                //        connection1 += "," + connection[i];
+                //    }
+                //}
                 if (connection1 == null || connection1 == "") {
                     $("#Error").html("Please Select Connections");
                     $("#Trigger").attr("disabled", false);
                     return false;
                 }
+                var releaseno = $('#ReleaseId').val();
+                if (releaseno == null || releaseno == "") {
+                    $("#Trigger").attr("disabled", false);
+
+                    $("#Error").html("Please Select Release No");
+                    return false;
+                }
+                var tag = $("#tagid").val();
+                if (tag == null || tag == "") {
+                    $("#Trigger").attr("disabled", false);
+                    $("#Error").html("Please Enter Tag");
+                    return false;
+                }
+                var inValid = /\s/;
+                if ((inValid.test(tag))) {
+                    $("#Trigger").attr("disabled", false);
+                    $("#Error").html('Tag should not contain whitespaces');
+                    return false;
+                }
+               
+               
+                
                 $.ajax(
                     {
                         type: "GET", //HTTP POST Method
@@ -372,17 +404,51 @@
                                 $("#Trigger").attr("disabled", false);
                                 return false;
                             }
+                            else
+                                if (data.includes("Rules")) {
+                                    $("#Error").html(data);
+                                    $("#Trigger").attr("disabled", false);
+                                    return false;
+
+                                }
+                                else if (data.includes("Testcase")) {
+                                    $("#Error").html(data);
+                                    $("#Trigger").attr("disabled", false);
+                                    return false;
+                                }
                             debugger;
-                            $("#Multisuite").val('');
-                            $('#TestsuidId').val('');
+                            $("#Multisuite").val('').trigger('liszt:updated');;
+                            $('#TestsuidId').val('').trigger('liszt:updated');;
                             $('#ReleaseId').val('');
-                            $('#selectrule').val('');
+                            $('#selectrule').empty();;
                             $('#tagid').val('');
                             $("#Trigger").attr("disabled", false);
+
+                            $("#selectrule").trigger("chosen:updated");
+                            $('.chosen').chosen("destroy").chosen();
+                            setTimeout(function () {
+                                clearChosen()
+                            }, 200);
                             var statsus = "Passed  " + data["0"].passed + ",Failed  " + data["0"].failed + ",Total Tests " + data["0"].total_test;
                            // var tes = "~/" + SuiteName + "/" + SuiteName + "" + Version + ".html";
+                            $("progress").hide();
                             alert("Test Cases Execute Successfully");
                             $("#Success").html(statsus);
+                        },
+                        xhr: function () {
+                            var fileXhr = $.ajaxSettings.xhr();
+                            if (fileXhr.upload) {
+                                $("progress").show();
+                                fileXhr.upload.addEventListener("progress", function (e) {
+                                    if (e.lengthComputable) {
+                                        $("#fileProgress").attr({
+                                            value: e.loaded,
+                                            max: e.total
+                                        });
+                                    }
+                                }, false);
+                            }
+                            return fileXhr;
                         },
                         error: function (Result) {
                             $("#Trigger").attr("disabled", false);
@@ -400,14 +466,36 @@
             option1 = $('<option/>');
             option1.append("<option value=''>Select  Test Approach</option>");
 
-            $('#RulesId').append(option1);
-            $('#selectrule').append(option);
-
-            $(document).on("change", "#Multisuite", function () {
-
-                var SuiteName = $("#Multisuite").val();
-                var name = SuiteName[SuiteName.length -1];
+          //  $('#RulesId').append(option1);
+           // $('#selectrule').append(option);
+            var a = new Array();
+            $("#selectrule").children("option").each(function (x) {
+                test = false;
+                b = a[x] = $(this).val();
+                for (i = 0; i < a.length - 1; i++) {
+                    if (b == a[i]) test = true;
+                }
+                if (test) $(this).remove();
+            });
+            $(document).on("change", "#Multisuite", function (event, params ) {
+                $("#Error").html("");
                 debugger;
+                var select = "";
+                var name = "";
+                if (params != undefined) {
+                    select = params.selected;
+                    if (select == undefined) {
+                        name = params.deselected;
+                    }
+                    else {
+                        name = params.selected;
+                    }
+                }
+                else {
+                    name = $(this).val();
+                }
+             
+              
                 $.ajax(
                     {
                         type: "GET", //HTTP POST Method
@@ -428,12 +516,40 @@
                                 return false;
                             }
                             var option;
+                          
                             for (var i = 0; i < data.length; i++) {
-                                $('#selectrule').append("<option value=" + data[i].testApproachid + ">" + data[i].testApproachName + "</option>");
+                                var values = "";
 
+                                $("#selectrule option").each(function () {
+                                    debugger;
+                                    var value = $(this).val();
+                                    if (value == data[i].testApproachName) {
+                                        values = data[i].testApproachName;
+                                    }
+                                    // Add $(this).val() to your list
+                                });
+                                if (values == "") {
+                                    $('#selectrule').append("<option value=" + data[i].testApproachName + ">" + data[i].testApproachName + "</option>");
+                                }
+                                debugger;
+                                var deselect = params.deselected;
+                               
+                                    if (params.deselected != undefined) {
+                                        $("option[value=" + data[i].testApproachName + "]").remove();
+                                    }
+                                
                             }
                             $("#selectrule").trigger("chosen:updated");
                             $('.chosen').chosen("destroy").chosen();
+                            var a = new Array();
+                            $("#selectrule").children("option").each(function (x) {
+                                test = false;
+                                b = a[x] = $(this).val();
+                                for (i = 0; i < a.length - 1; i++) {
+                                    if (b == a[i]) test = true;
+                                }
+                                if (test) $(this).remove();
+                            });
                         },
                         error: function (Result) {
                             swal("Error!", "Error.", "error");
@@ -445,11 +561,12 @@
 
 
         });
-        $(document).ready(function () {
+        function clearChosen() {
             debugger;
-            $(".chosen").chosen();
-        
-        });
+            $('select#Multisuite').trigger('chosen:updated');
+            $('select#TestsuidId').trigger('chosen:updated');
+        }
+     
 
 
     </script>
@@ -623,8 +740,8 @@
                                     <label><span style="color: red;">*</span>Connections</label><br />
 
                                     <select asp-for="TestsuidId"
-                                            class="form-control chosen"
-                                            asp-items="@(new SelectList(Model.TestSuiteList,"Value", "Text"))" multiple="true">
+                                            class="form-control "
+                                            asp-items="@(new SelectList(Model.TestSuiteList,"Value", "Text"))">
                                     </select>
 
                                 </div>
@@ -644,14 +761,17 @@
                                         <label style="text-align:center;color:red" id="Error"></label>
                                         <label style="text-align:center;color:green" id="Success"></label>
                                     </div>
+                                    <progress id="fileProgress" style="display: none"></progress>
+
                                     <input type="button" class="text-center center-block" style="margin-top:20px;        color: white;background-color: #c9a642" id="Trigger" value="Execute">
 
                                 </div>
+                              
                                 @*<div class="row">
-                            <div class="col-lg-12 col-md-12">
-                                <a href="~/report.html">open</a>
-                            </div>
-                        </div>*@
+            <div class="col-lg-12 col-md-12">
+                <a href="~/report.html">open</a>
+            </div>
+        </div>*@
                             </div>
 
                             @*<div class="row" style="margin-top:25px">
@@ -689,9 +809,7 @@
         </div>
         <!-- /#wrapper -->
         <!-- Bootstrap core JavaScript -->
-        <script src="http://52.178.152.165:5000/vendor/jquery/jquery.min.js"></script>
         <script src="http://52.178.152.165:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="~/vendor/jquery/jquery.min.js"></script>
         <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <!-- Menu Toggle Script -->
@@ -699,6 +817,13 @@
             $("#menu-toggle").click(function (e) {
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
+            });
+            $(document).ready(function () {
+                debugger;
+                //$('.chosen').chosen("destroy").chosen();
+                $(".chosen").chosen();
+                //jQuery(".chosen").chosen();
+
             });
         </script>
     </div>

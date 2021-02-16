@@ -48,12 +48,15 @@
             margin: 0px;
             padding: 0px;
         }
-        .table th, .table td{
-            padding:unset !important;
+
+        .table th, .table td {
+            padding: unset !important;
         }
+
         #wrapper {
             min-height: 100vh;
         }
+
         .color {
             padding: 1px;
             text-align: center;
@@ -61,9 +64,11 @@
             border-bottom: 1px solid #3a3434;
             color: white;
         }
+
         .dropdown-container {
             display: none;
         }
+
         .hidden {
             visibility: hidden;
             max-height: 0;
@@ -102,9 +107,11 @@
             -o-transition: all 0.3s ease-in-out;
             transition: all 0.3s ease-in-out;
         }
+
         .bg-light {
             background-color: rgb(169, 169, 169) !important
         }
+
         body {
             line-height: 2 !important;
         }
@@ -118,12 +125,15 @@
             background-color: #261c1d !important;
             color: white;
         }
+
         .bg-light1 {
             background-color: #261c1d !important;
         }
-        .dropdown2-container{
-            display:none;
+
+        .dropdown2-container {
+            display: none;
         }
+
         .nav-link {
             color: white;
         }
@@ -135,6 +145,7 @@
         .border-right {
             border-right: unset !important;
         }
+
         .highlight {
             background-color: #261c1d;
             color: white;
@@ -142,7 +153,7 @@
     </style>
     <script>
         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-      
+
 
         $(document).ready(function ($) {
             debugger;
@@ -255,7 +266,39 @@
                     }
                 });
             }
-           
+
+            $("#DbStatus").val("1");
+            $("#Databasetype").change(function () {
+                var value = $("#DbConfigId").val();
+                var database = $(this).val();
+                if (database == "SQL") {
+                    $("#portview").addClass("hidden");
+                }
+                else {
+                    $("#portview").removeClass("hidden");
+                }
+                if (value != null) {
+                    $("#Success").html("");
+                    $("#Error").html("");
+                    $("#Dbhost").val('');
+                    $("#dbName").val('');
+                    $("#dbPort").val('');
+                    $("#password").val('');
+                    $("#Description").val('');
+                    $("#dbusernaem").val('');
+                    $("#update").addClass("hidden");
+                    $("#Save").removeClass("hidden");
+                    var table = document.getElementById('example');
+                    var cells = table.getElementsByTagName('td');
+                    for (var i = 0; i < cells.length; i++) {
+                        var rowsNotSelected = table.getElementsByTagName('tr');
+                        for (var row = 0; row < rowsNotSelected.length; row++) {
+                            rowsNotSelected[row].style.backgroundColor = "";
+                            rowsNotSelected[row].classList.remove('highlight');
+                        }
+                    }
+                }
+            });
             $(".toggle-confirm-password").click(function () {
                 debugger;
                 $("#fa-fw field-icon").toggleClass("fa-eye-slash");
@@ -287,12 +330,17 @@
                     $("#Error").html("Please Enter Host Name");
                     return false;
                 }
-                var DbPortname = $("#dbPort").val();
-                if (DbPortname == null || DbPortname == "" || DbPortname == undefined) {
-                    $("#Error").html("Please Enter Database Port Number");
-                    return false;
-                }
+                var DbPortname = "";
                 var Databasetype = $("#Databasetype").val();
+                if (Databasetype == "MYSQL") {
+                    DbPortname = $("#dbPort").val();
+                    if (DbPortname == null || DbPortname == "" || DbPortname == undefined) {
+                        $("#Error").html("Please Enter Database Port Number");
+                        return false;
+                    }
+                }
+
+
                 if (Databasetype == null || Databasetype == "" || Databasetype == undefined) {
                     $("#Error").html("please Select Database Type");
                     return false;
@@ -311,7 +359,7 @@
                 if (Password == null || Password == "" || Password == undefined) {
                     Des = "";
                 }
-                
+
                 if ($('#Status').is(':checked')) {
                     Active = 1;
                 }
@@ -356,12 +404,12 @@
                             }
                             else if (response == "Auth Fail") {
                                 $("#Error").html("Authentication Failed,Your Session Failed");
-         return false;
+                                return false;
                             }
                             else {
                                 $("#Error").html("Already Connection Exits");
                             }
-                         
+
                         },
                         error: function (Result) {
 
@@ -385,9 +433,19 @@
                     $("#Error").html("Please Enter Host Name");
                     return false;
                 }
-                var DbPortname = $("#dbPort").val();
-                if (DbPortname == null || DbPortname == "" || DbPortname == undefined) {
-                    $("#Error").html("Please Enter Database Port Number");
+                var DbPortname = "";
+                var Databasetype = $("#Databasetype").val();
+                if (Databasetype == "MYSQL") {
+                    DbPortname = $("#dbPort").val();
+                    if (DbPortname == null || DbPortname == "" || DbPortname == undefined) {
+                        $("#Error").html("Please Enter Database Port Number");
+                        return false;
+                    }
+                }
+
+
+                if (Databasetype == null || Databasetype == "" || Databasetype == undefined) {
+                    $("#Error").html("please Select Database Type");
                     return false;
                 }
                 var UserName = $("#dbusernaem").val();
@@ -395,11 +453,7 @@
                     $("#Error").html("please Enter Database User Name");
                     return false;
                 }
-                var Databasetype = $("#Databasetype").val();
-                if (Databasetype == null || Databasetype == "" || Databasetype == undefined) {
-                    $("#Error").html("please Select Database Type");
-                    return false;
-                }
+
                 var Password = $("#password").val();
                 if (Password == null || Password == "" || Password == undefined) {
                     $("#Error").html("please Enter Database Password");
@@ -446,14 +500,15 @@
                                 $("#dbPort").val('');
                                 $("#password").val('');
                                 $("#Description").val('');
-                               
+                                $("#update").addClass("hidden");
+                                $("#Save").removeClass("hidden");
                                 $("#dbusernaem").val('');
                                 $("#Success").html("Connection Successfully Updated");
                                 Bindrid(1);
                             }
                             else if (response == "Auth Fail") {
                                 $("#Error").html("Authentication Failed,Your Session Failed");
-         return false;
+                                return false;
                             }
                             else {
                                 $("#Error").html("Connection TimeOut");
@@ -489,17 +544,20 @@
                 a.download = 'connections.xls';
                 a.click();
             });
-            $(document).on('click', '#Clear', function(){
+            $(document).on('click', '#Clear', function () {
                 clear();
             });
             function clear() {
                 $("#Success").html("");
                 $("#Error").html("");
+                $("#DbStatus").val("1");
                 $("#Dbhost").val('');
                 $("#dbName").val('');
                 $("#dbPort").val('');
                 $("#password").val('');
                 $("#Description").val('');
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
                 $("#dbusernaem").val('');
                 $("#update").addClass("hidden");
                 $("#Save").removeClass("hidden");
@@ -515,55 +573,14 @@
             }
 
             Bindrid(1);
-            function Bindrid(Active) {
-                $.ajax(
-                    {
-                        type: "GET", //HTTP POST Method
-                        url: "/DbConfig/BindGrid", // Controller/View
-                        datatype: "json",
-                        data: { status: Active },
-                        headers: {
-                            "Content-Type": JSON,
-                            'Authorization': localStorage.getItem("AuthoToken"),
-                        },
-                        success: function (data) {
-                            debugger;
-                            if (data == "Auth Fail") {
-                                $("#Error").html("Authentication Failed");
-                                return false;
-                            }
-                            $('#tblAuthgrid').empty();
-                            var tr;
-                            if (data.length > 0) {
 
-                                for (var i = 0; i < data.length; i++) {
-
-                                    tr = $('<tr/>');
-                                    tr.append("<td  OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].dbHostName + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].dbName + "</td>");
-                                    tr.append("<td OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].dbPort + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].dbUser + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].description + "</td>");
-                                    tr.append("<td OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].createDate+"</td>")
-                                    tr.append("<td  OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].status +"</td>");
-                                    $('#tblAuthgrid').append(tr);
-                                }
-                            }
-
-                        },
-                        error: function (Result) {
-
-                        }
-
-                    });
-            }
 
         });
 
         $(document).on("click", "#Searchlist", function () {
             debugger;
             var searchres = $("#search").val();
-
+           var Status= $("#DbStatus").val();
             $.ajax(
                 {
                     type: "GET", //HTTP POST Method
@@ -571,6 +588,7 @@
                     datatype: "json",
                     data: {
                         search: searchres,
+                        Status: Status,
                     },
                     headers: {
                         "Content-Type": JSON,
@@ -605,8 +623,60 @@
 
                 });
         });
+        function Bindrid(Active) {
+            if (Active == "1") {
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                $("#DbStatus").val("1");
+            }
+            else {
+                $("#InActive").addClass("hidden");
+                $("#Active").removeClass("hidden");
+                $("#DbStatus").val("0");
 
-        function display(a,val) {
+            }
+            $.ajax(
+                {
+                    type: "GET", //HTTP POST Method
+                    url: "/DbConfig/BindGrid", // Controller/View
+                    datatype: "json",
+                    data: { status: Active },
+                    headers: {
+                        "Content-Type": JSON,
+                        'Authorization': localStorage.getItem("AuthoToken"),
+                    },
+                    success: function (data) {
+                        debugger;
+                        if (data == "Auth Fail") {
+                            $("#Error").html("Authentication Failed");
+                            return false;
+                        }
+                        $('#tblAuthgrid').empty();
+                        var tr;
+                        if (data.length > 0) {
+
+                            for (var i = 0; i < data.length; i++) {
+
+                                tr = $('<tr/>');
+                                tr.append("<td  OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].dbHostName + "</td>");
+                                tr.append("<td  OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].dbName + "</td>");
+                                tr.append("<td OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].dbPort + "</td>");
+                                tr.append("<td  OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].dbUser + "</td>");
+                                tr.append("<td  OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].description + "</td>");
+                                tr.append("<td OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].createDate + "</td>")
+                                tr.append("<td  OnClick='display(this," + data[i].dbconfigid + ");'  style='    cursor: pointer;'>" + data[i].status + "</td>");
+                                $('#tblAuthgrid').append(tr);
+                            }
+                        }
+
+                    },
+                    error: function (Result) {
+
+                    }
+
+                });
+        }
+        function display(a, val) {
             $("#Error").html("");
             $("#Success").html("");
             $("#Save").addClass("hidden");
@@ -646,6 +716,8 @@
                         $("#password").val(data["0"].dbPassword);
                         $("#Description").val(data["0"].description);
                         $("#Databasetype").val(data["0"].databaseType);
+
+                        var databasetpe = data["0"].databaseType;
                         var status = data["0"].status;
                         if (status == "1") {
                             $("#Status").prop("checked", true);
@@ -653,6 +725,13 @@
                         else {
                             $("#Status").prop("checked", false);
                         }
+                        if (databasetpe == "SQL") {
+                            $("#portview").addClass("hidden");
+                        }
+                        else {
+                            $("#portview").removeClass("hidden");
+                        }
+                       
                         debugger;
 
                     },
@@ -662,7 +741,7 @@
                 });
         }
         debugger;
-     
+
     </script>
 
     <div>
@@ -819,6 +898,14 @@
 
 
                             <div class="row">
+                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                                    <label><span style="color: red;">* </span>DataBase Type</label><br />
+                                    <select class="form-control" id="Databasetype">
+                                        <option selected disabled value="">Select DataBase Type</option>
+                                        <option value="SQL">SQL</option>
+                                        <option value="MYSQL">MYSQL</option>
+                                    </select>
+                                </div>
                                 <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
                                     <label><span style="color: red;">* </span>DB Name</label><br />
                                     <input type="text" id="dbName" name="Name" class="txt-input form-control" maxlength="30" />
@@ -828,18 +915,11 @@
                                     <input type="text" id="Dbhost" class="txt-input form-control" maxlength="35" />
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" id="portview">
                                     <label><span style="color: red;">* </span>DB Port No</label><br />
                                     <input type="number" id="dbPort" class="txt-input form-control" maxlength="6" />
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
-                                    <label><span style="color: red;">* </span>DataBase Type</label><br />
-                                    <select class="form-control" id="Databasetype">
-                                        <option selected disabled value="">Select DataBase Type</option>
-                                        <option value="SQL">SQL</option>
-                                        <option value="MYSQL">MYSQL</option>
-                                    </select>
-                                </div>
+
                             </div>
 
                             <div class="row" style="padding-top:10px">
@@ -851,10 +931,10 @@
                                     <label><span style="color: red;">* </span>DB Password</label><br />
                                     <input type="password" id="password" name="password" class="txt-input form-control" maxlength="25" />
 
-                                    <span toggle="#password-field" class="toggle-confirm-password input-group-addon" style="position: absolute;   top: 44px;  right: 35px; background-color: unset;  border: unset; padding: unset">
+                                    @*<span toggle="#password-field" class="toggle-confirm-password input-group-addon" style="position: absolute;   top: 44px;  right: 35px; background-color: unset;  border: unset; padding: unset">
 
-                                        <i class="fa fa-fw fa-eye field-icon "></i>
-                                    </span>
+                                            <i class="fa fa-fw fa-eye field-icon "></i>
+                                        </span>*@
                                 </div>
                                 <div class="col-lg-3 col-xs-3 col-sm-6 col-md-6">
                                     <label>Description</label> <br />
@@ -887,6 +967,7 @@
                             <input type="button" class="text-center center-block hidden" style="       color: white;background-color: #c9a642" id="update" value="Update">
                             <input type="button" class="text-center center-block clear" style="   color: black;" id="Clear" value="Clear">
                             <input type="hidden" id="DbConfigId" />
+                            <input type="hidden" id="DbStatus" />
                         </div>
 
                     </div>
@@ -905,19 +986,24 @@
                                      style="">
                                     <div class="col-lg-4"></div>
                                     <div class="col-lg-8 " style="padding-right:0px;">
-                                        <div class="form-group" style=" position: absolute;padding-left: 28%;">
-                                            <div class="input-group">
+                                        <div style=" position: absolute;">
+                                            <div class="">
                                                 <input type="text" id="search" name="search" class="form-control" />
-                                                <button id="Searchlist" class="button" style=" margin: unset;
-        background-color: #c9a642;
-        margin-left: 10px
-" value="Search">
+                                                <button id="Searchlist" class="button" style=" margin: unset;  background-color: #c9a642; margin-left: 10px" value="Search">
                                                     Search
                                                 </button>
                                             </div>
 
                                         </div>
-                                        <div class="form-group" style="        padding-left: 91%;">
+                                        <div style=" padding-left: 60%;">
+                                            <button id="InActive" OnClick='Bindrid("0")' class="button" style="margin: unset; background-color: #c9a642;  margin-left: 10px;" value="Inactive">
+                                                Inactive
+                                            </button>
+                                            <button id="Active" OnClick='Bindrid("1")' class="button hidden" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Active">
+                                                Active
+                                            </button>
+                                        </div>
+                                        <div class="form-group" style="        padding-left: 91%; margin-top: -5%;">
 
 
                                             <button type="button" id="excel" class="btn  btn-sm">
@@ -986,7 +1072,7 @@
         <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <!-- Menu Toggle Script -->
-      
+
     </div>
 </body>
 </html>

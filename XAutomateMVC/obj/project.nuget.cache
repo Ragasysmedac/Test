@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "DS4CrOpwtsET0l+MUVjO+/TMv/LP60Ubs9mwLE7Q3Usag8rmd+IL3oCN4X+TvsDDUlF2EZ0Twu7nJXt6BigJPA==",
+  "dgSpecHash": "GXQt1pKwc+j4Yg3dYTaVbzb1PVnMjadh84XSEVNu4vj7p3eoaxtCZ2oRfWVLUauFLlvZ/2tkOw0TamJgcqnbKg==",
   "success": true,
   "projectFilePath": "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
   "expectedPackageFiles": [
@@ -179,6 +179,7 @@
     "C:\\Users\\Admin\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\timezoneconverter\\3.3.0\\timezoneconverter.3.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\umbracocms.core\\8.10.0\\umbracocms.core.8.10.0.nupkg.sha512"
   ],
   "logs": [

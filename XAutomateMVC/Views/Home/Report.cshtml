@@ -73,114 +73,15 @@
                     }
                 });
             }
-            $(document).on("click", "#Trigger", function () {
-                debugger;
-
-                var SuiteName = $("#ProductId").val();
-                var Version = $("#Version").val();
-                $.ajax(
-                    {
-                        type: "GET", //HTTP POST Method
-                        url: "/Home/Trigger", // Controller/View
-                        datatype: "json",
-                        data: {
-                            SuiteId: SuiteName,
-                            Version: Version,
-                        },
-                        success: function (data) {
-                            debugger;
-                            var tes = "~/" + SuiteName + "/" + SuiteName + "" + Version + ".html";
-                            alert("Test Cases Execute Successfully");
-                            window.location.href = "http://52.178.152.165/" + SuiteName + "/" + SuiteName + "" + Version + ".html";
-                        },
-                        error: function (Result) {
-                            swal("Error!", "Error.", "error");
-                        }
-
-                    });
-
-            });
-            var option;
-            option = $('<option/>');
-            option.append("<option value='' >Select Rules</option>");
-            $('#selectrule').append(option);
-
-            $(document).on("change", "#ProductId", function () {
-                var SuiteName = $("#ProductId").val();
-                debugger;
-                $.ajax(
-                    {
-                        type: "GET", //HTTP POST Method
-                        url: "/Home/RulesConfigset", // Controller/View
-                        datatype: "json",
-                        data: {
-                            SuiteId: SuiteName,
-                        },
-                        success: function (data) {
-                            debugger;
-                            var option;
-                            for (var i = 0; i < data.length; i++) {
-                                option = $('<option/>');
-                                option.append("<option value=" + data[i].ruleName + ">" + data[i].ruleName + "</option>");
-
-
-
-                                $('#selectrule').append(option);
-                            }
-                        },
-                        error: function (Result) {
-                            swal("Error!", "Error.", "error");
-                        }
-
-                    });
-            });
-
-            $(document).on('change', '#selectrule', function () {
-                var RuleName = $("#selectrule").val();
-                $.ajax(
-                    {
-                        type: "GET", //HTTP POST Method
-                        url: "/Home/RulesCondtions", // Controller/View
-                        datatype: "json",
-                        data: {
-                            RuleConfig: RuleName,
-                        },
-                        success: function (data) {
-                            debugger;
-                            $("#TestCaseuppend").empty();
-                            var option;
-                            var div;
-                            div = $('<div class="row">');
-                            $("#Length").val(data["0"].ruleParameter);
-                            if (data.length > 0) {
-                                for (var i = 0; i < data["0"].ruleParameter; i++) {
-                                    $("#Testrule").removeClass("hidden");
-                                    $("#Testrule").val(data["0"].ruleCondtion);
-
-                                    div.append('<div class="col-lg-12" style="padding-bottom: 20px;"> ');
-                                    div.append('<div class="col-lg-3"> <label>Parameter ' + [i] + '</label><br/><input type = "text" id = "parameter' + [i] + '" name = "testdata" class= "txt-input" />  </div> </div></div>  ');
-
-
-
-
-                                    $("#TestCaseuppend").append(div);
-                                }
-                            }
-
-                        },
-                        error: function (Result) {
-                            swal("Error!", "Error.", "error");
-                        }
-
-                    });
-            });
+            $("#ReportStatus").val("1");
+         
 
 
 
             $(document).on("click", "#Searchlist", function () {
                 debugger;
                 var searchres = $("#search").val();
-
+                var report = $("#ReportStatus").val();
                 $.ajax(
                     {
                         type: "GET", //HTTP POST Method
@@ -188,6 +89,7 @@
                         datatype: "json",
                         data: {
                             search: searchres,
+                            status: report,
                         },
                         success: function (data) {
                             debugger;
@@ -200,7 +102,12 @@
                                     tr.append("<td style='text-align:center'> <a href=" + data[i].resultUrl + " target='_blank'>" + data[i].suiteName + "</a></td>");
                                     tr.append("<td style='text-align:center'> " + data[i].execute + "</td>");
                                     tr.append("<td style='text-align:center'>" + data[i].time + "</td>");
-
+                                    if (data[i].status == "1") {
+                                        tr.append("<td style='text-align: center' > <button id='InActive' class='button' style=' background-color: #c9a642; margin-left: 10px; ' value='Active' OnClick='display(" + data[i].executeId + ",0);'> Active </button> </td>")
+                                    }
+                                    else {
+                                        tr.append("<td style='text-align: center'  > <button id='InActive' class='button' style='background-color: #c9a642; margin-left: 10px; ' value='Inactive' OnClick='display(" + data[i].executeId + ",1);'>Inactive </button></td>")
+                                    }
                                     $('#tblAuthgrid').append(tr);
                                 }
                             }
@@ -236,44 +143,77 @@
                 a.click();
             });
 
-            Bindrid();
-            function Bindrid() {
-                $.ajax(
-                    {
-                        type: "GET", //HTTP POST Method
-                        url: "/Home/ExecBindGrid", // Controller/View
-                        datatype: "json",
+            Bindrid(1);
+          
 
-                        success: function (data) {
-                            debugger;
-                            $('#tblAuthgrid').empty();
-                            var tr;
-                            if (data.length > 0) {
-                                for (var i = 0; i < data.length; i++) {
 
-                                    tr = $('<tr/>');
+        });
 
-                                    tr.append("<td style='text-align:center'> <a href=" + data[i].resultUrl + " target='_blank'>" + data[i].suiteName + "</a></td>");
-                                    tr.append("<td style='text-align:center'> " + data[i].execute + "</td>");
-                                    tr.append("<td style='text-align:center'>" + data[i].time + "</td>");
+        function Bindrid(status) {
+            if (status == "1") {
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                $("#ReportStatus").val("1");
+            }
+            else {
+                $("#InActive").addClass("hidden");
+                $("#Active").removeClass("hidden");
+                $("#ReportStatus").val("0");
+            }
+            $.ajax(
+                {
+                    type: "GET", //HTTP POST Method
+                    url: "/Home/ExecBindGrid", // Controller/View
+                    datatype: "json",
+                    data: { Active: status },
+                    success: function (data) {
+                        debugger;
+                        $('#tblAuthgrid').empty();
+                        var tr;
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
 
-                                    $('#tblAuthgrid').append(tr);
+                                tr = $('<tr/>');
+
+                                tr.append("<td style='text-align:center'> <a href=" + data[i].resultUrl + " target='_blank'>" + data[i].suiteName + "</a></td>");
+                                tr.append("<td style='text-align:center'> " + data[i].execute + "</td>");
+                                tr.append("<td style='text-align:center'>" + data[i].time + "</td>");
+                                if (status == "1") {
+                                    tr.append("<td style='text-align: center' > <button id='InActive' class='button' style=' background-color: #c9a642; margin-left: 10px; ' value='Active' OnClick='display(" + data[i].executeId +",0);'> Active </button> </td>")
                                 }
-                            }
+                                else {
+                                    tr.append("<td style='text-align: center'  > <button id='InActive' class='button' style='background-color: #c9a642; margin-left: 10px; ' value='Inactive' OnClick='display(" + data[i].executeId +",1);'>Inactive </button></td>")
+                                }
 
-                        },
+                                $('#tblAuthgrid').append(tr);
+                            }
+                        }
+
+                    },
+                    error: function (Result) {
+
+                    }
+
+                });
+        }
+        function display(Execute, status) {
+
+            debugger;
+            $.ajax(
+                {
+                    type: "GET", //HTTP POST Method
+                    url: "/Home/ReportUpdate", // Controller/View
+                    datatype: "json",
+                    data: { Active: status, Execution: Execute },
+                    success: function (data) {
+                        Bindrid(1);
+                    },
                         error: function (Result) {
 
                         }
 
                     });
-            }
-
-
-        });
-
-
-
+        }
     </script>
 </head>
 <body>
@@ -299,7 +239,13 @@
         #wrapper {
             min-height: 100vh;
         }
-
+        .hidden {
+            visibility: hidden;
+            max-height: 0;
+            border: unset;
+            padding: unset !important;
+            max-width: 0;
+        }
         .dropdown-container {
             display: none;
          
@@ -618,14 +564,24 @@
                                  style="">
                                 <div class="col-lg-4"></div>
                                 <div class="col-lg-8 " style="padding-right:0px;">
-                                    <div class="form-group" style=" position: absolute;padding-left: 37%;">
-                                        <div class="input-group">
+                                    <div class="" style=" position: absolute;">
+                                        <div class="">
                                             <input type="text" id="search" name="search" />
                                             <button id="Searchlist" class="button" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Search">Search</button>
                                         </div>
 
                                     </div>
-                                    <div class="form-group" style="        padding-left: 92%;">
+                                    <div style=" padding-left: 60%;">
+                                        <button id="InActive" OnClick='Bindrid("0")' class="button" style="margin: unset; background-color: #c9a642;  margin-left: 10px;" value="Inactive">
+                                            Inactive
+                                        </button>
+                                        <button id="Active" OnClick='Bindrid("1")' class="button hidden" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Active">
+                                            Active
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="ReportStatus" />
+                                    <div class="form-group" style="        padding-left: 92%;
+        margin-top: -5%;">
 
 
                                         <button type="button" id="excel" class="btn  btn-sm">
@@ -652,7 +608,9 @@
                                                 <td style="text-align:center">
                                                     Executed Time
                                                 </td>
-
+                                                <td  style="text-align:center">
+                                                    Active
+                                                </td>
                                             </tr>
                                         </thead>
                                         <tbody id="tblAuthgrid"></tbody>

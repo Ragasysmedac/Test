@@ -38,6 +38,7 @@
           "NPOI": "2.5.1",
           "Pomelo.EntityFrameworkCore.MySql": "3.2.4",
           "System.Data.SqlClient": "4.8.2",
+          "TimeZoneConverter": "3.3.0",
           "UmbracoCms.Core": "8.10.0",
           "chosen": "1.2.0",
           "chosen.jquery": "1.2.0",
@@ -2402,6 +2403,17 @@
           "System.Text.Encoding": "4.3.0",
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
+        }
+      },
+      "TimeZoneConverter/3.3.0": {
+        "runtime": {
+          "lib/netstandard2.0/TimeZoneConverter.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.3.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/TimeZoneConverter.dll": {}
         }
       },
       "UmbracoCms.Core/8.10.0": {
@@ -5225,6 +5237,13 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "TimeZoneConverter/3.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OeXMqNZ1Xt/9ehELN2khz8vT8wckg8VVa6Rx+XeYTdEIMaKETlSXkCzj4TuCGQ0L2SgXdpjGSh1XwZVusZE2Yw==",
+      "path": "timezoneconverter/3.3.0",
+      "hashPath": "timezoneconverter.3.3.0.nupkg.sha512"
     },
     "UmbracoCms.Core/8.10.0": {
       "type": "package",

@@ -18,6 +18,7 @@ using XAutomateMVC.Models;
 using XAutomateMVC.Models.DBModels;
 using Ionic.Zip;
 using System.Data.SqlClient;
+using TimeZoneConverter;
 
 namespace XAutomateMVC.Controllers
 {
@@ -218,7 +219,7 @@ namespace XAutomateMVC.Controllers
                             else
                             {
                                 Rules Ins = new Rules();
-                                Ins.SuiteName = suiteName;
+                                Ins.TestApproachName = suiteName;
                                 Ins.RuleName = RullName;
                                 Ins.RuleParameter = paramete;
                                 Ins.RuleCondtion = Query;
@@ -379,7 +380,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -533,7 +535,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -580,15 +583,27 @@ namespace XAutomateMVC.Controllers
                              select new SelectListItem()
                              {
                                  Text = product.TestApproachName,
-                                 Value = product.TestApproachid.ToString(),
+                                 Value = product.TestApproachName.ToString(),
                              }).ToList();
 
-            SuiteList.Insert(0, new SelectListItem()
+            //SuiteList.Insert(0, new SelectListItem()
+            //{
+            //    Text = "----Select----",
+            //    Value = string.Empty
+            //});
+            var Dbconfig = (from product in db.DbConfig
+                             where product.Status == "1"
+                             select new SelectListItem()
+                             {
+                                 Text = product.DbName,
+                                 Value = product.Dbconfigid.ToString(),
+                             }).ToList();
+
+            Dbconfig.Insert(0, new SelectListItem()
             {
                 Text = "----Select----",
                 Value = string.Empty
             });
-
             var RuleList = (from Rules in db.Rules
                             where Rules.Status == "1"
                             select new SelectListItem()
@@ -606,18 +621,21 @@ namespace XAutomateMVC.Controllers
             RulesModel viewmodel = new RulesModel();
             ProductViewModel productViewModel = new ProductViewModel();
             productViewModel.Listofproducts = SuiteList;
+            productViewModel.TestSuiteList = Dbconfig;
             productViewModel.RuleList = RuleList;
             return View(productViewModel);
         }
 
-        public string RulesUpdate(int SuiteName, string RuleName, string Parameter, string rulecond, string Status, string Description,int RulesId,string Ruleparameter)
+
+        public string RulesUpdate(string SuiteName, string RuleName, string Parameter, string rulecond, string Status, string Description, int RulesId, string Ruleparameter,int connection)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
-             var Auth= (string)this.Request.Headers["Authorization"];
+            var Auth = (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -628,27 +646,72 @@ namespace XAutomateMVC.Controllers
                     var rules = db.Rules.FirstOrDefault(x => x.RulesId == RulesId);
                     if (rules != null)
                     {
-                        rules.TestApproachid = SuiteName;
-                        rules.RuleParameter = Parameter;
-                        rules.RuleCondtion = rulecond;
-                        rules.Status = Status;
-                        rules.Description = Description;
-                        rules.RuleName = RuleName;
-                        db.SaveChanges();
-
-                        db.RuleParamters.RemoveRange(db.RuleParamters.Where(x => x.RulesId == RulesId));
-
-                        var rulesarraysplit = Ruleparameter.Split(",");
-                        foreach (var item in rulesarraysplit)
+                        if (Status == "0")
                         {
-                            RuleParamters Ins = new RuleParamters();
-                            Ins.RulesId = RulesId;
-                            Ins.ParameterName = item;
-                            Ins.Status = "1";
-                            Ins.CreatedDate = DateTime.Now;
-                            db.RuleParamters.Add(Ins);
-                            db.SaveChanges();
+                            var etldb = db.TestCases.FirstOrDefault(X => X.RulesId == rules.RulesId && X.Status == "1");
+                            if (etldb == null)
+                            {
+                                rules.TestApproachName = SuiteName;
+                                rules.RuleParameter = Parameter;
+                                rules.RuleCondtion = rulecond;
+                                rules.Status = Status;
+                                rules.Description = Description;
+                                rules.RuleName = RuleName;
+                                rules.DbConfigId = connection;
+                                db.SaveChanges();
+
+                                db.RuleParamters.RemoveRange(db.RuleParamters.Where(x => x.RulesId == RulesId));
+
+                                if (Parameter != "0")
+                                {
+                                    var rulesarraysplit = Ruleparameter.Split(",");
+                                    foreach (var item in rulesarraysplit)
+                                    {
+                                        RuleParamters Ins = new RuleParamters();
+                                        Ins.RulesId = RulesId;
+                                        Ins.ParameterName = item;
+                                        Ins.Status = "1";
+                                        Ins.CreatedDate = DateTime.Now;
+                                        db.RuleParamters.Add(Ins);
+                                        db.SaveChanges();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                return "Validate";
+                            }
                         }
+                        else
+                        {
+                            rules.TestApproachName = SuiteName;
+                            rules.RuleParameter = Parameter;
+                            rules.RuleCondtion = rulecond;
+                            rules.Status = Status;
+                            rules.DbConfigId = connection;
+                            rules.Description = Description;
+                            rules.RuleName = RuleName;
+                            db.SaveChanges();
+
+                            db.RuleParamters.RemoveRange(db.RuleParamters.Where(x => x.RulesId == RulesId));
+
+                            if (Parameter != "0")
+                            {
+                                var rulesarraysplit = Ruleparameter.Split(",");
+                                foreach (var item in rulesarraysplit)
+                                {
+                                    RuleParamters Ins = new RuleParamters();
+                                    Ins.RulesId = RulesId;
+                                    Ins.ParameterName = item;
+                                    Ins.Status = "1";
+                                    Ins.CreatedDate = DateTime.Now;
+                                    db.RuleParamters.Add(Ins);
+                                    db.SaveChanges();
+                                }
+                            }
+                        }
+
+
                         return "Success";
                     }
                     else
@@ -671,14 +734,15 @@ namespace XAutomateMVC.Controllers
             public string parameter { get; set; }
         };
 
-        public String RulesSaveGrid(int SuiteName, string RuleName, string Parameter, string rulecond,string Status,string Description,string Ruleparameter)
+        public String RulesSaveGrid(string SuiteName, string RuleName, string Parameter, string rulecond,string Status,string Description,string Ruleparameter,int connection)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -686,15 +750,16 @@ namespace XAutomateMVC.Controllers
                 var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
                 if (resultToken != null)
                 {
-                    var rules = db.Rules.FirstOrDefault(x => x.TestApproachid == SuiteName && x.RuleName == RuleName && x.Status == Status);
+                    var rules = db.Rules.FirstOrDefault(x => x.TestApproachName == SuiteName && x.RuleName == RuleName && x.Status == Status);
                     if (rules == null)
                     {
                         Rules Is = new Rules();
-                        Is.TestApproachid = SuiteName;
+                        Is.TestApproachName = SuiteName;
                         Is.RuleName = RuleName;
                         Is.RuleParameter = Parameter;
                         Is.RuleCondtion = rulecond;
                         Is.Description = Description;
+                        Is.DbConfigId = connection;
                         Is.Status = Status;
                         db.Rules.Add(Is);
                         db.SaveChanges();
@@ -739,10 +804,12 @@ namespace XAutomateMVC.Controllers
             {
                 var header = this.Request.Headers.ToString();
                 var header1 = this.Request.Headers.ToList();
-                 var Auth= (string)this.Request.Headers["Authorization"];
+                var Auth = (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -757,13 +824,13 @@ namespace XAutomateMVC.Controllers
                                 {
                                     b.DbHostName,
                                     b.DbName,
-                                    b.DbPort,
+                                    DbPort = (b.DbPort == null ? "" : b.DbPort),
                                     b.DbUser,
                                     b.Dbconfigid,
                                     b.SuiteName,
                                     Description = b.Description == null ? "" : b.Description,
                                     CreateDate = b.CreateDate == null ? "" : Convert.ToString(b.CreateDate),
-                                    Status = b.Status == "1" ? "Active" : "InActive",
+                                    Status = b.Status == "1" ? "Active" : "Inactive",
                                 };
                         return Json(a);
                     }
@@ -778,13 +845,13 @@ namespace XAutomateMVC.Controllers
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
-          
+
         }
-    
+
         public JsonResult Editdbconfig(int DbconfigId)
         {
             try
@@ -794,7 +861,8 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -811,7 +879,7 @@ namespace XAutomateMVC.Controllers
                                          b.DatabaseType,
                                          b.DbName,
                                          b.DbPassword,
-                                         b.DbPort,
+                                         DbPort = (b.DbPort == null ? "" : b.DbPort),
                                          b.DbUser,
                                          Description = (b.Description != null && b.Description != "undefiened" ? b.Description : ""),
                                          b.Status,
@@ -841,7 +909,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -854,7 +923,8 @@ namespace XAutomateMVC.Controllers
                             select new
                             {
                                 b.RulesId,
-                                b.TestApproachid,
+                                testApproachid= b.TestApproachName,
+                                b.DbConfigId,
                                 b.RuleParameter,
                                 b.RuleName,
                                 b.Description,
@@ -885,7 +955,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -902,7 +973,8 @@ namespace XAutomateMVC.Controllers
                                 b.RuleName,
                                 b.RuleParameter,
                                 Description = (b.Description == null ? "" : b.Description),
-                                SuiteName = db.TestApproach.FirstOrDefault(x => x.TestApproachid == b.TestApproachid).TestApproachName,
+                                SuiteName = (b.TestApproachName == null ? "" : b.TestApproachName),
+                                b.DbConfigId,
                             };
                     return Json(a);
                 }
@@ -916,14 +988,15 @@ namespace XAutomateMVC.Controllers
                 return Json("Auth Fail");
             }
         }
-        public JsonResult SearchDbConfig(string search)
+        public JsonResult SearchDbConfig(string search,string Status)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -934,13 +1007,13 @@ namespace XAutomateMVC.Controllers
                     if (search == "" || search == null || search == "undefiend")
                     {
                         var a = from b in db.DbConfig
-                                where b.Status == "1"
+                                where b.Status == Status
                                 select
                                 new
                                 {
                                     b.DbHostName,
                                     b.DbName,
-                                    b.DbPort,
+                                    DbPort = (b.DbPort == null ? "" : b.DbPort),
                                     b.DbUser,
                                     b.Dbconfigid,
                                     b.SuiteName,
@@ -952,21 +1025,21 @@ namespace XAutomateMVC.Controllers
                     }
                     else
                     {
-                        var a = from b in db.DbConfig
-                                where b.Status == "1" && b.DbHostName.Contains(search) || b.DbName.Contains(search) || b.DbPort.Contains(search) || b.SuiteName.Contains(search)
+                        var a = (from b in db.DbConfig
+                                where b.Status == Status 
                                 select
                                 new
                                 {
                                     b.DbHostName,
                                     b.DbName,
-                                    b.DbPort,
+                                    DbPort= (  b.DbPort == null ?  "" : b.DbPort),
                                     b.DbUser,
                                     b.Dbconfigid,
                                     b.SuiteName,
                                     Description = b.Description == null ? "" : b.Description,
                                     CreateDate = b.CreateDate == null ? "" : Convert.ToString(b.CreateDate),
-                                    Status = b.Status == "1" ? "Active" : "InActive",
-                                };
+                                    Status = b.Status == "1" ? "Active" : "Inactive",
+                                }).Where(x=> x.DbHostName.Contains(search) || x.DbName.Contains(search) || x.DbPort.Contains(search) || x.SuiteName.Contains(search));
                         return Json(a);
                     }
 
@@ -982,14 +1055,15 @@ namespace XAutomateMVC.Controllers
             }
 
         }
-        public JsonResult SearchRules(string search)
+        public JsonResult SearchRules(string search,string Status)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -1000,7 +1074,7 @@ namespace XAutomateMVC.Controllers
                     if (search == "" || search == null || search == "undefiened")
                     {
                         var a = from b in db.Rules
-                                where b.Status == "1"
+                                where b.Status ==Status
                                 select new
                                 {
                                     b.RuleCondtion,
@@ -1008,14 +1082,15 @@ namespace XAutomateMVC.Controllers
                                     b.RuleName,
                                     b.RuleParameter,
                                     Description = (b.Description == null ? "" : b.Description),
-                                    SuiteName = db.TestApproach.FirstOrDefault(x => x.TestApproachid == b.TestApproachid).TestApproachName,
+                                    SuiteName = (b.TestApproachName == null ? "" : b.TestApproachName),
+                                    Status = b.Status == "1" ? "Active" : "Inactive",
                                 };
                         return Json(a);
                     }
                     else
                     {
                         var a = (from b in db.Rules
-                                 where b.Status == "1"
+                                 where b.Status == Status
                                  select new
                                  {
                                      b.RuleCondtion,
@@ -1023,7 +1098,8 @@ namespace XAutomateMVC.Controllers
                                      b.RuleName,
                                      b.RuleParameter,
                                      Description = (b.Description == null ? "" : b.Description),
-                                     SuiteName = db.TestApproach.FirstOrDefault(x => x.TestApproachid == b.TestApproachid).TestApproachName,
+                                     SuiteName = (b.TestApproachName == null ? "" : b.TestApproachName),
+                                     Status = b.Status == "1" ? "Active" : "Inactive",
                                  }).Where(x => x.RuleCondtion.Contains(search) || x.RuleName.Contains(search) || x.RuleParameter.Contains(search) || x.Description.Contains(search) || x.SuiteName.Contains(search));
                         return Json(a);
                     }

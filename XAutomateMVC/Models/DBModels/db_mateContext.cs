@@ -25,6 +25,7 @@ namespace XAutomateMVC.Models.DBModels
         public virtual DbSet<Rules> Rules { get; set; }
         public virtual DbSet<Tablecolumn> Tablecolumn { get; set; }
         public virtual DbSet<TestApproach> TestApproach { get; set; }
+        public virtual DbSet<TestCaseParameters> TestCaseParameters { get; set; }
         public virtual DbSet<TestCases> TestCases { get; set; }
         public virtual DbSet<TestSuite> TestSuite { get; set; }
         public virtual DbSet<TokenValue> TokenValue { get; set; }
@@ -37,7 +38,7 @@ namespace XAutomateMVC.Models.DBModels
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=52.178.152.165;port=3310;database=db_mate;user id=root;password=password;sslmode=none", x => x.ServerVersion("8.0.22-mysql"));
+                optionsBuilder.UseMySql("server=52.178.152.165;port=3310;database=db_mate;user id=root;password=password;sslmode=none", x => x.ServerVersion("8.0.23-mysql"));
             }
         }
 
@@ -264,6 +265,9 @@ namespace XAutomateMVC.Models.DBModels
 
             modelBuilder.Entity<Rules>(entity =>
             {
+                entity.HasIndex(e => e.DbConfigId)
+                    .HasName("DbConfigids_idx");
+
                 entity.HasIndex(e => e.TestApproachid)
                     .HasName("TestApproachid_idx");
 
@@ -294,10 +298,15 @@ namespace XAutomateMVC.Models.DBModels
                     .HasCharSet("latin1")
                     .HasCollation("latin1_swedish_ci");
 
-                entity.Property(e => e.SuiteName)
+                entity.Property(e => e.TestApproachName)
                     .HasColumnType("varchar(450)")
                     .HasCharSet("latin1")
                     .HasCollation("latin1_swedish_ci");
+
+                entity.HasOne(d => d.DbConfig)
+                    .WithMany(p => p.Rules)
+                    .HasForeignKey(d => d.DbConfigId)
+                    .HasConstraintName("DbConfigids");
 
                 entity.HasOne(d => d.TestApproach)
                     .WithMany(p => p.Rules)
@@ -357,6 +366,11 @@ namespace XAutomateMVC.Models.DBModels
                     .HasCharSet("latin1")
                     .HasCollation("latin1_swedish_ci");
 
+                entity.Property(e => e.SuiteIds)
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("latin1")
+                    .HasCollation("latin1_swedish_ci");
+
                 entity.Property(e => e.TestApproachName)
                     .HasColumnType("varchar(450)")
                     .HasCharSet("latin1")
@@ -371,6 +385,27 @@ namespace XAutomateMVC.Models.DBModels
                     .WithMany(p => p.TestApproach)
                     .HasForeignKey(d => d.TestSuiteId)
                     .HasConstraintName("TestSuiteId");
+            });
+
+            modelBuilder.Entity<TestCaseParameters>(entity =>
+            {
+                entity.HasIndex(e => e.TestCasesId)
+                    .HasName("TestCasesId_idx");
+
+                entity.Property(e => e.ParameterName)
+                    .HasColumnType("varchar(450)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.Status)
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.HasOne(d => d.TestCases)
+                    .WithMany(p => p.TestCaseParameters)
+                    .HasForeignKey(d => d.TestCasesId)
+                    .HasConstraintName("TestCasesId");
             });
 
             modelBuilder.Entity<TestCases>(entity =>
@@ -511,7 +546,7 @@ namespace XAutomateMVC.Models.DBModels
                     .HasCollation("utf8mb4_0900_ai_ci");
 
                 entity.Property(e => e.Webtestcase)
-                    .HasColumnType("varchar(45)")
+                    .HasColumnType("varchar(1000)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 

@@ -103,6 +103,10 @@
               "target": "Package",
               "version": "[4.8.2, )"
             },
+            "TimeZoneConverter": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
             "UmbracoCms.Core": {
               "target": "Package",
               "version": "[8.10.0, )"

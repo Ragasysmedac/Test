@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -13,9 +14,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using TimeZoneConverter;
 using XAutomateMVC.Models;
 using XAutomateMVC.Models.DBModels;
 
@@ -51,8 +54,9 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-             //      TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-                 TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
 
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
@@ -153,7 +157,7 @@ namespace XAutomateMVC.Controllers
                             select new SelectListItem()
                             {
                                 Text = Rules.RuleName,
-                                Value = Rules.RuleName.ToString(),
+                                Value = Rules.RulesId.ToString(),
                             }).ToList();
 
             RuleList.Insert(0, new SelectListItem()
@@ -161,12 +165,25 @@ namespace XAutomateMVC.Controllers
                 Text = "Select Rule",
                 Value = string.Empty
             });
+            var Dbconfig = (from product in db.DbConfig
+                            where product.Status == "1"
+                            select new SelectListItem()
+                            {
+                                Text = product.DbName,
+                                Value = product.Dbconfigid.ToString(),
+                            }).ToList();
 
+            Dbconfig.Insert(0, new SelectListItem()
+            {
+                Text = "----Select----",
+                Value = string.Empty
+            });
             RulesModel viewmodel = new RulesModel();
             ProductViewModel productViewModel = new ProductViewModel();
-            productViewModel.Listofproducts = SuiteList;
-            productViewModel.ProductSearchList = SuiteSearch;
+            productViewModel.Listofproducts = RuleList;
+            productViewModel.ProductSearchList = RuleList;
             productViewModel.ExpectedResult = Expectedresult;
+            productViewModel.TestSuiteList = Dbconfig;
             productViewModel.RuleList = RuleList;
             return View(productViewModel);
         }
@@ -192,6 +209,7 @@ namespace XAutomateMVC.Controllers
                                  xx.ExceptedResult,
                                  xx.Expextedparameter,
                                  xx.Testdata,
+                                 xx.Description,
                              } ),
                              RuleParamter = b.RuleParamters.Select(x => new
                              {
@@ -202,8 +220,9 @@ namespace XAutomateMVC.Controllers
             foreach (var items in Rules)
             {
                 DataTable dt = new DataTable(items.RuleName);
-                dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Test Approach"),
+                dt.Columns.AddRange(new DataColumn[3] { new DataColumn("Test Approach"),
                                             new DataColumn("Rule Name"),
+                                              new DataColumn("TestCae Name"),
 
                 });
                 var rulescolum = "";
@@ -233,21 +252,24 @@ namespace XAutomateMVC.Controllers
                                             new DataColumn("Expected Value"),
 
                 });
-                
-                
-               
-                  foreach (var item in items.TestCase)
+                dt.Columns.AddRange(new DataColumn[1]{ new DataColumn("Description"),
+
+                            });
+
+
+                foreach (var item in items.TestCase)
                     {
                     row = dt.NewRow();
                     row["Test Approach"] = items.TestApproachName;
                     row["Rule Name"] = items.RuleName;
+                    row["TestCae Name"] = item.TestCaseName;
                     int m = 0;
                     int r = 0;
                     //foreach (var rules in items.RuleParamter)
                     //{
                     for(int k =0;k< (items.RuleParamter.Count()); k++) { 
                         var testcase = item.Testdata.Split(",");
-                        row[k +2] = testcase[m];
+                        row[k +3] = testcase[m];
                         m++;
                       
                             //r++;
@@ -264,7 +286,7 @@ namespace XAutomateMVC.Controllers
                     var testcaselist = item.Testdata.Split(",");
                     row["Expected Result"] = item.ExceptedResult; 
                     row["Expected Value"] =item.Expextedparameter;
-
+                    row["Description"] = item.Description;
                     dt.Rows.Add(row);
                 }
                
@@ -310,11 +332,12 @@ namespace XAutomateMVC.Controllers
         }
 
 
-        public JsonResult SearchReport(string search)
+        public JsonResult SearchReport(string search,string status)
         {
-            if(search =="" || search == null || search == "undefiend")
+            if (search == "" || search == null || search == "undefiend")
             {
                 var a = from b in db.Exceute
+                        where b.Status == status
                         orderby b.ExecuteId descending
                         select new
                         {
@@ -322,14 +345,14 @@ namespace XAutomateMVC.Controllers
                             b.ResultUrl,
                             Execute = b.Execute,
                             b.Time,
-
+                            b.Status,
                         };
                 return Json(a);
             }
             else
             {
                 var a = from b in db.Exceute
-                        where b.SuiteName.Contains(search) || b.ResultUrl.Contains(search)
+                        where b.SuiteName.Contains(search) || b.ResultUrl.Contains(search) && b.Status == status
                         orderby b.ExecuteId descending
                         select new
                         {
@@ -337,24 +360,25 @@ namespace XAutomateMVC.Controllers
                             b.ResultUrl,
                             Execute = b.Execute,
                             b.Time,
-
+                            b.Status,
                         };
                 return Json(a);
             }
-       
-        }
 
-        public JsonResult ExecBindGrid()
+        }
+        public JsonResult ExecBindGrid(string Active)
         {
             var a = from b in db.Exceute
+                    where b.Status == Active
                     orderby b.ExecuteId descending
                     select new
                     {
                         b.SuiteName,
                         b.ResultUrl,
-                        Execute=  b.Execute,
+                        Execute = b.Execute,
                         b.Time,
-
+                        Status = b.Status,
+                        b.ExecuteId,
                     };
             return Json(a);
         }
@@ -372,7 +396,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -381,7 +406,7 @@ namespace XAutomateMVC.Controllers
                 if (resultToken != null)
                 {
                     var a = from b in db.Rules
-                            where b.TestApproachid == SuiteId
+                            where b.TestApproachid == SuiteId && b.Status =="1"
                             select new
                             {
                                 b.RuleName,
@@ -424,6 +449,202 @@ namespace XAutomateMVC.Controllers
           
        // }
 
+        public JsonResult Connectionchange(int connections,int rules)
+        {
+            try
+            {
+                var header = this.Request.Headers.ToString();
+                var header1 = this.Request.Headers.ToList();
+                var Auth = (string)this.Request.Headers["Authorization"];
+                if (Auth != "" && Auth != null && Auth != "max-age=0")
+                {
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
+                    string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
+                    TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
+                    DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
+                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    if (resultToken != null)
+                    {
+                        var dbconn = db.DbConfig.FirstOrDefault(x => x.Dbconfigid == connections);
+                        if(dbconn != null)
+                        {
+                            try
+                            {
+                                if (dbconn.DatabaseType == "MYSQL")
+                                {
+                                    MySqlConnection sql = new MySqlConnection("Server=" + dbconn.DbHostName + ";Port=" + dbconn.DbPort + ";Database=" + dbconn.DbName + ";User ID=" + dbconn.DbUser + ";Password=" + dbconn.DbPassword + ";SslMode=none");
+                                    sql.Open();
+                                    MySqlCommand com = new MySqlCommand("SELECT DISTINCT  COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS  where TABLE_SCHEMA != 'information_schema' && TABLE_SCHEMA !='performance_schema' && TABLE_SCHEMA != 'sys' && TABLE_SCHEMA != 'mysql'; ", sql);
+                                    using (var reader = com.ExecuteReader())
+                                    {
+                                        db.Tablecolumn.RemoveRange(db.Tablecolumn.Where(x => x.Dbconfigid == connections));
+                                        db.SaveChanges();
+                                        while (reader.Read())
+                                        {
+
+                                            Tablecolumn Ins = new Tablecolumn();
+                                            Ins.Tablecolumn1 = reader["COLUMN_NAME"].ToString();
+                                            Ins.FieldName = "C";
+                                            Ins.Active = "1";
+                                            Ins.Dbconfigid = connections;
+                                            db.Tablecolumn.Add(Ins);
+                                            db.SaveChanges();
+                                        }
+                                    }
+                                    MySqlCommand com1 = new MySqlCommand("SELECT DISTINCT  TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS  where TABLE_SCHEMA != 'information_schema' && TABLE_SCHEMA !='performance_schema' && TABLE_SCHEMA != 'sys' && TABLE_SCHEMA != 'mysql'; ", sql);
+                                    using (var reader = com1.ExecuteReader())
+                                    {
+                                        while (reader.Read())
+                                        {
+
+                                            Tablecolumn Ins2 = new Tablecolumn();
+                                            Ins2.Tablecolumn1 = reader["TABLE_NAME"].ToString();
+                                            Ins2.FieldName = "T";
+                                            Ins2.Active = "1";
+                                            Ins2.Dbconfigid = connections;
+                                            db.Tablecolumn.Add(Ins2);
+
+                                            db.SaveChanges();
+                                        }
+                                    }
+
+                                    MySqlCommand com2 = new MySqlCommand("SELECT DISTINCT  TABLE_SCHEMA FROM INFORMATION_SCHEMA.COLUMNS where TABLE_SCHEMA != 'information_schema' && TABLE_SCHEMA !='performance_schema' && TABLE_SCHEMA != 'sys' && TABLE_SCHEMA != 'mysql'; ",sql);
+                                    using (var reader = com2.ExecuteReader())
+                                    {
+                                        while (reader.Read())
+                                        {
+
+                                            Tablecolumn Ins3 = new Tablecolumn();
+                                            Ins3.Tablecolumn1 = reader["TABLE_SCHEMA"].ToString();
+                                            Ins3.FieldName = "D";
+                                            Ins3.Active = "1";
+                                            Ins3.Dbconfigid = connections;
+                                            db.Tablecolumn.Add(Ins3);
+                                            db.SaveChanges();
+                                          
+                                        }
+                                    }
+                                    sql.Close();
+                                }
+                                else
+                                {
+                                    SqlConnection sql = new SqlConnection("Server=" + dbconn.DbHostName + ";Database=" + dbconn.DbName + ";Uid=" + dbconn.DbUser + ";Pwd=" + dbconn.DbPassword + ";");
+                                    sql.Open();
+                                    SqlCommand com = new SqlCommand("SELECT DISTINCT  COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS", sql);
+                                    //  MySqlConnection sql = new MySqlConnection("Server=" + Dbhost + ";Port=" + DbPortname + ";Database=" + Dbname + ";User ID=" + Dbuser + ";Password=" + DbPassword + ";SslMode=none");
+                                    // sql.Open();
+                                    // MySqlCommand com = new MySqlCommand("SELECT DISTINCT  COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS where  TABLE_SCHEMA='" + Dbname + "' ", sql);
+                                    using (var reader = com.ExecuteReader())
+                                    {
+                                        db.Tablecolumn.RemoveRange(db.Tablecolumn.Where(x => x.Dbconfigid == connections));
+                                        db.SaveChanges();
+                                        while (reader.Read())
+                                        {
+
+                                            Tablecolumn Ins = new Tablecolumn();
+                                            Ins.Tablecolumn1 = reader["COLUMN_NAME"].ToString();
+                                            Ins.FieldName = "C";
+                                            Ins.Active = "1";
+                                            Ins.Dbconfigid = connections;
+                                            db.Tablecolumn.Add(Ins);
+                                            db.SaveChanges();
+                                        }
+                                    }
+                                    SqlCommand com1 = new SqlCommand("SELECT DISTINCT  TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS ", sql);
+                                    //  MySqlCommand com1 = new MySqlCommand("SELECT DISTINCT  TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS where  TABLE_SCHEMA='" + Dbname + "' ", sql);
+                                    using (var reader = com1.ExecuteReader())
+                                    {
+                                        while (reader.Read())
+                                        {
+
+                                            Tablecolumn Ins2 = new Tablecolumn();
+                                            Ins2.Tablecolumn1 = reader["TABLE_NAME"].ToString();
+                                            Ins2.FieldName = "T";
+                                            Ins2.Active = "1";
+                                            Ins2.Dbconfigid = connections;
+                                            db.Tablecolumn.Add(Ins2);
+
+                                            db.SaveChanges();
+                                        }
+                                    }
+                                    SqlCommand com2 = new SqlCommand("SELECT DISTINCT  TABLE_SCHEMA FROM INFORMATION_SCHEMA.COLUMNS  ", sql);
+                                    using (var reader = com2.ExecuteReader())
+                                    {
+                                        while (reader.Read())
+                                        {
+
+                                            Tablecolumn Ins3 = new Tablecolumn();
+                                            Ins3.Tablecolumn1 = reader["TABLE_SCHEMA"].ToString();
+                                            Ins3.FieldName = "D";
+                                            Ins3.Active = "1";
+                                            Ins3.Dbconfigid = connections;
+                                            db.Tablecolumn.Add(Ins3);
+                                            db.SaveChanges();
+
+                                        }
+                                    }
+                                    sql.Close();
+
+                                }
+
+                                
+
+
+                            }
+                            catch (Exception ex)
+                            {
+                                return Json("");
+                            }
+                        }
+
+                       
+
+
+                        var a = from b in db.Rules
+                                where b.Status == "1" && b.RulesId == rules
+                                orderby b.RulesId descending
+                                select new
+                                {
+                                  
+                                    b.RulesId,
+                                   
+
+                                    parameter = b.DbConfig.Tablecolumn.Select(x => new
+                                    {
+                                        x.FieldName,
+                                        color = x.FieldName == "C" ? "black" : x.FieldName == "D" ? "RED" : "Blue",
+                                        x.Tablecolumn1,
+                                        x.Dbconfigid,
+                                    }),
+                                    LabelName = b.RuleParamters.Select(x => new
+                                    {
+                                        x.ParameterName,
+                                    }),
+                                   ruleParameter = b.RuleParameter,
+                                    connection = b.DbConfigId,
+                                    ruleCondtion = b.RuleCondtion,
+                                   
+                                };
+                        return Json(a);
+                    }
+                    else
+                    {
+                        return Json("Auth Fail");
+                    }
+                }
+                else
+                {
+                    return Json("Auth Fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("Fail");
+            }
+        }
+
         public JsonResult Editdbetl(int dbetlId)
         {
             try
@@ -433,7 +654,8 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -455,7 +677,7 @@ namespace XAutomateMVC.Controllers
                                     b.RulesId,
                                     b.TestApproachid,
 
-                                    parameter = b.TestApproach.Dbconfig.Tablecolumn.Select(x => new
+                                    parameter = b.Rules.DbConfig.Tablecolumn.Select(x => new
                                     {
                                         x.FieldName,
                                         color = x.FieldName == "C" ? "black" : x.FieldName == "D" ? "RED" : "Blue",
@@ -466,8 +688,12 @@ namespace XAutomateMVC.Controllers
                                     {
                                         x.ParameterName,
                                     }),
+                                    testcaseparameter = b.TestCaseParameters.Select(x=> new { 
+                                    x.ParameterName,
+                                    }),
                                     b.ExceptedResult,
                                     ruleParameter = b.Rules.RuleParameter,
+                                    connection = b.Rules.DbConfigId,
                                     ruleCondtion = b.Rules.RuleCondtion,
                                     b.Expextedparameter,
                                 };
@@ -489,14 +715,15 @@ namespace XAutomateMVC.Controllers
             }
         }
 
-        public JsonResult Bindgridrule(int Rules)
+        public JsonResult Bindgridrule(int Rules,string status)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -507,19 +734,23 @@ namespace XAutomateMVC.Controllers
                     var a = from b in db.TestCases
                             join c in db.Rules on b.RulesId equals c.RulesId
                             join d in db.TestApproach on c.TestApproachid equals d.TestApproachid
-                            where b.RulesId == Rules && b.Status == "1"
+                            where b.RulesId == Rules && b.Status == status
                             orderby b.TestCasesId descending
                             select new
                             {
-                                b.TestCaseName,
+                                TestCaseName = (b.TestCaseName == null ? "" : b.TestCaseName),
                                 d.TestApproachName,
                                 c.RuleName,
                                 c.RulesId,
+                                testcaseparameter = b.TestCaseParameters.Select(x => new {
+                                    x.ParameterName,
+                                }),
                                 b.TestcaseTitle,
                                 b.Testdata,
                                 b.ExceptedResult,
                                 Description = (b.Description == null ? "" : b.Description),
-                                b.TestCasesId
+                                b.TestCasesId,
+                                Status=   b.Status =="1" ? "Active" : "Inactive",
                             };
                     return Json(a);
                 }
@@ -544,7 +775,8 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -601,14 +833,15 @@ namespace XAutomateMVC.Controllers
 
         }
 
-        public JsonResult SearchBindGrid(string search)
+        public JsonResult SearchBindGrid(string search,string status)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -621,37 +854,47 @@ namespace XAutomateMVC.Controllers
                         var a = from b in db.TestCases
                                 join c in db.Rules on b.RulesId equals c.RulesId
                                 join d in db.TestApproach on c.TestApproachid equals d.TestApproachid
-                                where b.Status == "1"
+                                where b.Status == status
                                 select new
                                 {
-                                    b.TestCaseName,
+                                    TestCaseName = (b.TestCaseName == null ? "" : b.TestCaseName),
                                     d.TestApproachName,
                                     c.RuleName,
                                     b.TestcaseTitle,
                                     b.Testdata,
                                     b.ExceptedResult,
+                                    testparameter = b.TestCaseParameters.Select(x=> new
+                                    {
+                                        x.ParameterName,
+                                    }),
                                     b.TestCasesId,
+                                    Status =  b.Status == "1" ? "Active" : "Inactive",
                                     Description = (b.Description == null ? "" : b.Description),
                                 };
                         return Json(a);
                     }
                     else
                     {
-                        var a = from b in db.TestCases
+                        var a = (from b in db.TestCases
                                 join c in db.Rules on b.RulesId equals c.RulesId
                                 join d in db.TestApproach on c.TestApproachid equals d.TestApproachid
-                                where b.TestCaseName.Contains(search) || d.TestApproachName.Contains(search) || c.RuleName.Contains(search) || b.ExceptedResult.Contains(search) || b.Testdata.Contains(search) && b.Status == "1"
+                                where  b.Status == status
                                 select new
                                 {
-                                    b.TestCaseName,
+                                    TestCaseName =(   b.TestCaseName == null ? "" :b.TestCaseName),
                                     d.TestApproachName,
                                     c.RuleName,
                                     b.TestcaseTitle,
                                     b.Testdata,
                                     b.ExceptedResult,
+                                    testparameter = b.TestCaseParameters.Select(x => new
+                                    {
+                                        x.ParameterName,
+                                    }),
+                                    Status = b.Status == "1" ? "Active" : "Inactive",
                                     b.TestCasesId,
                                     Description = (b.Description == null ? "" : b.Description),
-                                };
+                                }).Where(x=> x.TestCaseName.Contains(search) || x.TestApproachName.Contains(search) || x.RuleName.Contains(search) || x.ExceptedResult.Contains(search) || x.Testdata.Contains(search) );
                         return Json(a);
                     }
 
@@ -668,14 +911,16 @@ namespace XAutomateMVC.Controllers
 
         }
 
-        public JsonResult ETLBindGrid()
+        public JsonResult ETLBindGrid(string status)
         {
             var header = this.Request.Headers.ToString();
             var header1 = this.Request.Headers.ToList();
-             var Auth= (string)this.Request.Headers["Authorization"];
+            var Auth = (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -686,17 +931,21 @@ namespace XAutomateMVC.Controllers
                     var a = from b in db.TestCases
                             join c in db.Rules on b.RulesId equals c.RulesId
                             join d in db.TestApproach on c.TestApproachid equals d.TestApproachid
-                            where b.Status == "1"
+                            where b.Status == status
                             select new
                             {
                                 b.TestCaseName,
                                 d.TestApproachName,
                                 c.RuleName,
                                 b.TestcaseTitle,
-                                b.Testdata,
+                               
+                               Testdata = b.TestCaseParameters.Select(X=> new { 
+                               X.ParameterName,
+                               }),
                                 b.ExceptedResult,
                                 b.TestCasesId,
                                 Description = (b.Description == null ? "" : b.Description),
+                                Status = (b.Status == "1" ? "Active" : "Inactive"),
                             };
                     return Json(a);
                 }
@@ -740,7 +989,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -753,7 +1003,7 @@ namespace XAutomateMVC.Controllers
                             select
                             new
                             {
-                                Parameter = b.TestApproach.Dbconfig.Tablecolumn.Select(x => new
+                                Parameter = b.DbConfig.Tablecolumn.Select(x => new
                                 {
                                     x.FieldName,
                                     color = x.FieldName == "C" ? "black" : x.FieldName == "D" ? "RED" : "blue",
@@ -782,7 +1032,7 @@ namespace XAutomateMVC.Controllers
         }
       
         [HttpGet]
-        public String SaveGrid(int Rules, string Name, int SuiteName, string Except, string parameter, string testRule,string Description,string status,string ExpectedValue)
+        public String SaveGrid( string Name, int SuiteName, string Except, string parameter, string testRule,string Description,string status,string ExpectedValue ,int connection)
         {
 
             var header = this.Request.Headers.ToString();
@@ -790,7 +1040,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -800,8 +1051,8 @@ namespace XAutomateMVC.Controllers
                 {
                     TestCases Is = new TestCases();
                     //  Is.SuiteId = SuiteName;
-                    Is.TestApproachid = SuiteName;
-                    Is.RulesId = Rules;
+                  //  Is.TestApproachid = SuiteName;
+                    Is.RulesId = SuiteName;
                     Is.TestCaseName = Name;
                     // Is.RuleId = Rules;
                     Is.ExceptedResult = Except + ExpectedValue;
@@ -812,6 +1063,24 @@ namespace XAutomateMVC.Controllers
                     Is.Status = status;
                     db.TestCases.Add(Is);
                     db.SaveChanges();
+
+                    var rulechecck = db.Rules.FirstOrDefault(x => x.RulesId == Is.RulesId);
+                    if(rulechecck != null)
+                    {
+                        rulechecck.DbConfigId = Is.RulesId;
+                        db.SaveChanges();
+                    }
+
+
+                    var para = parameter.Split(",,,");
+                    for(int i=0; i < para.Length; i++)
+                    {
+                        TestCaseParameters ins = new TestCaseParameters();
+                        ins.ParameterName = para[i];
+                        ins.TestCasesId = Is.TestCasesId;
+                        db.TestCaseParameters.Add(ins);
+                        db.SaveChanges();
+                    }
 
                     var a = "Success";
                     return a;
@@ -865,8 +1134,39 @@ namespace XAutomateMVC.Controllers
 
         }
 
+        public string Latestgrafana()
+        {
+            var header = this.Request.Headers.ToString();
+            var header1 = this.Request.Headers.ToList();
+            var Auth = (string)this.Request.Headers["Authorization"];
+            if (Auth != "" && Auth != null && Auth != "max-age=0")
+            {
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
+                string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
+                TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
+                DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
+                var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                if (resultToken != null)
+                {
+                    var report = db.Exceute.OrderByDescending(x => x.ExecuteId).Take(1);
 
-        public String UpdateGrid(int Rules, string Name, int SuiteName, string Except, string parameter, string testRule, int testcaseid,string status,string Describtion,string Exceptvalues)
+                    return report.FirstOrDefault().SuiteName;
+                }
+                else
+                {
+                    return "Auth Fail";
+                }
+            }
+            else
+            {
+                return "Auth Fail";
+            }
+        }
+
+        public String UpdateGrid(string Name, int SuiteName, string Except, string parameter, string testRule, int testcaseid,string status,string Describtion,string Exceptvalues,int connection)
         {
 
             var header = this.Request.Headers.ToString();
@@ -874,7 +1174,8 @@ namespace XAutomateMVC.Controllers
              var Auth= (string)this.Request.Headers["Authorization"];
             if (Auth != "" && Auth != null && Auth != "max-age=0")
             {
-                TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                 DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                 string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                 TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -886,8 +1187,8 @@ namespace XAutomateMVC.Controllers
                     if (result != null)
                     {
                         //  result.SuiteId = SuiteName;
-                        result.TestApproachid = SuiteName;
-                        result.RulesId = Rules;
+                      //  result.TestApproachid = SuiteName;
+                        result.RulesId = SuiteName;
                         result.TestCaseName = Name;
                         //result.RuleId = Rules;
                         result.ExceptedResult = Except + Exceptvalues;
@@ -897,7 +1198,24 @@ namespace XAutomateMVC.Controllers
                         result.Expextedparameter = Exceptvalues;
                         db.SaveChanges();
 
+                        var rulescheck = db.Rules.FirstOrDefault(x => x.RulesId == result.RulesId);
+                        if(rulescheck != null)
+                        {
+                            rulescheck.DbConfigId = connection;
+                            db.SaveChanges();
+                        }
 
+                        db.TestCaseParameters.RemoveRange(db.TestCaseParameters.Where(X=>X.TestCasesId == result.TestCasesId));
+
+                        var para = parameter.Split(",,,");
+                        for (int i = 0; i < para.Length; i++)
+                        {
+                            TestCaseParameters ins = new TestCaseParameters();
+                            ins.ParameterName = para[i];
+                            ins.TestCasesId = testcaseid;
+                            db.TestCaseParameters.Add(ins);
+                            db.SaveChanges();
+                        }
                     }
                     var a = "";
                     return a;
@@ -1088,9 +1406,10 @@ namespace XAutomateMVC.Controllers
                     }
                     var Testdata = "";
                     var ExceptedResult = "";
+                    var Descriptio = "";
                     var ExceptedResultparameter = "";
-                    columncount = columncount - 2;
-
+                    //  columncount = columncount - 2;
+                    var name = "";
                     int d= 0;
 
                     foreach (DataRow row in table.Rows)
@@ -1101,7 +1420,7 @@ namespace XAutomateMVC.Controllers
                         if (ProductId == null || ProductId == "")
                         {
                             ProductId = row["Test Approach"].ToString();
-
+                            name = row["TestCae Name"].ToString();
                             //Process proc = new Process();
                             //proc.StartInfo.FileName = @"/bin/bash";
                             //proc.StartInfo.CreateNoWindow = true;
@@ -1132,62 +1451,78 @@ namespace XAutomateMVC.Controllers
                         }
                         Testdata = "";
 
-                        for (int k = 2; k < columncount; k++)
+                        for (int k = 3; k < columncount; k++)
                         {
 
-                            if (k == columncount - 2)
+                            if (k == columncount - 3)
                             {
-                                ExceptedResult = row["Expected Value"].ToString();
+                                ExceptedResult = row["Expected Result"].ToString();
+                      //          break;
 
                             }
-                            if (k == columncount - 1)
+                            if (k == columncount - 2)
                             {
-                                ExceptedResultparameter = row["Expected Result"].ToString();
+                                ExceptedResultparameter = row["Expected Value"].ToString();
+                        //        break;
 
+                            }
+                            if(k == columncount - 1)
+                            {
+                                Descriptio = row["Description"].ToString();
                             }
                             if (k != columncount - 2)
                             {
-                                if (Testdata == null || Testdata == "")
+                                if(k != columncount - 3)
                                 {
-                                    Testdata = row[k].ToString();
-                                }
-                                else
-                                {
-                                    Testdata += "," + row[k].ToString();
+                                    if (k != columncount - 1)
+                                    {
+                                        if (Testdata == null || Testdata == "")
+                                        {
+                                            Testdata = row[k].ToString();
+                                        }
+                                        else
+                                        {
+                                            Testdata += ",,," + row[k].ToString();
 
+                                        }
+                                    }
                                 }
+                              
+                            
                             }
 
 
 
                         }
 
-                        if(d == 0)
-                        {
-                            db.TestCases.RemoveRange(db.TestCases.Where(x => x.TestCaseName == Rules));
-                            d++;
-                        }
+                       
                         var testapproachid = db.TestApproach.FirstOrDefault(x => x.TestApproachName == ProductId).TestApproachid;
 
                         var RulesValue = db.Rules.FirstOrDefault(x => x.RuleName == Rules && x.TestApproachid == testapproachid);
                         if (RulesValue != null)
                         {
-
+                            if (d == 0)
+                            {
+                                db.TestCases.RemoveRange(db.TestCases.Where(x => x.RulesId == RulesValue.RulesId));
+                                db.TestCaseParameters.RemoveRange(db.TestCaseParameters.Where(x => x.TestCases.RulesId == RulesValue.RulesId));
+                                d++;
+                            }
 
                             TestCases Is = new TestCases();
                             //  Is.SuiteId = ProductId;
                             Is.TestApproachid = RulesValue.TestApproachid;
                             Is.RulesId = RulesValue.RulesId;
-                            Is.TestCaseName = Rules;
+                            Is.TestCaseName = name;
                             //Is.RuleId = Rules;
                             Is.ExceptedResult = ExceptedResult;
+                            Is.Description = Descriptio;
                             Is.Expextedparameter = ExceptedResultparameter;
                             Is.Testdata = Testdata;
                             Is.Status = "1";
                             db.TestCases.Add(Is);
                             db.SaveChanges();
 
-                            var Parameter = Testdata.Split(",");
+                            var Parameter = Testdata.Split(",,,");
                             var demo = RulesValue.RuleCondtion;
                             for (int L = 0; L < Parameter.Length; L++)
                             {
@@ -1262,11 +1597,12 @@ namespace XAutomateMVC.Controllers
             {
                 var header = this.Request.Headers.ToString();
                 var header1 = this.Request.Headers.ToList();
-                 var Auth= (string)this.Request.Headers["Authorization"];
+                var Auth = (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-            //        TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //       TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -1296,13 +1632,12 @@ namespace XAutomateMVC.Controllers
                     return Json("Auth Fail");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
         }
-
-        public JsonResult SearchRelease(string search)
+        public JsonResult SearchRelease(string search,string status)
         {
             try
             {
@@ -1311,7 +1646,8 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
@@ -1322,7 +1658,7 @@ namespace XAutomateMVC.Controllers
                         if (search == "" || search == null || search == "undefiened")
                         {
                             var b = from a in db.ReleaseNo
-                                    where a.Status == "1"
+                                    where a.Status == status
                                     select new
                                     {
                                         a.ReleasenoId,
@@ -1336,7 +1672,7 @@ namespace XAutomateMVC.Controllers
                         else
                         {
                             var b = from a in db.ReleaseNo
-                                    where a.Status == "1" && a.ReleaseName.Contains(search) || a.ReleaseNo1.Contains(search)
+                                    where a.Status == status && a.ReleaseName.Contains(search) || a.ReleaseNo1.Contains(search)
                                     select new
                                     {
                                         a.ReleasenoId,
@@ -1376,8 +1712,9 @@ namespace XAutomateMVC.Controllers
                  var Auth= (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                           TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
-                   // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //       TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                     DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
