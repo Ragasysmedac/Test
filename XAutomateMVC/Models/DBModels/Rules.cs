@@ -16,10 +16,11 @@ namespace XAutomateMVC.Models.DBModels
         public string RuleCondtion { get; set; }
         public string RuleParameter { get; set; }
         public string Status { get; set; }
-        public string TestApproachName { get; set; }
+        public string SuiteName { get; set; }
         public string Description { get; set; }
         public DateTime? CreateDate { get; set; }
         public long? TestApproachid { get; set; }
+        public string TestApproachName { get; set; }
         public long? DbConfigId { get; set; }
 
         public virtual DbConfig DbConfig { get; set; }

@@ -1,157 +1,16 @@
-﻿
+﻿@model ProductViewModel;
 @{
-    Layout = null;
-}
-
-
-@model ProductViewModel;
-@{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
 <html>
-<head>
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>XAutomate -Test Approach</title>
-    <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/css/simple-sidebar.css" rel="stylesheet" />
-    <!-- Bootstrap core CSS -->
-    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <!-- Custom styles for this template -->
-    <link href="~/css/simple-sidebar.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Test Approach</title>
-</head>
 <body>
-
     <style>
-        html, body {
-            height: 100%;
-            margin: 0px;
-            padding: 0px;
-        }
-        .bg-light1 {
-            background-color: #261c1d !important;
-        }
-        #wrapper {
-            min-height: 100vh;
-        }
-
-        .dropdown-container {
-            display: none;
-        }
-        .dropdown2-container {
-            display: none;
-        }
-        .hidden {
-            visibility: hidden;
-            max-height: 0;
-            border: unset;
-            padding: unset !important;
-            max-width: 0;
-        }
-        .color {
-            padding: 1px;
-            text-align: center;
-            border-top: 1px solid #3a3434;
-            border-bottom: 1px solid #3a3434;
-            color: white;
-        }
-        .bg-light {
-            background-color: rgb(169, 169, 169) !important
-        }
-        tr {
-            text-align: center;
-        }
-
-        thead {
-            background-color: gray;
-            color: white;
-        }
-
-        .clear {
-        }
-        .table th, .table td {
-            padding: unset !important;
-        }
-        input[type=button], input[type=submit], input[type=reset],.button {
-            background-color: unset;
-            border: none;
-            color: white;
-            padding: 3px 43px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            text-transform: uppercase;
-            font-size: 13px;
-            -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-            box-shadow: 0 10px 20px 0 #3a3434;
-            -webkit-border-radius: 5px 5px 5px 5px;
-            border-radius: 5px 5px 5px 5px;
-            margin: 5px 10px 20px 10px;
-            -webkit-transition: all 0.3s ease-in-out;
-            -moz-transition: all 0.3s ease-in-out;
-            -ms-transition: all 0.3s ease-in-out;
-            -o-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-        }
-
-        body {
-            line-height: 2 !important;
-        }
-
-        #sidebar-wrapper {
-            background-color: #261c1d !important;
-            color: white;
-        }
-
-        .list-group-flush > .list-group-item {
-            background-color: #261c1d !important;
-            color: white;
-        }
-
-        .nav-link {
-            color: white;
-        }
-
-        #sidebar-wrapper .list-group {
-            width: 9rem !important;
-        }
-
-        .border-right {
-            border-right: unset !important;
-        }
-        .highlight {
-            background-color: #261c1d;
-            color: white;
+        .dropdown1-container {
+            display: block !important;
         }
     </style>
-
     <script>
      
 
@@ -219,6 +78,11 @@
                     $("#Error").html('Test Suite Should not Contain Whitespace');
                     return false;
                 }
+                var expcttest = $("#extesName").val();
+                if (expcttest == "" || expcttest == null || expcttest == "undefined" || expcttest == undefined) {
+                    $("#Error").html("Please Enter Expected Testcase");
+                    return false;
+                }
                 if ($('#Status').is(':checked')) {
                     Active = 1;
                 }
@@ -230,7 +94,7 @@
                         type: "GET", //HTTP POST Method
                         url: "/Suites/SaveTestSuite", // Controller/View
                         datatype: "json",
-                        data: { SName: SuiteName, Active: Active},
+                        data: { SName: SuiteName, Active: Active, Execpttest: expcttest},
                         headers: {
                             "Content-Type": JSON,
                             'Authorization': localStorage.getItem("AuthoToken"),
@@ -250,9 +114,9 @@
                                 $("#Error").html("Test Suit Saved Successfully");
                             }
                             var SuiteName = $("#SName").val("");
-
+                            $("#extesName").val("");
                             debugger;
-                            Bindrid(1);
+                            Bindrid1(1);
                         },
                         error: function (Result) {
                         }
@@ -275,6 +139,7 @@
                 $("#Error").html("");
                 $("#Success").html("");
                 $("#testsuitestatus").val("1");
+                $("#extesName").val("");
                 $("#testsuiteid").val("");
                 var table = document.getElementById('example1');
                 var cells = table.getElementsByTagName('td');
@@ -309,6 +174,11 @@
                     $("#Error").html('Test Suit Should not Contain Whitespace');
                     return false;
                 }
+                var expcttest = $("#extesName").val();
+                if (expcttest == "" || expcttest == null || expcttest == "undefined" || expcttest == undefined) {
+                    $("#Error").html("Please Enter Expected Testcase");
+                    return false;
+                }
                 if ($('#Status').is(':checked')) {
                     Active = 1;
                 }
@@ -320,7 +190,7 @@
                         type: "GET", //HTTP POST Method
                         url: "/Suites/UpdateTestSuite", // Controller/View
                         datatype: "json",
-                        data: { testId: TestSuiteId, SName: SuiteName, Active: Active },
+                        data: { testId: TestSuiteId, SName: SuiteName, Active: Active, Execpttest: expcttest},
                         headers: {
                             "Content-Type": JSON,
                             'Authorization': localStorage.getItem("AuthoToken"),
@@ -344,7 +214,7 @@
                                 return false;
                             }
                             var SuiteName = $("#SName").val("");
-
+                            $("#extesName").val("");
                             debugger;
                             $("#SuiteSave").removeClass("hidden");
                             $("#update").addClass("hidden");
@@ -359,7 +229,7 @@
                                     rowsNotSelected[row].classList.remove('highlight');
                                 }
                             }
-                            Bindrid(1);
+                            Bindrid1(1);
                         },
                         error: function (Result) {
                         }
@@ -367,101 +237,7 @@
                     });
             });
 
-            var screens = sessionStorage.getItem("Screen");
-            if (screens == null || screens == "" || screens == undefined) {
-                window.location.href = "/Home/Index";
-            }
-            var RoleName = sessionStorage.getItem("RoleName");
-            var Screensplit = screens.split("|");
-            for (var i = 0; i < Screensplit.length; i++) {
-                var val = Screensplit[i];
-                var show = val.split(",");
-                var val2 = show["0"];
-                var val1 = show["1"];
-                switch (val2) {
-                    case "Connection":
-                        if (val1 == "Show") {
-                            $("#Menuconnection").removeClass("hidden");
-                        }
-                        else {
-                            $("#Menuconnection").addClass("hidden");
-                        }
-                        break;
-                    case "Suite":
-                        if (val1 == "Show") {
-                            $("#MenuSuites").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuSuites").addClass("hidden");
-                        }
-                        break;
-                    case "Approach":
-                        if (val1 == "Show") {
-                            $("#MenuTestApproach").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuTestApproach").addClass("hidden");
-                        }
-                        break;
-                    case "Testcases":
-                        if (val1 == "Show") {
-                            $("#MenuTestcases").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuTestcases").addClass("hidden");
-                        }
-                        break;
-                    case "etldb":
-                        if (val1 == "Show") {
-                            $("#MenuEtlrules").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuEtlrules").addClass("hidden");
-                        }
-                        break;
-                    case "Release":
-                        if (val1 == "Show") {
-                            $("#MenuRelease").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuRelease").addClass("hidden");
-                        }
-                        break;
-                    case "Executions":
-                        if (val1 == "Show") {
-                            $("#MenuExecution").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuExecution").addClass("hidden");
-                        }
-                        break;
-                    case "TestReport":
-                        if (val1 == "Show") {
-                            $("#MenuTestReport").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuTestReport").addClass("hidden");
-                        }
-                        break;
-                    case "Analytics":
-                        if (val1 == "Show") {
-                            $("#MenuAnaltics").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuAnaltics").addClass("hidden");
-                        }
-                        break;
-                    case "Usermanage":
-                        if (val1 == "Show") {
-                            $("#MenuUserMangment").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuUserMangment").addClass("hidden");
-                        }
-                        break;
-                }
-
-            }
+        
         });
 
         $(document).on("click", "#excel", function () {
@@ -517,7 +293,7 @@
                                 tr.append("<td  OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].testSuitename + "</td>");
                                 tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");' style='    cursor: pointer;'>" + data[i].createdDate + "</td>");
                                 tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].status + "</td>");
-
+                                tr.append("<td> <span  OnClick='deletefun(" + data[i].testSuiteId + ");'  style='cursor: pointer;'>  " + (data[i].status == "Inactive" ? "<img src='http://40.115.111.12:5000/Image/delete-trash-icon-256.png' style='height:25px' />" : "") + " </span></td>");
                                 $('#tblAuthgrid').append(tr);
                             }
                         }
@@ -564,6 +340,7 @@
                         $("#testsuiteid").val(data["0"].testSuiteId);
                         $("#SName").val(data["0"].testSuitename);
                         var status = data["0"].status;
+                        $("#extesName").val(data["0"].excepttestcase);
                         if (status == "1") {
                             $("#Status").prop("checked", true);
                         }
@@ -610,15 +387,103 @@
                             for (var i = 0; i < data.length; i++) {
                                 var tr;
                                 tr = $('<tr/>');
+                                tr.append("<td  OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].testSuiteId + "</td>");
                                 tr.append("<td  OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].testSuitename + "</td>");
+                                tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");' style='    cursor: pointer;'>" + data[i].excepttestcase + "</td>");
                                 tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");' style='    cursor: pointer;'>" + data[i].createdDate + "</td>");
                                 tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].status + "</td>");
-
+                                tr.append("<td> <span  OnClick='deletefun(" + data[i].testSuiteId + ");'  style='cursor: pointer;'>  " + (data[i].status == "Inactive" ? "<img src='http://40.115.111.12:5000/Image/delete-trash-icon-256.png' style='height:25px' />" : "") + " </span></td>");
                                 $('#tblAuthgrid').append(tr);
                             }
 
                         }
+                        $('#example1').DataTable({
+                            paging: true,
+                            scrollX: true,
+                            lengthChange: true,
+                            searching: true,
+                            ordering: false
+                        });
 
+                    },
+                    error: function (Result) {
+
+                    }
+
+                });
+        }
+
+        function Bindrid1(values) {
+            if (values == "1") {
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                $("#testsuitestatus").val("1");
+            }
+            else {
+                $("#InActive").addClass("hidden");
+                $("#Active").removeClass("hidden");
+                $("#testsuitestatus").val("0");
+            }
+            $.ajax(
+                {
+                    type: "GET", //HTTP POST Method
+                    url: "/Suites/TestSuitegrid", // Controller/View
+                    datatype: "json",
+                    data: { status: values },
+                    headers: {
+                        "Content-Type": JSON,
+                        'Authorization': localStorage.getItem("AuthoToken"),
+                    },
+                    success: function (data) {
+                        debugger;
+                        if (data == "Auth Fail") {
+                            $("#Error").html("Authentication Failed,Your Session Failed");
+                            return false;
+                        }
+                        $('#tblAuthgrid').empty();
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                var tr;
+                                tr = $('<tr/>');
+                                tr.append("<td  OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].testSuiteId + "</td>");
+                                tr.append("<td  OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].testSuitename + "</td>");
+                                tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");' style='    cursor: pointer;'>" + data[i].excepttestcase + "</td>");
+                                tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");' style='    cursor: pointer;'>" + data[i].createdDate + "</td>");
+                                tr.append("<td OnClick='display(this," + data[i].testSuiteId + ");'  style='    cursor: pointer;'>" + data[i].status + "</td>");
+                                tr.append("<td> <span  OnClick='deletefun(" + data[i].testSuiteId + ");'  style='cursor: pointer;'>  " + (data[i].status == "Inactive" ? "<img src='http://40.115.111.12:5000/Image/delete-trash-icon-256.png' style='height:25px' />" : "") + " </span></td>");
+                                $('#tblAuthgrid').append(tr);
+                            }
+
+                        }
+                    
+
+                    },
+                    error: function (Result) {
+
+                    }
+
+                });
+        }
+
+        function deletefun(testsuite) {
+            $.ajax(
+                {
+                    type: "GET", //HTTP POST Method
+                    url: "/Suites/deletesuite", // Controller/View
+                    datatype: "json",
+                    data: { testsuiteid: testsuite },
+                    headers: {
+                        "Content-Type": JSON,
+                        'Authorization': localStorage.getItem("AuthoToken"),
+                    },
+                    success: function (data) {
+                        debugger;
+                        if (data == "Auth Fail") {
+                            $("#Error").html("Authentication Failed");
+                            return false;
+                        }
+
+                        Bindrid1(1);
                     },
                     error: function (Result) {
 
@@ -628,146 +493,7 @@
         }
     </script>
     <div>
-        <div class="d-flex" id="wrapper">
 
-            <!-- Sidebar -->
-            <div class="bg-light border-right" id="sidebar-wrapper" style="text-align:center">
-                <a href="/Home/MenuExample" style="cursor:pointer">
-                    <img src="~/Dash board Icon/logo-01.png" style=" width: 44%; " />
-                </a>
-                <div class="list-group list-group-flush">
-
-                    <a href="/DbConfig/DbConfig" class="list-group-item list-group-item-action bg-light Admin color" id="Menuconnection">
-                        <img src="~/login icon/connections.png" style="width:30px" />
-                        <h6>CONNECTIONS</h6>
-                    </a>
-                    <a class="list-group-item list-group-item-action bg-light dropdown-btn1 color">
-                        <img src="~/login icon/test approach.png" style="width:30px" />
-
-                        <h6> TESTS</h6>
-                    </a>
-                    <div class="dropdown1-container" style="        background-color: #A9A9A9 !important">
-                        <a href="/Home/TestSuite" class="list-group-item list-group-item-action bg-light Admin color" id="MenuSuites">
-                            <img src="~/Image/tests.png" style="width:30px" />
-                            <h6>TEST SUITE</h6>
-                        </a>
-                        <a href="/Suites/Suite" class="list-group-item list-group-item-action bg-light Admin color" id="MenuTestApproach">
-                            <img src="~/login icon/test approach.png" style="width:30px" />
-                            <h6>TEST APPROACH</h6>
-                        </a>
-                        <a class="list-group-item list-group-item-action bg-light1  dropdown-btn2 color">
-                            <img src="~/login icon/testcase.png" style="width:30px" />
-                            <h6>
-                                TEST CASES
-                            </h6>
-                        </a>
-                        <div class="dropdown2-container">
-                            <div href="#" class=" list-group-item-action bg-light Admin color" id="MenuTestcases">
-
-                                <a  href="/Web/Web" style="        border-bottom: 1px solid 1px solid #ba9122;color: white">WEB</a><br />
-                                <a style="        border-bottom: 1px solid 1px solid #ba9122;color: white">API</a><br />
-                                <a href="/Home/Dbetl" style="        border-bottom: 1px solid 1px solid #ba9122;color: white">ETL/DB</a><br />
-                            </div>
-                            <a href="/DbConfig/RulesSet" class="list-group-item list-group-item-action bg-light Admin color" id="MenuEtlrules">
-                                <img src="~/Image/etl_rules.png" style="width:30px" />
-                                <h6>ETL/RULES</h6>
-                            </a>
-                        </div>
-                    </div>
-                    <a href="/Suites/Release" class="list-group-item list-group-item-action bg-light color" id="MenuRelease">
-                        <img src="~/login icon/release.png" style="width:30px" />
-                        <h6>RELEASE</h6>
-                    </a>
-                    <a href="/Execution/Execute" class="list-group-item list-group-item-action bg-light color" id="MenuExecution">
-                        <img src="~/Image/Picture1.png" style="width:30px" />
-                        <h6>EXECUTION</h6>
-                    </a>
-                    <a class="list-group-item list-group-item-action bg-light  dropdown-btn color">
-                        <img src="~/login icon/reports (1).png" style="width:30px" />
-                        <h6>
-                            REPORTS
-                        </h6>
-                    </a>
-                    <div class="dropdown-container" style="        background-color: #A9A9A9 !important">
-
-                        <a href="/Home/Report" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuTestReport">
-                            <img src="~/Image/Picture3.png" style="width:30px" />
-                            <h6>
-                                TEST REPORT
-                            </h6>
-                        </a>
-                        <a href="http://52.178.152.165:8080/" target="_blank" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuAnaltics">
-                            <img src="~/Image/Picture3.png" style="width:30px" />
-                            <h6>
-                                ANALYTICS
-                            </h6>
-                        </a>
-                    </div>
-                    <a class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuUserMangment">
-                        <img src="~/Image/User_management.png" style="width:30px" />
-                        <h6>
-                            USER MANAGEMENT
-                        </h6>
-                    </a>
-                    <div class="dropdown-container" style=" background-color: #A9A9A9 !important">
-
-                        <a href="/UserManagement/Employee" class="list-group-item list-group-item-action bg-light  dropdown-btn color">
-
-                            <img src="~/Image/Layer 3.png" style="width:30px" />
-                            <h6>
-                                USER
-                            </h6>
-                        </a>
-                        <a href="/UserManagement/UserRole" class="list-group-item list-group-item-action bg-light  dropdown-btn color">
-
-                            <img src="~/Image/user-role.png" style="width:30px" />
-                            <h6>
-                                USER ROLE
-                            </h6>
-                        </a>
-                    </div>
-                    <a href="/Home/Index" class="list-group-item list-group-item-action bg-light color">
-                        <img src="~/Dash board Icon/logout up.png" style="width:30px" />
-                        <h6>LOGOUT</h6>
-                    </a>
-                </div>
-            </div>
-            <!-- /#sidebar-wrapper -->
-            <!-- Page Content -->
-
-
-            <div id="page-content-wrapper" style="        width: 100%;
-        background-color: #d5d5d5">
-
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style=" background-color: #261c1d !important;">
-                    <a id="menu-toggle">
-                        <img src="~/Dash board Icon/logo name-01.png" style=" width: 145px; " />
-                    </a>
-
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <li class="nav-item active" style="text-align:center">
-                                <a href="#">
-                                    <img src="~/login icon/Group 50.png" />
-                                    <p class="nav-link" style="color: white;padding:unset">Profile <span class="sr-only">(current)</span></p>
-                                </a>
-
-                            </li>
-                            <li class="nav-item" style="        text-align: center; padding-left: 15px;">
-                                <a href="/Home/Index">
-                                    <img src="~/login icon/sign-out-alt.png" />
-                                    <p class="nav-link" style=" color: white;padding:unset">Logout</p>
-                                </a>
-
-                            </li>
-
-                        </ul>
-                    </div>
-                </nav>
                 <h3 style="        color: #ba9122; padding: 14px; margin-left: 42px;">Test Suite</h3>
                 @*<form method="post" action="/Suite/Savetestsuite" method="post" enctype="multipart/form-data">*@
                 <div class="container" style=" background-color: white;   padding-bottom: unset;">
@@ -785,7 +511,10 @@
                                                 <input type="text" id="SName" name="Name" class="txt-input form-control" maxlength="30" />
                                             </div>
 
-
+                                            <div class="col-lg-3 col-md-3 col-xs-5 col-sm-5" style="text-align: left;">
+                                                <label><span style="color: red;">*</span>Expected number of test cases</label><br />
+                                                <input type="text" id="extesName" name="Name" class="txt-input form-control" maxlength="30" />
+                                            </div>
                                         </div>
 
                                     </div>
@@ -834,7 +563,7 @@
                             <div class=" container-scroller">
 
 
-                                <div class="col-lg-12 form-inline"
+                                @*<div class="col-lg-12 form-inline"
                                      style="">
                                     <div class="col-lg-4"></div>
                                     <div class="col-lg-8 " style="padding-right:0px;">
@@ -863,6 +592,14 @@
                                             </button>
                                         </div>
                                     </div>
+                                </div>*@
+                                <div class="form-group" id="Excelpos">
+
+
+                                    <button type="button" class="btn  btn-sm" id="excel">
+                                        <img src="~/ExportExcel.png"
+                                             style="cursor: pointer;" />
+                                    </button>
                                 </div>
                                 <div class="row" style="        margin-top: 10px">
                                     <div class="col-sm-12 mat-elevation-z8"
@@ -870,15 +607,23 @@
                                         <table style="width: 100%;" border="1" id="example1">
                                             <thead>
                                                 <tr>
-
+                                                    <td>
+                                                        TS Id
+                                                    </td>
                                                     <td>
                                                         Test Suite
                                                     </td>
                                                     <td>
-                                                        Created Date
+                                                        Expected Testcase
+                                                    </td>
+                                                    <td>
+                                                        Creation Date
                                                     </td>
                                                     <td>
                                                         Status
+                                                    </td>
+                                                    <td>
+                                                        Delete
                                                     </td>
                                                 </tr>
                                             </thead>
@@ -907,10 +652,6 @@
     <!-- /#page-content-wrapper -->
     <!-- /#wrapper -->
     <!-- Bootstrap core JavaScript -->
-    <script src="~/vendor/jquery/jquery.min.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/vendor/jquery/jquery.min.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>

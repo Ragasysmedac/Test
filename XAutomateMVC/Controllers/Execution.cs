@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using log4net;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using TimeZoneConverter;
@@ -16,113 +20,143 @@ namespace XAutomateMVC.Controllers
 {
     public class Execution : Controller
     {
-        private readonly ILogger<Execution> _logger;
 
+        static readonly ILog _log4net = LogManager.GetLogger(typeof(Execution));
         db_mateContext db = new db_mateContext();
+
+        private IConfiguration configuration;
+
+        public Execution(IConfiguration iConfig)
+        {
+            configuration = iConfig;
+        }
         public IActionResult Index()
         {
             return View();
         }
         public IActionResult Execute()
         {
-            var TestApproach = (from product in db.TestSuite
-                                where product.Status =="1"
-                                select new SelectListItem()
-                                {
-                                    Text = product.TestSuitename,
-                                    Value = product.TestSuitename.ToString(),
-                                }).ToList();
-
-            //TestApproach.Insert(0, new SelectListItem()
-            //{
-            //    Text = "----Select----",
-            //    Value = string.Empty
-            //});
-
-            var SuiteList = (from product in db.DbConfig
-                             where product.Status == "1"
-                             select new SelectListItem()
-                             {
-                                 Text = product.DbName,
-                                 Value = product.Dbconfigid.ToString(),
-                             }).ToList();
-
-            SuiteList.Insert(0, new SelectListItem()
+            try
             {
-                Text = "----Select----",
-                Value = string.Empty
-            });
-            var releaseno = (from product in db.ReleaseNo
-                             where product.Status == "1"
-                             select new SelectListItem()
-                             {
-                                 Text = product.ReleaseNo1,
-                                 Value = product.ReleaseNo1.ToString(),
-                             }).ToList();
+                ViewBag.Report =configuration.GetValue<string>("ReportPortalIp");
+                var TestApproach = (from product in db.TestSuite
+                                    where product.Status == "1"
+                                    select new SelectListItem()
+                                    {
+                                        Text = product.TestSuitename,
+                                        Value = product.TestSuitename.ToString(),
+                                    }).ToList();
 
-            releaseno.Insert(0, new SelectListItem()
+                //TestApproach.Insert(0, new SelectListItem()
+                //{
+                //    Text = "----Select----",
+                //    Value = string.Empty
+                //});
+
+                var SuiteList = (from product in db.DbConfig
+                                 where product.Status == "1"
+                                 select new SelectListItem()
+                                 {
+                                     Text = product.DbName,
+                                     Value = product.Dbconfigid.ToString(),
+                                 }).ToList();
+
+                SuiteList.Insert(0, new SelectListItem()
+                {
+                    Text = "----Select----",
+                    Value = string.Empty
+                });
+                var releaseno = (from product in db.ReleaseNo
+                                 where product.Status == "1"
+                                 select new SelectListItem()
+                                 {
+                                     Text = product.ReleaseNo1,
+                                     Value = product.ReleaseNo1.ToString(),
+                                 }).ToList();
+
+                releaseno.Insert(0, new SelectListItem()
+                {
+                    Text = "----Select----",
+                    Value = string.Empty
+                });
+                ProductViewModel productViewModel = new ProductViewModel();
+                productViewModel.Listofproducts = TestApproach;
+                productViewModel.ReleaseList = releaseno;
+                productViewModel.TestSuiteList = SuiteList;
+                _log4net.Info("Function Name : Execute Execute Page Open Successfully");
+                return View(productViewModel);
+            }
+            catch (Exception ex)
             {
-                Text = "----Select----",
-                Value = string.Empty
-            });
-            ProductViewModel productViewModel = new ProductViewModel();
-            productViewModel.Listofproducts = TestApproach;
-            productViewModel.ReleaseList = releaseno;
-            productViewModel.TestSuiteList = SuiteList;
-            return View(productViewModel);
+                _log4net.Error("Function Name : Execute Execute  -- " + ex.ToString());
+                return Json("Please Enter Valid Files");
+            }
         }
         public JsonResult testapproach(string SuiteId)
         {
-            var header = this.Request.Headers.ToString();
-            var header1 = this.Request.Headers.ToList();
-             var Auth= (string)this.Request.Headers["Authorization"];
-            if (Auth != "" && Auth != null && Auth != "max-age=0")
+            try
             {
-                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
-                //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-                //      TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
-                DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
-                string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
-                TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
-                DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
-                if (resultToken != null)
+                var header = this.Request.Headers.ToString();
+                var header1 = this.Request.Headers.ToList();
+                var Auth = (string)this.Request.Headers["Authorization"];
+                if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    //   TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    //      TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
+                    string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
+                    TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
+                    DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    if (resultToken != null)
+                    {
 
-                    var a = from b in db.TestApproach
-                            where b.SuiteIds.Contains(SuiteId) && b.Status=="1"
-                            select new
-                            {
-                                b.TestApproachid,
+                        var a = from b in db.TestApproach
+                                where b.SuiteIds.Contains(SuiteId) && b.Status == "1"
+                                select new
+                                {
+                                    b.TestApproachid,
 
-                                b.TestApproachName,
-                            };
-                    return Json(a);
+                                    b.TestApproachName,
+                                };
+                        _log4net.Info("Function Name : Execute testapproach Loaded Successfully");
+                        return Json(a);
+                    }
+                    else
+                    {
+                        _log4net.Error("Function Name : Execute testapproach Auth Failled");
+                        return Json("Auth Fail");
+                    }
                 }
                 else
                 {
+                    _log4net.Error("Function Name : Execute testapproach Auth Failled");
                     return Json("Auth Fail");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return Json("Auth Fail");
+                _log4net.Error("Function Name : Execute testapproach  -- " + ex.ToString());
+                return null;
             }
+
         }
 
-        public JsonResult Trigger(string SuiteId, string tagno, string approachname,int dbconnection,string releaseno)
+        public JsonResult Trigger(string SuiteId, string tagno, string approachname, int dbconnection, string releaseno)
         {
-            var testcaseresult = "";
-            string[] testapproachcheck;
+           // var testcaseresult = "";
+            ///string[] testapproachcheck;
             List<int> ruleadd = new List<int>();
             try
             {
+
                 int MY = 0;
                 int SQ = 0;
                 List<Execute> list1 = new List<Execute>();
                 var header = this.Request.Headers.ToString();
                 var header1 = this.Request.Headers.ToList();
-                 var Auth= (string)this.Request.Headers["Authorization"];
+                var Auth = (string)this.Request.Headers["Authorization"];
                 if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
                     TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
@@ -132,9 +166,75 @@ namespace XAutomateMVC.Controllers
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
                     DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
                     if (resultToken != null)
                     {
+                        string fileload = configuration.GetValue<string>("Systempath:pagepath");
+                        string reportPath = configuration.GetValue<string>("Systempath:ReportPath");
+                        string External = configuration.GetValue<string>("Systempath:Externalproperties");
+                        string[] lines;
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory() + "" + External + "");
+
+                        var fileCount = new StreamReader(filePath).ReadToEnd(); // big string
+                        lines = fileCount.Split(new char[] { '\n' });           // big array
+                        if (lines.Length == 1)
+                        {
+                            lines = fileCount.Split(new char[] { '\r' });
+                        }
+                        for (int i = 0; i < lines.Length; i++)
+                        {
+                            var linesval = lines[i];
+                            linesval = linesval.Replace(" ", "");
+                            if (linesval.Contains("ReportPortalIp"))
+                            {
+                                var ReportPortal1 = lines[i + 1];
+                                ReportPortal1 = ReportPortal1.Replace(" ", "");
+                                HttpContext.Session.SetString("ReportPortal", ReportPortal1);
+                                ViewBag.Report =configuration.GetValue<string>("ReportPortalIp");
+                            }
+                            if (linesval.Contains("graphanaIp"))
+                            {
+                                var graphana = lines[i + 1];
+                                graphana = graphana.Replace(" ", "");
+                                HttpContext.Session.SetString("graphanaIp", graphana);
+                            }
+                            if (linesval.Contains("graphanadbIp"))
+                            {
+                                var graphanadbip = lines[i + 1];
+                                graphanadbip = graphanadbip.Replace(" ", "");
+                                HttpContext.Session.SetString("graphanadbip", graphanadbip);
+                            }
+                            if (linesval.Contains("graphanadbPort"))
+                            {
+                                var graphanaport1 = lines[i + 1];
+                                graphanaport1 = graphanaport1.Replace(" ", "");
+                                HttpContext.Session.SetString("graphanaport", graphanaport1);
+                            }
+                            if (linesval.Contains("graphanausername"))
+                            {
+                                var graphanauser = lines[i + 1];
+                                graphanauser = graphanauser.Replace(" ", "");
+                                HttpContext.Session.SetString("graphanauser", graphanauser);
+                            }
+                            if (linesval.Contains("graphanapass"))
+                            {
+                                var graphanapass1 = lines[i + 1];
+                                graphanapass1 = graphanapass1.Replace(" ", "");
+                                HttpContext.Session.SetString("graphanapass", graphanapass1);
+                            }
+                            if (linesval.Contains("graphanaDbname"))
+                            {
+                                var graphananame = lines[i + 1];
+                                graphananame = graphananame.Replace(" ", "");
+                                HttpContext.Session.SetString("graphananame", graphananame);
+                            }
+                            if (linesval.Contains("ReportPortalUid"))
+                            {
+                                var Reportportal = lines[i + 1];
+                                Reportportal = Reportportal.Replace(" ", "");
+                                HttpContext.Session.SetString("ReportportalId", Reportportal);
+                            }
+                        }
                         var result = "";
                         var suiteId = SuiteId.Split(',');
                         //var dbconfig1 = dbconnection.Split(',');
@@ -149,7 +249,7 @@ namespace XAutomateMVC.Controllers
                         proc.StartInfo.CreateNoWindow = true;
                         proc.Start();
 
-                        proc.StandardInput.WriteLine("cd  /srv/www/XAutomate/");
+                        proc.StandardInput.WriteLine("" + fileload + "");
                         proc.StandardInput.WriteLine("rm -Rf  " + releaseno + "");
                         proc.StandardInput.WriteLine("mkdir  " + releaseno + " ");
                         proc.StandardInput.Flush();
@@ -252,7 +352,7 @@ namespace XAutomateMVC.Controllers
                                             proc.Start();
 
 
-                                            proc.StandardInput.WriteLine("cd  /srv/www/XAutomate/" + releaseno + "");
+                                            proc.StandardInput.WriteLine("" + fileload + "" + releaseno + "");
 
                                             proc.StandardInput.WriteLine("cat >  " + result + "Main.robot ");
                                             proc.StandardInput.WriteLine("*** Settings ***");
@@ -285,7 +385,7 @@ namespace XAutomateMVC.Controllers
                                                 proc.Start();
 
 
-                                                proc.StandardInput.WriteLine("cd  /srv/www/XAutomate/" + releaseno + "");
+                                                proc.StandardInput.WriteLine("" + fileload + "" + releaseno + "");
 
                                                 proc.StandardInput.WriteLine("cat >  " + result + "Main.robot ");
                                                 proc.StandardInput.WriteLine("*** Settings ***");
@@ -326,7 +426,9 @@ namespace XAutomateMVC.Controllers
                                                     x.ParameterName,
                                                 }),
                                                 RuleCondtion = b.Rules.RuleCondtion,
+                                                b.Expextedparameter,
                                                 Description = b.Rules.Description,
+                                                Desc = b.Description,
                                             }).ToList();
                             //if (testcase.Count() == 0)
                             //{
@@ -366,7 +468,7 @@ namespace XAutomateMVC.Controllers
                                 proc.StartInfo.UseShellExecute = false;
                                 proc.StartInfo.CreateNoWindow = true;
                                 proc.Start();
-                                proc.StandardInput.WriteLine("cd /srv/www/XAutomate/" + releaseno + "");
+                                proc.StandardInput.WriteLine("" + fileload + "" + releaseno + "");
                                 // proc.StandardInput.WriteLine("touch " + Name + ".robot ");
                                 proc.StandardInput.WriteLine("cat >> " + result + "Main.robot ");
                                 proc.StandardInput.WriteLine("*** Variables  ***");
@@ -380,20 +482,56 @@ namespace XAutomateMVC.Controllers
                                     proc.StandardInput.WriteLine("${DBPort}    " + connections.DbPort + "");
                                     proc.StandardInput.WriteLine("*** Test Cases ***");
                                     proc.StandardInput.WriteLine("" + item1.Description + ":" + Testcase);
-                                    proc.StandardInput.WriteLine("      [Tags]   " + item1.Description);
+                                    proc.StandardInput.WriteLine("      [Tags]   " + item1.Desc);
                                     //proc.StandardInput.WriteLine("Suite Setup   Connect To Database   pymysql   ${DBName}  ${DBUser}  ${DBPass}  ${DBHost}  ${DBPort}");
                                     proc.StandardInput.WriteLine("      Connect To Database   pymysql   ${DBName}  ${DBUser}  ${DBPass}  ${DBHost}  ${DBPort}");
-                                    proc.StandardInput.WriteLine("      " + item1.ExceptedResult + "     " + demo + "");
+                                    //   proc.StandardInput.WriteLine("      " + item1.ExceptedResult + "     " + demo + "");
+                                    if (item1.Expextedparameter == null || item1.Expextedparameter == "")
+                                    {
+                                        proc.StandardInput.WriteLine("      " + item1.ExceptedResult + "     " + demo + "");
+                                    }
+                                    else
+                                    {
+                                        var paramete = "";
+                                        var testres = item1.Expextedparameter.Split(" ");
+                                        for (int d = 0; d < testres.Length; d++)
+                                        {
+                                            if (d == testres.Length - 1)
+                                            {
+                                                paramete += " " + testres[d];
+                                            }
+                                        }
+
+                                        proc.StandardInput.WriteLine("      " + paramete + "X     " + demo + "        " + item1.Expextedparameter + "");
+                                    }
                                 }
                                 else
                                 {
                                     proc.StandardInput.WriteLine("${DBPort}    1433");
                                     proc.StandardInput.WriteLine("*** Test Cases ***");
                                     proc.StandardInput.WriteLine("" + item1.Description + ":" + Testcase);
-                                    proc.StandardInput.WriteLine("      [Tags]   " + item1.Description);
+                                    proc.StandardInput.WriteLine("      [Tags]   " + item1.Desc);
                                     //proc.StandardInput.WriteLine("Suite Setup   Connect To Database   pymysql   ${DBName}  ${DBUser}  ${DBPass}  ${DBHost}  ${DBPort}");
                                     proc.StandardInput.WriteLine("          Connect To Database Using Custom Params  pyodbc  'DRIVER={ODBC Driver 17 for SQL Server};SERVER=${DBHost};DATABASE=${DBName};UID=${DBUser};PWD=${DBPass}'");
-                                    proc.StandardInput.WriteLine("      " + item1.ExceptedResult + "     " + demo + "");
+                                    //  proc.StandardInput.WriteLine("      " + item1.ExceptedResult + "     " + demo + "");
+                                    if (item1.Expextedparameter == null || item1.Expextedparameter == "")
+                                    {
+                                        proc.StandardInput.WriteLine("      " + item1.ExceptedResult + "     " + demo + "");
+                                    }
+                                    else
+                                    {
+                                        var paramete = "";
+                                        var testres = item1.Expextedparameter.Split(" ");
+                                        for (int d = 0; d < testres.Length; d++)
+                                        {
+                                            if (d == testres.Length - 1)
+                                            {
+                                                paramete += " " + testres[d];
+                                            }
+                                        }
+
+                                        proc.StandardInput.WriteLine("      " + paramete + "X     " + demo + "        " + item1.Expextedparameter + "");
+                                    }
                                 }
                                 //    proc.StandardInput.WriteLine("i");
 
@@ -406,87 +544,100 @@ namespace XAutomateMVC.Controllers
                         }
                         // }
 
-                 //   }
-                    proc.StartInfo.FileName = @"/bin/bash";
-                    //     proc.StartInfo.FileName = "cmd.exe";
-                    proc.StartInfo.CreateNoWindow = true;
-                    proc.StartInfo.RedirectStandardInput = true;
-                    proc.StartInfo.RedirectStandardOutput = true;
-                    proc.StartInfo.UseShellExecute = false;
-                    proc.StartInfo.CreateNoWindow = true;
-                    proc.Start();
+                        //   }
+                        proc.StartInfo.FileName = @"/bin/bash";
+                        //     proc.StartInfo.FileName = "cmd.exe";
+                        proc.StartInfo.CreateNoWindow = true;
+                        proc.StartInfo.RedirectStandardInput = true;
+                        proc.StartInfo.RedirectStandardOutput = true;
+                        proc.StartInfo.UseShellExecute = false;
+                        proc.StartInfo.CreateNoWindow = true;
+                        proc.Start();
+                        var ReportPortal =configuration.GetValue<string>("ReportPortalIp");
+                        var ReportalId = HttpContext.Session.GetString("ReportportalId");
+                        var graphanausr = HttpContext.Session.GetString("graphanauser");
+                        var graphanapass = HttpContext.Session.GetString("graphanapass");
+                        var graphanaIp = HttpContext.Session.GetString("graphanadbip");
+                        var graphanaport = HttpContext.Session.GetString("graphanaport");
+                        var graphanadbname = HttpContext.Session.GetString("graphananame");
+                        proc.StandardInput.WriteLine("sudo su");
+                        proc.StandardInput.WriteLine("" + fileload + "");
+                        //  proc.StandardInput.WriteLine("cd /d D:\\Abinesh-learn");
+                        // proc.StandardInput.WriteLine("robot --listener robotframework_reportportal.listener --variable RP_ENDPOINT:http://52.157.105.144:8080 --variable RP_UUID:6157dcbb-1d2e-430f-8005-7b205f73d2d1 --variable RP_PROJECT:'default_personal' --variable RP_LAUNCH:'" + releaseno + "' --variable rp.attributes:one --variable rp.keystore.password:false  --variable rp.enable:false  -N  " + tagno + "  --report " + tagno + "" + releaseno + ".html  --removekeywords All  -d   /srv/www/XAutomate/wwwroot/" + releaseno + "  " + result + "Main.robot");
+                        proc.StandardInput.WriteLine("robot --listener robotframework_reportportal.listener --removekeywords All  --variable RP_ENDPOINT:" + ReportPortal + " --variable RP_UUID:" + ReportalId + " --variable RP_PROJECT:'default_personal' --variable RP_LAUNCH:'" + releaseno + "' --variable rp.attributes:one --variable rp.keystore.password:false  --variable rp.enable:false   -N  " + tagno + "  --report " + tagno + "" + releaseno + ".html --log " + tagno + "" + releaseno + "log.html   -d   " + reportPath + "" + releaseno + "  " + releaseno + "");
+                        ///    proc.StandardInput.WriteLine("pybot --listener reportportal_listener --variable RP_ENDPOINT:http://52.157.105.144:8080 --variable RP_UUID:6df6d59c-e0f6-44b0-a8c7-5087f0f36eac --variable RP_LAUNCH:'superadmin_TEST_EXAMPLE' --variable RP_PROJECT:superadmin_personal --report " + SuiteId + "" + Version + ".html  -d  /srv/www/XAutomate/wwwroot/" + SuiteId + "  " + SuiteId + "");
+                        //  proc.StandardInput.WriteLine("robot robotframework");
+                        //  proc.StandardInput.WriteLine("python -m dbbot.run -b mysql://" + graphanausr + ":" + graphanapass + "@" + graphanaIp + ":" + graphanaport + "/" + graphanadbname + " /srv/www/XAutomate/wwwroot/" + releaseno + "/output.xml");
+                        // proc.StandardInput.WriteLine("python -m dbbot.run -b mysql://" + graphanausr + ":" + graphanapass + "@"+ graphanaIp + ":"+ graphanaport + "/"+ graphanadbname + " "+ reportPath + "" + releaseno + "/output.xml");
+                        proc.StandardInput.WriteLine("python -m dbbot.run -b mysql://root:password@52.157.105.144:3308/graphana /srv/www/XAutomate/wwwroot/" + releaseno + "/output.xml");
+                        proc.StandardInput.Flush();
+                        proc.StandardInput.Close();
+                        proc.WaitForExit();
+                        string Error1 = proc.StandardOutput.ReadToEnd();
+                        Console.WriteLine(proc.StandardOutput.ReadToEnd());
+                        System.Diagnostics.Debug.WriteLine(proc.StandardOutput.ReadToEnd());
+                        var Executetime = DateTime.Now.ToString("HH:mm");
+                        MySqlConnection sql = new MySqlConnection("Server=" + graphanaIp + ";Port=" + graphanaport + ";Database=" + graphanadbname + ";User ID=" + graphanausr + ";Password=" + graphanapass + ";SslMode=none");
+                        sql.Open();
 
-                    proc.StandardInput.WriteLine("sudo su");
-                    proc.StandardInput.WriteLine("cd  /srv/www/XAutomate");
-                    //  proc.StandardInput.WriteLine("cd /d D:\\Abinesh-learn");
-                    proc.StandardInput.WriteLine("robot  --removekeywords All --listener robotframework_reportportal.listener --variable RP_ENDPOINT:http://52.178.152.165:8080 --variable RP_UUID:348cf3f0-14b7-4c61-9d0a-de6937406d89 --variable RP_PROJECT:'default_personal' --variable RP_LAUNCH:'" + releaseno + "' --variable rp.attributes:one --variable rp.keystore.password:false  --variable rp.enable:false   -N  " + tagno + "  --report " + tagno + "" + releaseno + ".html   -d   /srv/www/XAutomate/wwwroot/" + releaseno + "  " + releaseno + "");
-                    ///    proc.StandardInput.WriteLine("pybot --listener reportportal_listener --variable RP_ENDPOINT:http://52.178.152.165:8080 --variable RP_UUID:6df6d59c-e0f6-44b0-a8c7-5087f0f36eac --variable RP_LAUNCH:'superadmin_TEST_EXAMPLE' --variable RP_PROJECT:superadmin_personal --report " + SuiteId + "" + Version + ".html  -d  /srv/www/XAutomate/wwwroot/" + SuiteId + "  " + SuiteId + "");
-                    //  proc.StandardInput.WriteLine("robot robotframework");
-                    proc.StandardInput.WriteLine("python -m dbbot.run -b mysql://root:password@52.178.152.165:3309/graphana /srv/www/XAutomate/wwwroot/" + releaseno + "/output.xml");
-                    proc.StandardInput.Flush();
-                    proc.StandardInput.Close();
-                    proc.WaitForExit();
-                    string Error1 = proc.StandardOutput.ReadToEnd();
-                    Console.WriteLine(proc.StandardOutput.ReadToEnd());
-                    System.Diagnostics.Debug.WriteLine(proc.StandardOutput.ReadToEnd());
-                    var Executetime = DateTime.Now.ToString("HH:mm");
-                    MySqlConnection sql = new MySqlConnection("Server=52.178.152.165;Port=3309;Database=graphana;User ID=root;Password=password;SslMode=none");
-                    sql.Open();
-
-                    MySqlCommand com = new MySqlCommand("select  * from graphana.suite_status  join graphana.suites  on  suite_status.suite_id = suites.id where suites.name='" + tagno + "' order by suite_status.id desc Limit 1 ", sql);
-                    using (var reader = com.ExecuteReader())
-                    {
-                        while (reader.Read())
+                        MySqlCommand com = new MySqlCommand("select  * from graphana.suite_status  join graphana.suites  on  suite_status.suite_id = suites.id where suites.name='" + tagno + "' order by suite_status.id desc Limit 1 ", sql);
+                        using (var reader = com.ExecuteReader())
                         {
-                            Executetime = reader["elapsed"].ToString();
-                            list1.Add(new Execute()
+                            while (reader.Read())
                             {
+                                Executetime = reader["elapsed"].ToString();
+                                list1.Add(new Execute()
+                                {
 
-                                Passed = reader["passed"].ToString(),
-                                failed = reader["failed"].ToString(),
-                                total_test = Convert.ToInt32(reader["passed"]) + Convert.ToInt32(reader["failed"]),
-                            });
+                                    Passed = reader["passed"].ToString(),
+                                    failed = reader["failed"].ToString(),
+                                    total_test = Convert.ToInt32(reader["passed"]) + Convert.ToInt32(reader["failed"]),
+                                });
+                            }
                         }
-                    }
-                    sql.Close();
-                    var Executetime1 = Convert.ToInt32(Executetime) / 1000;
-                    Exceute ins = new Exceute();
-                    ins.SuiteName = tagno;
-                    ins.Execute = DateTime.Now;
-                    ins.Time = Executetime1 + " ms";
-                    ins.Status = "1";
-                    ins.ResultUrl = "/" + releaseno + "/" + tagno + "" + releaseno + ".html";
-                    db.Exceute.Add(ins);
-                    db.SaveChanges();
-                    var Errorcount = Error1.Split(",");
+                        sql.Close();
+                        var Executetime1 = Convert.ToInt32(Executetime) / 1000;
+                        Exceute ins = new Exceute();
+                        ins.SuiteName = tagno;
+                        ins.Execute = DateTime.Now;
+                        ins.Time = Executetime1 + " ms";
+                        ins.Status = "1";
+                        ins.ResultUrl = "/" + releaseno + "/" + tagno + "" + releaseno + ".html";
+                        db.Exceute.Add(ins);
+                        db.SaveChanges();
+                        var Errorcount = Error1.Split(",");
 
-                    var totaltest = Errorcount[2].Split(" ");
+                        var totaltest = Errorcount[2].Split(" ");
 
-                    var Failtest = Errorcount[4].Split(" ");
-                    return Json(list1);
-                    //return "";
-                    testcaseresult = totaltest[1] + " " + Errorcount[3] + " " + Failtest[0];
+                        var Failtest = Errorcount[4].Split(" ");
+                        _log4net.Info("Function Name : Execute Trigger Successfully Execute");
+                        return Json(list1);
+                        //return "";
+                        //testcaseresult = totaltest[1] + " " + Errorcount[3] + " " + Failtest[0];
 
-                
+
                     }
                     else
                     {
-                          return Json("Auth Fail");
+                        _log4net.Error("Function Name : Execute Trigger Auth Failed");
+                        return Json("Auth Fail");
                         //return "";
                     }
                 }
                 else
                 {
+                    _log4net.Error("Function Name : Execute Trigger Auth Failed");
                     return Json("Auth Fail");
                     //return "";
                 }
             }
             catch (Exception ex)
             {
+                _log4net.Error("Function Name : Execute Trigger  -- " + ex.ToString());
                 //return ex.ToString();
                 return Json(ex);
             }
-           
+
         }
 
         public class Suiteclass

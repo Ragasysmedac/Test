@@ -1,0 +1,26 @@
+INFO  10:26:04 Login Page Open Successfully
+ERROR 10:27:14 Function Name : Login loginSubmit  -- System.InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure()' to the 'UseMySql' call.
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Unable to connect to any of the specified MySQL hosts.
+   at MySqlConnector.Core.ServerSession.ConnectAsync(ConnectionSettings cs, Int32 startTickCount, ILoadBalancer loadBalancer, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 474
+   at MySqlConnector.Core.ConnectionPool.GetSessionAsync(MySqlConnection connection, Int32 startTickCount, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ConnectionPool.cs:line 112
+   at MySqlConnector.Core.ConnectionPool.GetSessionAsync(MySqlConnection connection, Int32 startTickCount, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ConnectionPool.cs:line 141
+   at MySql.Data.MySqlClient.MySqlConnection.CreateSessionAsync(ConnectionPool pool, Int32 startTickCount, Nullable`1 ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySql.Data.MySqlClient/MySqlConnection.cs:line 729
+   at MySql.Data.MySqlClient.MySqlConnection.OpenAsync(Nullable`1 ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySql.Data.MySqlClient/MySqlConnection.cs:line 396
+   at MySql.Data.MySqlClient.MySqlConnection.Open() in /_/src/MySqlConnector/MySql.Data.MySqlClient/MySqlConnection.cs:line 362
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlRelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.BeginTransaction(IsolationLevel isolationLevel)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.BeginTransaction()
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   --- End of inner exception stack trace ---
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at XAutomateMVC.Controllers.HomeController.loginSubmit(String uName, String pass) in D:\Abinesh-learn\XAutomatetest\XAutomateMVC\XAutomateMVC\Controllers\HomeController.cs:line 138
+INFO  10:42:58 Login Page Open Successfully

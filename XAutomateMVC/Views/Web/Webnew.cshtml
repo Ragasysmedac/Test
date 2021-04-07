@@ -1,0 +1,531 @@
+﻿
+@model ProductViewModel;
+
+@{
+    ViewData["Title"] = "Webnew";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<body>
+    
+    <script>
+        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+
+        $(document).ready(function ($) {
+            debugger;
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+
+            for (i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
+            }
+
+            $("#Adoplan").prop("checked", true);
+            $(document).on("change", "#technology", function () {
+                var tech = $("#technology").val();
+                if (tech == "ETL/DB") {
+                    $(".connection").css("display", "block");
+                }
+                //   else {
+                $.ajax(
+                    {
+                        type: "GET", //HTTP POST Method
+                        url: "/Web/technology", // Controller/View
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: {
+                            technology: tech,
+                        },
+                        headers: {
+                            "Content-Type": JSON,
+                            'Authorization': localStorage.getItem("AuthoToken"),
+                        },
+                        success: function (data) {
+                            //  debugger;
+                            if (data == "Auth Fail") {
+                                $("#Error").html("Authentication Failed,Your Session Failed");
+                                return false;
+                            }
+                            var option;
+                            for (var i = 0; i < data.length; i++) {
+                                $('#TestCaseFileList').append("<option value=" + data[i].webfileTechnologyFoler + ">" + data[i].webfileTechnologyFoler + "</option>");
+
+                            }
+                            $("#selectrule").trigger("chosen:updated");
+                            $('.chosen').chosen("destroy").chosen();
+                            var a = new Array();
+                            $("#selectrule").children("option").each(function (x) {
+                                test = false;
+                                b = a[x] = $(this).val();
+                                for (i = 0; i < a.length - 1; i++) {
+                                    if (b == a[i]) test = true;
+                                }
+                                if (test) $(this).remove();
+                            });
+                        },
+                        error: function (Result) {
+                            swal("Error!", "Error.", "error");
+                        }
+
+                    });
+                // }
+
+            });
+
+            $(document).on("click", "#WebExecute", function () {
+                $("#WebExecute").attr("disabled", true);
+                debugger;
+                var name = "";
+
+                var Tescasefile1 = "";
+                var testcasename1 = "";
+
+                if ($("#WebExecute").attr("disabled") == true) {
+                    return false;
+                }
+
+                var tech = $("#technology").val();
+                if (tech == null || tech == undefined || tech == "") {
+                    $("#Error").html("Please Select Technology");
+                    $("#WebExecute").attr("disabled", false);
+                    return false;
+                }
+                var testfile1 = "";
+                var testfile = $("#TestCaseFileList").val();
+                for (var i = 0; i < testfile.length; i++) {
+                    if (testfile1 == "") {
+                        testfile1 = testfile[i];
+                    }
+                    else {
+                        testfile1 += "," + testfile[i];
+                    }
+                }
+                if (testfile1 == null || testfile1 == undefined || testfile1 == "") {
+                    $("#Error").html("Please Select Test Suite");
+                    $("#WebExecute").attr("disabled", false);
+                    return false;
+                }
+
+                var testcasename = $('#selectrule').val();
+                for (var i = 0; i < testcasename.length; i++) {
+                    if (testcasename1 == "") {
+                        testcasename1 = testcasename[i];
+                    }
+                    else {
+                        testcasename1 += "," + testcasename[i];
+                    }
+                }
+                if (testcasename1 == null || testcasename1 == "") {
+                    $("#Error").html("Please Select Test Approach");
+                    $("#WebExecute").attr("disabled", false);
+                    return false;
+                }
+
+                var Tescasefile = $('#testcasename').val();
+                for (var i = 0; i < Tescasefile.length; i++) {
+                    if (Tescasefile1 == "") {
+                        Tescasefile1 = Tescasefile[i];
+                    }
+                    else {
+                        Tescasefile1 += "," + Tescasefile[i];
+                    }
+                }
+                if (Tescasefile1 == null || Tescasefile1 == "") {
+                    $("#Error").html("Please Select Test Case");
+                    $("#WebExecute").attr("disabled", false);
+                    return false;
+                }
+                var connection = "";
+                var conn = $("#TestsuidId").val();
+                if (conn == "" || conn == null || conn == undefined) {
+                    connection = "";
+                }
+                else {
+                    connection = conn;
+                }
+                if (tech == "ETL/DB") {
+                    if (connection == "" || connection == null || connection == undefined) {
+                        $("#Error").html("Please Select connection");
+                        $("#WebExecute").attr("disabled", false);
+                        return false;
+                    }
+                }
+                var releaseno = $('#ReleaseId').val();
+                if (releaseno == null || releaseno == "") {
+                    $("#Error").html("Please Select Release No");
+                    $("#WebExecute").attr("disabled", false);
+                    return false;
+                }
+
+                var tag = $("#tagid").val();
+                if (tag == null || tag == "") {
+                    $("#Error").html("Please Enter Tag");
+                    return false;
+                }
+                var inValid = /\s/;
+                if ((inValid.test(tag))) {
+
+                    $("#Error").html('Tag should not contain whitespaces');
+                    $("#WebExecute").attr("disabled", false);
+                    return false;
+                }
+
+
+                var Active = 0;
+                if ($('#Adoplan').is(':checked')) {
+                    Active = 1;
+                }
+                else {
+                    Active = 0;
+                }
+
+                $.ajax(
+                    {
+                        type: "GET", //HTTP POST Method
+                        url: "/Web/WebExecutetech", // Controller/View
+                        datatype: "json",
+                        data: {
+                            //   ResourceName: name,
+                            suitename: testfile1,
+                            technology: tech,
+                            tagno: tag,
+                            testapproach: testcasename1,
+                            testcasename: Tescasefile1,
+                            releaseno: releaseno,
+                            connection: connection,
+                            Adoplan: Active
+                        },
+                        headers: {
+                            "Content-Type": JSON,
+                            'Authorization': localStorage.getItem("AuthoToken"),
+                        },
+                        success: function (data) {
+                            debugger;
+                            if (data == "Auth Fail") {
+                                $("#Error").html("Authentication Failed,Your Session Failed");
+                                return false;
+                            }
+                            debugger;
+                            $("#technology").val('');
+                            $('#TestsuidId').val('');
+                            $('#ReleaseId').val('');
+                            $('#selectrule').val('');
+                            $('#tagid').val('');
+                            $("progress").hide();
+                            $("#Multisuite").val('').trigger('liszt:updated');;
+                            $('#TestsuidId').val('').trigger('liszt:updated');;
+                            $('#selectrule').val('').trigger('liszt:updated');
+                            $('#testcasename').val('').trigger('liszt:updated');
+                            var statsus = "Passed  " + data["0"].passed + ",Failed  " + data["0"].failed + ",Total Tests " + data["0"].total_test;
+                            // var tes = "~/" + SuiteName + "/" + SuiteName + "" + Version + ".html";
+                            $("#WebExecute").attr("disabled", false);
+                            alert("Test Cases Execute Successfully");
+                            $("#Success").html(statsus);
+
+                        },
+                        xhr: function () {
+                            var fileXhr = $.ajaxSettings.xhr();
+                            if (fileXhr.upload) {
+                                $("progress").show();
+                                fileXhr.upload.addEventListener("progress", function (e) {
+                                    if (e.lengthComputable) {
+                                        $("#fileProgress").attr({
+                                            value: e.loaded,
+                                            max: e.total
+                                        });
+                                    }
+                                }, false);
+                            }
+                            return fileXhr;
+                        },
+                        error: function (Result) {
+                            debugger;
+                            $("#WebExecute").attr("disabled", false);
+                        }
+
+                    });
+
+            });
+
+            var option;
+            option = $('<option/>');
+            option.append("<option value=''>Select Test Approach</option>");
+            $("#technology").val("");
+            $('#selectrule').append(option);
+
+            $(document).on("change", "#TestCaseFileList", function (event, params) {
+                var tech = $("#technology").val();
+
+                var SuiteName = $("#TestCaseFileList").val();
+                //    var name = SuiteName[SuiteName.length - 1];
+                var name = params.selected;
+                debugger;
+                $.ajax(
+                    {
+                        type: "GET", //HTTP POST Method
+                        url: "/Web/testcasename", // Controller/View
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: {
+                            TestcaseId: name,
+                            technology: tech
+                        },
+                        headers: {
+                            "Content-Type": JSON,
+                            'Authorization': localStorage.getItem("AuthoToken"),
+                        },
+                        success: function (data) {
+                            //   debugger;
+                            if (data == "Auth Fail") {
+                                $("#Error").html("Authentication Failed,Your Session Failed");
+                                return false;
+                            }
+                            var option;
+                            for (var i = 0; i < data.length; i++) {
+                                $('#selectrule').append("<option value=" + data[i].webtestcase + ">" + data[i].webtestcase + "</option>");
+
+                            }
+                            $("#selectrule").trigger("chosen:updated");
+                            $('.chosen').chosen("destroy").chosen();
+                        },
+                        error: function (Result) {
+                            swal("Error!", "Error.", "error");
+                        }
+
+                    });
+
+            });
+          
+            $(document).on('click', '.multiselect-selected-text', function () {
+                debugger;
+            });
+            $(document).on("change", "#selectrule", function (event, params) {
+                debugger;
+                var tech = $("#technology").val();
+                var approach = $("#selectrule").val();
+                var SuiteName = $("#selectrule").val();
+                //    var name = SuiteName[SuiteName.length - 1];
+                var name = params.selected;
+                debugger;
+                $.ajax(
+                    {
+                        type: "GET", //HTTP POST Method
+                        url: "/Web/testapproachcasename", // Controller/View
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: {
+                            TestcaseId: name,
+                            technology: tech
+                        },
+                        headers: {
+                            "Content-Type": JSON,
+                            'Authorization': localStorage.getItem("AuthoToken"),
+                        },
+                        success: function (data) {
+                            debugger;
+                            if (data == "Auth Fail") {
+                                $("#Error").html("Authentication Failed,Your Session Failed");
+                                return false;
+                            }
+                            var option;
+                            for (var i = 0; i < data.length; i++) {
+
+                                $('#testcasename').append("<option value='" + data[i].webtestcase + "'>" + data[i].webtestcase + "</option>");
+
+                            }
+                            //$("#testcasename").trigger("chosen:updated");
+                            //$('.chosen').chosen("destroy").chosen();
+
+
+                            $("#testcasename").multiselect('rebuild');
+                          
+                            //$('#testcasename').multiselect();
+                            // $('#testcasename').multiselect('destroy').removeData().multiselect();
+                        },
+                        error: function (Result) {
+                            swal("Error!", "Error.", "error");
+                        }
+
+                    });
+
+            });
+
+        });
+
+
+
+        $(document).ready(function ($) {
+            debugger;
+          
+            //$(document).on('click', '.custom-select', function () {
+            //    debugger;
+            //    $('.multiselect-container').toggle();
+            //});
+            
+            $('#testcasename').multiselect({
+                includeSelectAllOption: true
+            });
+            $(".connection").css("display", "none");
+            $(".chosen").chosen();
+            //$(document).on("change", "#testcasename", function (event, params) {
+            //    var select = params.selected;
+            //    debugger;
+            //    if (select == "Select") {
+            //        $('#testcasename option').each(function () {
+            //            $(this).attr('selected', 'selected');
+            //        });
+            //    }
+
+            //});
+
+        });
+        function myFunction() {
+            var x = document.getElementById("dropdownlist");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+    </script>
+    <div>
+
+        <h3 style="        color: #ba9122; padding: 14px; margin-left: 42px;">Execution</h3>
+        <div class="container" style=" background-color: white;  padding: 10px; padding-bottom: 100px;">
+            <div class="content">
+                <div class=" container-scroller">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class=" col-lg-3">
+                                <label><span style="color: red;">*</span>Technology</label><br />
+                                <select id="technology" class="form-control">
+                                    <option value="" disabled>Select Technology</option>
+                                    <option value="API">API</option>
+                                    <option value="Web">Web</option>
+                                    <option value="File">File</option>
+                                    <option value="Desktop">Desktop</option>
+                                    <option value="ETL/DB">ETL/DB</option>
+                                </select>
+
+                            </div>
+                            <div class=" col-lg-3">
+                                <label><span style="color: red;">*</span>Test Suite</label><br />
+                                <select class="form-control chosen" name="TestCaseFileList" id="TestCaseFileList" multiple="multiple">
+                                </select>
+
+                            </div>
+                            <div class=" col-lg-3">
+                                <label><span style="color: red;">*</span>Test Approach</label><br />
+                                <select class="form-control chosen" name="Rules" id="selectrule" multiple="multiple">
+                                </select>
+
+                            </div>
+                            <div class=" col-lg-3">
+                                <label><span style="color: red;">*</span>TestCase Name</label><br />
+                                <select class="form-control " multiple="multiple" name="testcasename" id="testcasename">
+                                </select>
+
+                            </div>
+
+                            <div class=" col-lg-3 connection">
+                                <label><span style="color: red;">*</span>Connections</label><br />
+
+                                <select asp-for="TestsuidId"
+                                        class="form-control "
+                                        asp-items="@(new SelectList(Model.TestSuiteList,"Value", "Text"))">
+                                </select>
+
+                            </div>
+
+                            <div class="col-lg-3">
+                                <label><span style="color: red;">*</span>Release No</label><br />
+                                <select asp-for="ReleaseId"
+                                        class="form-control"
+                                        asp-items="@(new SelectList(Model.ReleaseList,"Value", "Text"))">
+                                </select>
+                            </div>
+                            <div class=" col-lg-3">
+                                <label><span style="color: red;">*</span>Tag</label><br />
+                                <input type="text" name="tag" id="tagid" class="form-control" />
+                            </div>
+                            <div class=" col-lg-3" style=" padding-top: 42px;">
+                                <input type="checkbox" id="Adoplan" /> Export to Test Management Tool
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12" style="margin-top:25px;right:0px;text-align:right">
+                                <div class="col-md-12 col-lg-12 col-sm-12">
+                                    <label style="text-align:center;color:red" id="Error"></label>
+                                    <label style="text-align:center;color:green" id="Success"></label>
+                                </div>
+                                <progress id="fileProgress" style="display: none"></progress>
+                                @*<input type="button" class="text-center center-block" style="margin-top:20px;        color: white;background-color: #c9a642" id="Trigger" value="Execute">*@
+                                <button type="button" class="button" style="color: white;background-color: #c9a642;" id="WebExecute">Execute </button>
+                            </div>
+                            @*<div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <a href="~/report.html">open</a>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </form>
+                    @*<div class="row" style="margin-top:25px">
+                            <div class="col-sm-12 mat-elevation-z8"
+                                 style="box-shadow: unset;padding: 0px ;" #TABLE>
+                                <table style="width: 100%;" border="1">
+                                    <thead style=" background-color: gray; color: white;">
+                                        <tr>
+
+
+                                            <td>
+                                                Report
+                                            </td>
+                                            <td>
+                                                Status
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblAuthgrid"></tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>*@
+                </div>
+                <!-- partial:../../partials/_footer.html -->
+
+            </div>
+
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+    </div>
+</body>
+</html>

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using log4net;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using TimeZoneConverter;
 using XAutomateMVC.Models;
 using XAutomateMVC.Models.DBModels;
@@ -12,25 +15,44 @@ namespace XAutomateMVC.Controllers
 {
     public class UserManagementController : Controller
     {
+        static readonly ILog _log4net = LogManager.GetLogger(typeof(UserManagementController));
         db_mateContext db = new db_mateContext();
+
+        private IConfiguration configuration;
+
+        public UserManagementController(IConfiguration iConfig)
+        {
+            configuration = iConfig;
+        }
         public IActionResult Employee()
         {
-            var Role = (from product in db.Role
-                                where product.Status == "1"
-                                select new SelectListItem()
-                                {
-                                    Text = product.RoleName,
-                                    Value = product.RoleId.ToString(),
-                                }).ToList();
-
-            Role.Insert(0, new SelectListItem()
+            try
             {
-                Text = "----Select----",
-                Value = string.Empty
-            });
-            ProductViewModel productViewModel = new ProductViewModel();
-            productViewModel.Listofproducts = Role;
-            return View(productViewModel);
+                ViewBag.Report =configuration.GetValue<string>("ReportPortalIp");
+                var Role = (from product in db.Role
+                            where product.Status == "1"
+                            select new SelectListItem()
+                            {
+                                Text = product.RoleName,
+                                Value = product.RoleId.ToString(),
+                            }).ToList();
+
+                Role.Insert(0, new SelectListItem()
+                {
+                    Text = "----Select----",
+                    Value = string.Empty
+                });
+                ProductViewModel productViewModel = new ProductViewModel();
+                productViewModel.Listofproducts = Role;
+                _log4net.Info("Function Name : Employee Employee Page loaded Successfully");
+                return View(productViewModel);
+            }
+            catch(Exception ex)
+            {
+                _log4net.Error("Function Name : Employee Employee  -- " + ex.ToString());
+                return null;
+            }
+          
         }
         public string UpdateEmployee(string Emp_No, string E_Name, string Emp_pass, int Emp_role, int Status, string Description,int LoginId,string EmailId)
         {
@@ -47,7 +69,7 @@ namespace XAutomateMVC.Controllers
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
                     DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
                     if (resultToken != null)
                     {
                         var result = db.Login.FirstOrDefault(x => x.LoginId == LoginId);
@@ -63,22 +85,25 @@ namespace XAutomateMVC.Controllers
                             result.EmailId = EmailId;
                             db.SaveChanges();
                         }
-
+                        _log4net.Info("Function Name : Employee UpdateEmployee Update Successfully");
 
                         return "Success";
                     }
                     else
                     {
+                        _log4net.Error("Function Name : Employee UpdateEmployee Auth Failed");
                         return "Auth Fail";
                     }
                 }
                 else
                 {
+                    _log4net.Error("Function Name : Employee UpdateEmployee Auth Failed" );
                     return "Auth Fail";
                 }
             }
             catch (Exception ex)
             {
+                _log4net.Error("Function Name : Employee UpdateEmployee  -- " + ex.ToString());
                 return "Fail";
             }
 
@@ -98,7 +123,7 @@ namespace XAutomateMVC.Controllers
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
                     DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
                     if (resultToken != null)
                     {
                         var result = db.Login.FirstOrDefault(x => x.EmployeeName == E_Name);
@@ -117,22 +142,26 @@ namespace XAutomateMVC.Controllers
                         Ins.Description = Description;
                         db.Login.Add(Ins);
                         db.SaveChanges();
-
+                        _log4net.Info("Function Name : Employee SaveEmployee Saved Successfully");
                         return "Success";
                     }
                     else
                     {
+                        _log4net.Error("Function Name : Employee SaveEmployee Auth Failed ");
                         return "Auth Fail";
+
                     }
 
                 }
                 else
                 {
+                    _log4net.Error("Function Name : Employee SaveEmployee Auth Failed ");
                     return "Auth Fail";
                 }
             }
             catch(Exception ex)
             {
+                _log4net.Error("Function Name : Employee SaveEmployee  -- " + ex.ToString());
                 return "Fail";
             }
           
@@ -153,7 +182,7 @@ namespace XAutomateMVC.Controllers
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
                     DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
                     if (resultToken != null)
                     {
                         var a = from b in db.Login
@@ -170,21 +199,25 @@ namespace XAutomateMVC.Controllers
                                     b.Status,
                                     b.Description,
                                 };
+                        _log4net.Info("Function Name : Employee EditEmployee loaded Successfully ");
                         return Json(a);
                     }
                     else
                     {
+                        _log4net.Error("Function Name : Employee EditEmployee Auth Failed ");
                         return Json("Auth Fail");
                     }
                 }
                 else
                 {
+                    _log4net.Error("Function Name : Employee EditEmployee Auth Failed ");
                     return Json("Auth Fail");
                 }
 
             }
             catch(Exception ex)
             {
+                _log4net.Error("Function Name : Employee EditEmployee  -- " + ex.ToString());
                 return null;
             }
         }
@@ -204,11 +237,12 @@ namespace XAutomateMVC.Controllers
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
                     DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
                     if (resultToken != null)
                     {
                         var a = from b in db.Login
-                                where b.Status == status
+                              //  where b.Status == status
+                              orderby b.Status descending
                                 select new
                                 {
                                     b.EmployeeName,
@@ -220,20 +254,24 @@ namespace XAutomateMVC.Controllers
                                     b.LoginId,
 
                                 };
+                        _log4net.Info("Function Name : Employee BindEmployee loaded Successfully");
                         return Json(a);
                     }
                     else
                     {
+                        _log4net.Error("Function Name : Employee BindEmployee Auth Failed");
                         return Json("Auth Fail");
                     }
                 }
                 else
                 {
+                    _log4net.Error("Function Name : Employee BindEmployee Auth Failed");
                     return Json("Auth Fail");
                 }
             }
             catch(Exception ex)
             {
+                _log4net.Error("Function Name : Employee BindEmployee  -- " + ex.ToString());
                 return null;
             }
         }
@@ -252,7 +290,7 @@ namespace XAutomateMVC.Controllers
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
                     DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
                     if (resultToken != null)
                     {
                         if (search == "" || search == null || search == "undefiened")
@@ -271,6 +309,7 @@ namespace XAutomateMVC.Controllers
                                         b.LoginId,
 
                                     };
+                            _log4net.Info("Function Name : Employee SearchEmployee loaded Successfully");
                             return Json(a);
                         }
 
@@ -289,22 +328,26 @@ namespace XAutomateMVC.Controllers
                                          b.LoginId,
 
                                      }).Where(x => x.EmployeeName.Contains(search) || x.EmailId.Contains(search) || x.EmployeeNo.Contains(search) || x.Description.Contains(search));
+                            _log4net.Info("Function Name : Employee SearchEmployee loaded Successfully");
                             return Json(a);
                         }
                      
                     }
                     else
                     {
+                        _log4net.Error("Function Name : Employee SearchEmployee Auth Failed");
                         return Json("Auth Fail");
                     }
                 }
                 else
                 {
+                    _log4net.Error("Function Name : Employee SearchEmployee Auth Failed");
                     return Json("Auth Fail");
                 }
             }
             catch (Exception ex)
             {
+                _log4net.Error("Function Name : Employee SearchEmployee  -- " + ex.ToString());
                 return null;
             }
         }
@@ -324,7 +367,7 @@ namespace XAutomateMVC.Controllers
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
                     DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
                     if (resultToken != null)
                     {
                         if (search == "" || search == null || search == "undefiened")
@@ -339,6 +382,7 @@ namespace XAutomateMVC.Controllers
                                         Description = (b.Description == null ? "" : b.Description),
                                         Status = b.Status == "1" ? "Active" : "Inactive",
                                     };
+                            _log4net.Info("Function Name : User Role SearchUserRole loaded Successfully ");
                             return Json(a);
                         }
 
@@ -353,22 +397,26 @@ namespace XAutomateMVC.Controllers
                                          Description = (b.Description == null ? "" : b.Description),
                                          Status = b.Status == "1" ? "Active" : "Inactive",
                                      }).Where(x => x.RoleName.Contains(search) || x.Description.Contains(search));
+                            _log4net.Info("Function Name : User Role SearchUserRole loaded Successfully ");
                             return Json(a);
                         }
 
                     }
                     else
                     {
+                        _log4net.Error("Function Name : User Role SearchUserRole  Auth Failed ");
                         return Json("Auth Fail");
                     }
                 }
                 else
                 {
+                    _log4net.Error("Function Name : User Role SearchUserRole  Auth Failed ");
                     return Json("Auth Fail");
                 }
             }
             catch (Exception ex)
             {
+                _log4net.Error("Function Name : User Role SearchUserRole  -- " + ex.ToString());
                 return null;
             }
         }
@@ -387,7 +435,7 @@ namespace XAutomateMVC.Controllers
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
                     DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
                     if (resultToken != null)
                     {
                         var role = db.Role.FirstOrDefault(x => x.RoleName == R_Name);
@@ -403,20 +451,24 @@ namespace XAutomateMVC.Controllers
                         Ins.Description = Description;
                         db.Role.Add(Ins);
                         db.SaveChanges();
+                        _log4net.Error("Function Name : User Role SaveRole loaded Successfully");
                         return "success";
                     }
                     else
                     {
+                        _log4net.Error("Function Name : User Role SaveRole Auth Failed");
                         return "Auth Fail";
                     }
                 }
                 else
                 {
+                    _log4net.Error("Function Name : User Role SaveRole Auth Failed");
                     return "Auth Fail";
                 }
             }
             catch (Exception ex)
             {
+                _log4net.Error("Function Name : User Role SaveRole  -- " + ex.ToString());
                 return null;
             }
         }
@@ -436,11 +488,12 @@ namespace XAutomateMVC.Controllers
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
                     DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
                     if (resultToken != null)
                     {
                         var a = from b in db.Role
-                                where b.Status == status
+                               // where b.Status == status
+                               orderby b.Status descending
                                 select new
                                 {
                                     b.RoleId,
@@ -448,61 +501,77 @@ namespace XAutomateMVC.Controllers
                                     Description = (b.Description == null ? "" : b.Description),
                                     Status = b.Status == "1" ? "Active" : "Inactive",
                                 };
+                        _log4net.Info("Function Name : User Role UserBinds loaded Successfully");
                         return Json(a);
                     }
                     else
                     {
+                        _log4net.Error("Function Name : User Role UserBinds Auth Failed");
                         return Json("Auth Fail");
                     }
                 }
                 else
                 {
+                    _log4net.Error("Function Name : User Role UserBinds Auth Failed");
                     return Json("Auth Fail");
                 }
             }
             catch(Exception ex)
             {
+                _log4net.Error("Function Name : User Role UserBinds  -- " + ex.ToString());
                 return null;
             }
         }
 
         public JsonResult EditRole(int RoleId)
         {
-            var header = this.Request.Headers.ToString();
-            var header1 = this.Request.Headers.ToList();
-             var Auth= (string)this.Request.Headers["Authorization"];
-            if (Auth != "" && Auth != null && Auth != "max-age=0")
+            try
             {
-                TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
-                // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
-                DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
-                string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
-                TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
-                DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
-                if (resultToken != null)
+                var header = this.Request.Headers.ToString();
+                var header1 = this.Request.Headers.ToList();
+                var Auth = (string)this.Request.Headers["Authorization"];
+                if (Auth != "" && Auth != null && Auth != "max-age=0")
                 {
-                    var a = from b in db.Role
-                            where b.RoleId == RoleId
-                            select new
-                            {
-                                b.RoleId,
-                                b.ScreenName,
-                                b.Status,
-                                b.Description,
-                                b.RoleName,
-                            };
-                    return Json(a);
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
+                    string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
+                    TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
+                    DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    if (resultToken != null)
+                    {
+                        var a = from b in db.Role
+                                where b.RoleId == RoleId
+                                select new
+                                {
+                                    b.RoleId,
+                                    b.ScreenName,
+                                    b.Status,
+                                    b.Description,
+                                    b.RoleName,
+                                };
+                        _log4net.Info("Function Name : User Role EditRole loaded Successfully");
+                        return Json(a);
+                    }
+                    else
+                    {
+                        _log4net.Error("Function Name : User Role EditRole  Auth Failed");
+                        return Json("Auth Fail");
+                    }
                 }
                 else
                 {
+                    _log4net.Error("Function Name : User Role EditRole  Auth Failed");
                     return Json("Auth Fail");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return Json("Auth Fail");
+                _log4net.Error("Function Name : User Role EditRole  -- " + ex.ToString());
+                return null;
             }
+           
         }
 
 
@@ -522,41 +591,166 @@ namespace XAutomateMVC.Controllers
                     string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
                     TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
                     DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
-                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    var resultToken = db.TokenValue.FirstOrDefault(b => b.TockenId == Auth && b.Validto >= currentdatetime);
                     if (resultToken != null)
                     {
                         var result = db.Role.FirstOrDefault(x => x.RoleId == UserRole);
                         if (result != null)
                         {
-                            result.RoleName = R_Name;
-                            result.ScreenName = Role;
-                            result.Status = Status;
-                            result.Description = Description;
-                            db.SaveChanges();
-                        }
+                            if (Status == "1")
+                            {
+                                result.RoleName = R_Name;
+                                result.ScreenName = Role;
+                                result.Status = Status;
+                                result.Description = Description;
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                var emp = db.Login.FirstOrDefault(x => x.RoleId == result.RoleId && x.Status == 1);
+                                if(emp == null)
+                                {
+                                    result.RoleName = R_Name;
+                                    result.ScreenName = Role;
+                                    result.Status = Status;
+                                    result.Description = Description;
+                                    db.SaveChanges();
+                                }
+                                else
+                                {
+                                    _log4net.Info("Function Name : User Role EditRole loaded Successfully");
+                                    return "employee";
+                                }
 
+                            }
+                           
+                        }
+                        _log4net.Info("Function Name : User Role EditRole loaded Successfully");
                         return "success";
                     }
                     else
                     {
+                        _log4net.Error("Function Name : User Role EditRole  Auth Failed");
                         return "Auth Fail";
                     }
                 }
                 else
                 {
+                    _log4net.Error("Function Name : User Role EditRole  Auth Failed");
                     return "Auth Fail";
                 }
             }
             catch (Exception ex)
             {
+                _log4net.Error("Function Name : User Role EditRole  -- " + ex.ToString());
                 return null;
             }
         }
 
         public IActionResult UserRole()
         {
-            return View();
+            try
+            {
+                ViewBag.Report =configuration.GetValue<string>("ReportPortalIp");
+                _log4net.Info("Function Name : User Role UserRole loaded Successfully");
+                return View();
+            }
+            catch(Exception ex)
+            {
+                _log4net.Error("Function Name : User Role EditRole  -- " + ex.ToString());
+                return null;
+            }
         }
 
+        public JsonResult loginid(int loginid)
+        {
+            try
+            {
+                var header = this.Request.Headers.ToString();
+                var header1 = this.Request.Headers.ToList();
+                var Auth = (string)this.Request.Headers["Authorization"];
+                if (Auth != "" && Auth != null && Auth != "max-age=0")
+                {
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
+                    string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
+                    TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
+                    DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
+                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    if (resultToken != null)
+                    {
+                        db.Login.RemoveRange(db.Login.Where(x => x.LoginId == loginid));
+                        //  db.Rules.RemoveRange(db.Rules.FirstOrDefault(x => x.RulesId == RulesId));
+                        db.SaveChanges();
+                        return Json("success");
+                    }
+                    else
+                    {
+                        _log4net.Error("Function Name : connection BindGrid Auth Fail");
+                        return Json("Auth Fail");
+                    }
+                }
+                else
+                {
+                    _log4net.Error("Function Name : connection BindGrid Auth Fail");
+                    return Json("Auth Fail");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _log4net.Error("Function Name : connection BindGrid  -- " + ex.ToString());
+                return null;
+            }
+
+        }
+
+
+        public JsonResult Roleid(int roleid)
+        {
+            try
+            {
+                var header = this.Request.Headers.ToString();
+                var header1 = this.Request.Headers.ToList();
+                var Auth = (string)this.Request.Headers["Authorization"];
+                if (Auth != "" && Auth != null && Auth != "max-age=0")
+                {
+                    TimeZoneInfo timeZoneInfo = TZConvert.GetTimeZoneInfo("Europe/Stockholm");
+                    // TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    //  TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Etc/UTC");
+                    DateTime dtCNow = TimeZoneInfo.ConvertTime(Convert.ToDateTime(DateTime.Now), timeZoneInfo);
+                    string dtCNowdate = Convert.ToDateTime(dtCNow).ToString("yyyy-MM-dd");
+                    TimeSpan tsnow = Convert.ToDateTime(dtCNow).TimeOfDay;
+                    DateTime currentdatetime = Convert.ToDateTime(dtCNowdate + " " + (tsnow.Hours) + ":" + tsnow.Minutes);
+                    var resultToken = db.TokenValue.First(b => b.TockenId == Auth && b.Validto >= currentdatetime);
+                    if (resultToken != null)
+                    {
+                        db.Role.RemoveRange(db.Role.Where(x => x.RoleId == roleid));
+                        //  db.Rules.RemoveRange(db.Rules.FirstOrDefault(x => x.RulesId == RulesId));
+                        db.SaveChanges();
+                        return Json("success");
+                    }
+                    else
+                    {
+                        _log4net.Error("Function Name : connection BindGrid Auth Fail");
+                        return Json("Auth Fail");
+                    }
+                }
+                else
+                {
+                    _log4net.Error("Function Name : connection BindGrid Auth Fail");
+                    return Json("Auth Fail");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _log4net.Error("Function Name : connection BindGrid  -- " + ex.ToString());
+                return null;
+            }
+
+        }
     }
 }

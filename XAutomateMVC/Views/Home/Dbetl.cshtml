@@ -1,284 +1,23 @@
 ﻿@model ProductViewModel;
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
 <html>
-<head>
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!--<Popper.JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css">
-
-    <script src="~/js/choosencdn.js"></script>
-    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css">
-    <title>XAutomate -Rules</title>
-    <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="http://52.178.152.165:5000/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="http://52.178.152.165:5000/css/simple-sidebar.css" rel="stylesheet" />
-    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
-
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>*@
-    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css" />
-
-        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>*@
-    <!-- Bootstrap core CSS -->
-    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <!-- Custom styles for this template -->
-    <link href="~/css/simple-sidebar.css" rel="stylesheet" />
-
-
-    <script src="//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.js"></script><!-- Bootstrap core CSS -->
-
-    <script src="~/js/chosen.js"></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/chosen/1.1.0/chosen.css" />
-    <link href="~/css/choosen.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Test Approach</title>
-</head>
 <body>
-
     <style>
-        html, body {
-            height: 100%;
-            margin: 0px;
-            padding: 0px;
+        .dropdown1-container {
+            display: block !important;
         }
-
-        .color {
-            padding: 1px;
-            text-align: center;
-            border-top: 1px solid #3a3434;
-            border-bottom: 1px solid #3a3434;
-            color: white;
-        }
-
-        #wrapper {
-            min-height: 100vh;
-        }
-
-        .dropdown-container {
-            display: none;
-        }
-
-        .bg-light {
-            background-color: rgb(169, 169, 169) !important
-        }
-
-        .hidden {
-            visibility: hidden;
-            max-height: 0;
-            border: unset;
-            padding: unset !important;
-            max-width: 0;
-        }
-
-        tr {
-            text-align: center;
-        }
-
-        thead {
-            background-color: gray;
-            color: white;
-        }
-
-        .clear {
-        }
-
-        .bg-light1 {
-            background-color: #261c1d !important;
-        }
-
-        body {
-            line-height: 2 !important;
-        }
-
-        #sidebar-wrapper {
-            background-color: #261c1d !important;
-            color: white;
-        }
-
-        .list-group-flush > .list-group-item {
-            background-color: #261c1d !important;
-            color: white;
-        }
-
-        .nav-link {
-            color: white;
-        }
-
-        #sidebar-wrapper .list-group {
-            width: 9rem !important;
-        }
-
-        .border-right {
-            border-right: unset !important;
-        }
-
-        .table th, .table td {
-            padding: unset !important;
-        }
-
-        html, body {
-            height: 100%;
-            margin: 0px;
-            padding: 0px;
-        }
-
-        #wrapper {
-            min-height: 100vh;
-        }
-
-        .dropdown-container {
-            display: none;
-            background-color: #262626;
-            padding-left: 8px;
-        }
-
-        .table tbody tr.highlight td {
-            background-color: #261c1d;
-        }
-
-        .table-layout {
-            text-align: center;
-            border: 1px solid black;
-            border-collapse: collapse;
-            font-family: "Trebuchet MS";
-            margin: 0 auto 0;
-        }
-
-        .highlight {
-            background-color: #261c1d;
-            color: white;
-        }
-
-        .selected {
-            color: white;
+        .dropdown3-container {
+            display: block !important;
         }
     </style>
     <script>
         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
 
         $(document).ready(function ($) {
-            debugger;
-            var screens = sessionStorage.getItem("Screen");
-            if (screens == null || screens == "" || screens == undefined) {
-                window.location.href = "/Home/Index";
-            }
-            var RoleName = sessionStorage.getItem("RoleName");
-            var Screensplit = screens.split("|");
-            for (var i = 0; i < Screensplit.length; i++) {
-                var val = Screensplit[i];
-                var show = val.split(",");
-                var val2 = show["0"];
-                var val1 = show["1"];
-                switch (val2) {
-                    case "Connection":
-                        if (val1 == "Show") {
-                            $("#Menuconnection").removeClass("hidden");
-                        }
-                        else {
-                            $("#Menuconnection").addClass("hidden");
-                        }
-                        break;
-                    case "Suite":
-                        if (val1 == "Show") {
-                            $("#MenuSuites").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuSuites").addClass("hidden");
-                        }
-                        break;
-                    case "Approach":
-                        if (val1 == "Show") {
-                            $("#MenuTestApproach").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuTestApproach").addClass("hidden");
-                        }
-                        break;
-                    case "Testcases":
-                        if (val1 == "Show") {
-                            $("#MenuTestcases").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuTestcases").addClass("hidden");
-                        }
-                        break;
-                    case "etldb":
-                        if (val1 == "Show") {
-                            $("#MenuEtlrules").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuEtlrules").addClass("hidden");
-                        }
-                        break;
-                    case "Release":
-                        if (val1 == "Show") {
-                            $("#MenuRelease").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuRelease").addClass("hidden");
-                        }
-                        break;
-                    case "Executions":
-                        if (val1 == "Show") {
-                            $("#MenuExecution").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuExecution").addClass("hidden");
-                        }
-                        break;
-                    case "TestReport":
-                        if (val1 == "Show") {
-                            $("#MenuTestReport").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuTestReport").addClass("hidden");
-                        }
-                        break;
-                    case "Analytics":
-                        if (val1 == "Show") {
-                            $("#MenuAnaltics").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuAnaltics").addClass("hidden");
-                        }
-                        break;
-                    case "Usermanage":
-                        if (val1 == "Show") {
-                            $("#MenuUserMangment").removeClass("hidden");
-                        }
-                        else {
-                            $("#MenuUserMangment").addClass("hidden");
-                        }
-                        break;
-                }
-
-            }
             var dropdown = document.getElementsByClassName("dropdown-btn");
             var i;
 
@@ -331,7 +70,7 @@
             option1.append("<option value=''>Select Rule</option>");
 
             $('#RulesId').append(option1);
-           // $('#selectrule').append(option);
+            // $('#selectrule').append(option);
             $("#Status").prop("checked", true);
             $(document).on("change", "#ProductId", function () {
                 var SuiteName = $("#ProductId").val();
@@ -491,7 +230,7 @@
             $(document).on("change", "#ProductSearchId", function () {
                 debugger;
                 var rulename = $("#ProductSearchId").val();
-               var Status = $("#Etlstatus").val();
+                var Status = $("#Etlstatus").val();
                 $.ajax(
                     {
                         type: "GET", //HTTP POST Method
@@ -516,25 +255,28 @@
                             if (data.length > 0) {
                                 for (var i = 0; i < data.length; i++) {
                                     var parameters = "";
-                                    for (var j = 0; j < data[i].testdata.length; j++) {
+                                    var testda = data[i].testdata.split(",,,");
+                                    for (var j = 0; j < testda.length; j++) {
 
                                         if (parameters == "") {
-                                            parameters = data[i].testdata[j].parameterName;
+                                            parameters = testda[j];
                                         }
                                         else {
-                                            parameters += "," + data[i].testdata[j].parameterName;
+                                            parameters += "," + testda[j];
                                         }
 
                                     }
                                     tr = $('<tr/>');
+                                    tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCasesId + "'>" + data[i].testCasesId + "</td>");
                                     tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCaseName + "'>" + data[i].testCaseName + "</td>");
                                     tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCasesId + "'>" + data[i].ruleName + "</td>");
-                                   // tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
-
+                                    // tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
+                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].description + "</td>");
                                     tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'  >" + parameters + "</td>");
                                     tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].exceptedResult + "</td>");
-                                    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].description + "</td>");
+
                                     tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].status + "</td>");
+                                    tr.append("<td> <span  OnClick='deletefun(" + data[i].testCasesId + ");'  style='cursor: pointer;'>  " + (data[i].status == "Inactive" ? "<img src='http://40.115.111.12:5000/Image/delete-trash-icon-256.png' style='height:25px' />" : "") + " </span></td>");
                                     $('#tblAuthgrid').append(tr);
                                 }
                             }
@@ -588,9 +330,9 @@
                                 //div.append('<div class="col-lg-3"  style="padding-bottom: 20px;"> <label>Parameter ' + [i] + '</label><br/>'
                                 //    +' <input type="text" id="parameter' + [i] + '" name="testdata" class="txt-input form-control" />  </div> </div> ');
 
-                                var LabelName = (data["0"].label[i].parameterName).toLowerCase();
+                                var LabelName = (data["0"].labelName[i].parameterName).toLowerCase();
 
-                                var DBpara = '<div class="col-lg-3"  style="padding-bottom: 20px;"> <label>' + data["0"].label[i].parameterName + '[' + i + ']</label><br/>';
+                                var DBpara = '<div class="col-lg-3"  style="padding-bottom: 20px;"> <label>' + data["0"].labelName[i].parameterName + '[' + i + ']</label><br/>';
                                 if (LabelName != "schema" && LabelName != "table_name" && LabelName != "column_name") {
                                     DBpara += ' <input class="form-control parameters"  id="parameter' + [i] + '" placeholder="Values" />';
                                 }
@@ -634,7 +376,7 @@
                     $("#Error").html("Please Enter Name");
                     return false;
                 }
-               
+
                 var connection = $("#TestsuidId").val();
                 if (connection == null && connection == "" && connection == undefined) {
                     $("#Error").html("Please Select Connection");
@@ -676,6 +418,7 @@
                 }
                 else {
                     $("#Error").html("Please Check Active Check box");
+                    return false;
                 }
                 $.ajax(
                     {
@@ -683,7 +426,7 @@
                         url: "/Home/SaveGrid", // Controller/View
                         datatype: "json",
                         data: {
-                           // Rules: Rule,
+                            // Rules: Rule,
                             Name: Name,
                             SuiteName: DemoName,
                             Except: Except,
@@ -703,20 +446,20 @@
                                 $("#Error").html("Authentication Failed,Your Session Failed");
                                 return false;
                             }
-                         //   $("#selectrule").val('');
+                            //   $("#selectrule").val('');
                             var option1;
                             option1 = $('<option/>');
                             option1.append("<option value=''>Select Rule</option>");
                             //$('#selectrule').append(option1);
                             $("#Name").val('');
                             $("#ProductId").val('');
-                            Bindrid("1");
+                            Bindrid1("1");
                             $("#ExpectedResultVal").val('');
                             $("#TestCaseuppend").empty();
                             $("#TestsuidId").val('');
                             $("#Description").val("");
                             $("#Testrule").addClass("hidden");
-                          //  $("#selectrule").empty();
+                            //  $("#selectrule").empty();
                             $("#Success").html("Successfully Saved Test Case");
                             $("#ExpectedParameter").empty();
                         },
@@ -787,7 +530,7 @@
                             //    });
 
                             $("#Name").val(data["0"].testCaseName);
-                          //  $("#ProductId").val(data["0"].testApproachid);
+                            //  $("#ProductId").val(data["0"].testApproachid);
                             $("#TestResult").val(data["0"].exceptedResult);
                             $("#TestCaseuppend").empty();
                             $("#Testrulemodified").removeClass("hidden");
@@ -877,7 +620,7 @@
                 $("#testsuitestatus").val("1");
                 $("#InActive").removeClass("hidden");
                 $("#Active").addClass("hidden");
-                Bindrid("1");
+                Bindrid1("1");
                 $("#TestsuidId").val("");
                 var table = document.getElementById('example');
                 var cells = table.getElementsByTagName('td');
@@ -963,7 +706,7 @@
                         url: "/Home/UpdateGrid", // Controller/View
                         datatype: "json",
                         data: {
-                           // Rules: Rule,
+                            // Rules: Rule,
                             Name: Name,
                             SuiteName: DemoName,
                             Except: Except,
@@ -1002,7 +745,7 @@
                             $('#selectrule').append(option1);
                             $("#TestCaseuppend").empty();
                             $("#Testrulemodified").addClass("hidden");
-                            Bindrid("1");
+                            Bindrid1("1");
                             $("#Success").html("Successfully Updated Test Case");
                         },
                         error: function (Result) {
@@ -1078,28 +821,32 @@
                             var tr;
                             if (data.length > 0) {
                                 for (var i = 0; i < data.length; i++) {
+
+                                    var testda = data[i].testdata.split(",,,");
                                     var parameters = "";
-                                    for (var j = 0; j < data[i].testdata.length; j++) {
-                                       
+                                    for (var j = 0; j < testda.length; j++) {
+
                                         if (parameters == "") {
-                                            parameters = data[i].testdata[j].parameterName;
+                                            parameters = testda[j];
                                         }
                                         else {
-                                            parameters += "," + data[i].testdata[j].parameterName;
+                                            parameters += "," + testda[j];
                                         }
 
                                     }
                                     tr = $('<tr/>');
                                     tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCaseName + "'>" + data[i].testCaseName + "</td>");
                                     tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCasesId + "'>" + data[i].ruleName + "</td>");
-                                //    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
+                                    //    tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
                                     tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'>" + data[i].description + "</td>");
                                     tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + parameters + "</td>");
                                     tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].exceptedResult + "</td>");
 
                                     tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'  >Active</td>");
+                                    tr.append("<td> <span  OnClick='deletefun(" + data[i].testCasesId + ");'  style='cursor: pointer;'>  " + (data[i].status == "Inactive" ? "<img src='http://40.115.111.12:5000/Image/delete-trash-icon-256.png' style='height:25px' />" : "") + " </span></td>");
                                     $('#tblAuthgrid').append(tr);
                                 }
+
                             }
 
                         },
@@ -1116,14 +863,10 @@
                     return false;
                 }
             });
-          
+
             Bindrid("1");
 
 
-            $('#example tbody tr td').click(function () {
-                debugger;
-                $(this).addClass('highlight').siblings().removeClass('highlight');
-            });
         });
 
         function Bindrid(Active) {
@@ -1159,17 +902,20 @@
                             for (var i = 0; i < data.length; i++) {
                                 var parameters = "";
                                 tr = $('<tr/>');
+                                tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCaseName + "'>" + data[i].testCasesId + "</td>");
                                 tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCaseName + "'>" + data[i].testCaseName + "</td>");
                                 tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCasesId + "'>" + data[i].ruleName + "</td>");
                                 //  tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
-                                for (var j = 0; j < data[i].testdata.length; j++){
+
+                                var testdatas = data[i].testdata.split(",,,");
+                                for (var j = 0; j < testdatas.length; j++) {
                                     if (parameters == "") {
-                                        parameters = data[i].testdata[j].parameterName;
+                                        parameters = testdatas[j];
                                     }
                                     else {
-                                        parameters += "," + data[i].testdata[j].parameterName;
+                                        parameters += "," + testdatas[j];
                                     }
-                                    
+
                                 }
 
                                 tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'>" + data[i].description + "</td>");
@@ -1177,10 +923,114 @@
                                 tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].exceptedResult + "</td>");
 
                                 tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'  >" + data[i].status + "</td>");
+                                tr.append("<td> <span  OnClick='deletefun(" + data[i].testCasesId + ");'  style='cursor: pointer;'>  " + (data[i].status == "Inactive" ? "<img src='http://40.115.111.12:5000/Image/delete-trash-icon-256.png' style='height:25px' />" : "") + " </span></td>");
                                 $('#tblAuthgrid').append(tr);
                             }
+                            $('#example').DataTable({
+                                paging: true,
+                                scrollX: true,
+                                lengthChange: true,
+                                searching: true,
+                                ordering: false
+                            });
                         }
 
+                    },
+                    error: function (Result) {
+
+                    }
+
+                });
+        }
+
+
+        function Bindrid1(Active) {
+            if (Active == "1") {
+                $("#InActive").removeClass("hidden");
+                $("#Active").addClass("hidden");
+                $("#Etlstatus").val("1");
+            }
+            else {
+                $("#InActive").addClass("hidden");
+                $("#Active").removeClass("hidden");
+                $("#Etlstatus").val("0");
+            }
+            $.ajax(
+                {
+                    type: "GET", //HTTP POST Method
+                    url: "/Home/ETLBindGrid", // Controller/View
+                    datatype: "json",
+                    data: { status: Active },
+                    headers: {
+                        "Content-Type": JSON,
+                        'Authorization': localStorage.getItem("AuthoToken"),
+                    },
+                    success: function (data) {
+                        debugger;
+                        if (data == "Auth Fail") {
+                            $("#Error").html("Authentication Failed,Your Session Failed");
+                            return false;
+                        }
+                        $('#tblAuthgrid').empty();
+                        var tr;
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                var parameters = "";
+                                tr = $('<tr/>');
+                                tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCasesId + "'>" + data[i].testCasesId + "</td>");
+                                tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCaseName + "'>" + data[i].testCaseName + "</td>");
+                                tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' value='" + data[i].testCasesId + "'>" + data[i].ruleName + "</td>");
+                                //  tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].testApproachName + "</td>");
+
+                                var testdatas = data[i].testdata.split(",,,");
+                                for (var j = 0; j < testdatas.length; j++) {
+                                    if (parameters == "") {
+                                        parameters = testdatas[j];
+                                    }
+                                    else {
+                                        parameters += "," + testdatas[j];
+                                    }
+
+                                }
+
+                                tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'>" + data[i].description + "</td>");
+                                tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + parameters + "</td>");
+                                tr.append("<td  OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px' >" + data[i].exceptedResult + "</td>");
+
+                                tr.append("<td   OnClick='display(this," + data[i].testCasesId + ");'  style='    cursor: pointer;width: 50px'  >" + data[i].status + "</td>");
+                                tr.append("<td> <span  OnClick='deletefun(" + data[i].testCasesId + ");'  style='cursor: pointer;'>  " + (data[i].status == "Inactive" ? "<img src='http://40.115.111.12:5000/Image/delete-trash-icon-256.png' style='height:25px' />" : "") + " </span></td>");
+                                $('#tblAuthgrid').append(tr);
+                            }
+
+                        }
+
+                    },
+                    error: function (Result) {
+
+                    }
+
+                });
+        }
+
+        function deletefun(testid) {
+            $.ajax(
+                {
+                    type: "GET", //HTTP POST Method
+                    url: "/Home/deleteetldb", // Controller/View
+                    datatype: "json",
+                    data: { testcaseid: testid },
+                    headers: {
+                        "Content-Type": JSON,
+                        'Authorization': localStorage.getItem("AuthoToken"),
+                    },
+                    success: function (data) {
+                        debugger;
+                        if (data == "Auth Fail") {
+                            $("#Error").html("Authentication Failed");
+                            return false;
+                        }
+
+                        Bindrid1(1);
                     },
                     error: function (Result) {
 
@@ -1225,6 +1075,7 @@
                         $("#ProductId").val(data["0"].rulesId);
                         $("#TestsuidId").val(data["0"].connection);
                         var RuleID = (data["0"].rulesId);
+                        $("#Description").val(data["0"].description);
                         //$.ajax(
                         //    {
                         //        type: "GET", //HTTP POST Method
@@ -1266,7 +1117,7 @@
                             $("#ExpectedParameter").append("<label>Expected Parameter</label><input type='text' class='form-control' Id='Expectedvalue' value='" + Exxpectedparameter + "' />")
                         }
                         $("#Name").val(data["0"].testCaseName);
-                       // $("#ProductId").val(data["0"].testApproachid);
+                        // $("#ProductId").val(data["0"].testApproachid);
                         $("#ExpectedResultVal").val(result);
                         $("#TestCaseuppend").empty();
 
@@ -1275,16 +1126,13 @@
                         div = $('<div class="row">');
                         $("#Length").val(data["0"].ruleParameter);
                         var condition = data["0"].ruleCondtion
-                        var datalis = data["0"].testdata.split(",");;
+                        var datalis = data["0"].testdata.split(",,,");;
                         $("#TestCaseuppend").empty();
                         if (data.length > 0) {
                             for (var i = 0; i < data["0"].ruleParameter; i++) {
                                 $("#Testrule").removeClass("hidden");
                                 $("#Testrulemodified").removeClass('hidden');
                                 $("#Testrule").val(data["0"].ruleCondtion);
-
-
-
                                 //div.append('<div class="col-lg-3"  style="padding-bottom: 20px;"> <label>Parameter ' + [i] + '</label><br/><input type = "text" id = "parameter' + [i] + '" value="' + datalis[i] + '" name = "testdata" class= "txt-input form-control" />  </div> </div>  ');
 
 
@@ -1303,16 +1151,19 @@
 
                                 }
                                 DBpara += '</div> ';
+                                //    var testcas = data["0"].testcase.
                                 $("#TestCaseuppend").append(DBpara);
                                 for (var k = 0; k < data["0"].parameter.length; k++) {
                                     $("#parameter" + [i]).append("<option value=" + data["0"].parameter[k].tablecolumn1 + " style='color: " + data["0"].parameter[k].color + "' >" + data["0"].parameter[k].tablecolumn1 + "</option>");
                                 }
 
                                 debugger;
-                                $("#parameter" + [i]).val(data["0"].testcaseparameter[i].parameterName);
-                                condition = condition.replaceAll("[", "");
-                                condition = condition.replaceAll("]", "");
-                                condition = condition.replaceAll(i, data["0"].testcaseparameter[i].parameterName);
+
+
+                                $("#parameter" + [i]).val(datalis[i]);
+                                //  condition = condition.replaceAll("[", "");
+                                // condition = condition.replaceAll("]", "");
+                                condition = condition.replaceAll("[" + i + "]", datalis[i]);
 
                             }
                             $("#Testrulemodified").val(condition);
@@ -1341,465 +1192,337 @@
 
 
 
+        <h3 style="        color: #ba9122; padding: 14px; margin-left: 42px;">Test  Cases</h3>
+        <div class="container" style=" background-color: white; padding-bottom: unset;">
+            <div class=" container-scroller">
 
-        <div class="d-flex" id="wrapper">
+                <div class="container-fluid page-body-wrapper">
 
-            <!-- Sidebar -->
-            <div class="bg-light border-right" id="sidebar-wrapper" style="text-align:center">
-                <a href="/Home/MenuExample" style="cursor:pointer">
-                    <img src="~/Dash board Icon/logo-01.png" style=" width: 44%; " />
-                </a>
-                <div class="list-group list-group-flush">
+                    <div class="main-panel">
+                        <div class="content-wrapper" style="padding: 1.5rem .8rem .5rem 2rem;">
 
-                    <a href="/DbConfig/DbConfig" class="list-group-item list-group-item-action bg-light Admin color" id="Menuconnection">
-                        <img src="~/login icon/connections.png" style="width:30px" />
-                        <h6>CONNECTIONS</h6>
-                    </a>
-                    <a class="list-group-item list-group-item-action bg-light  dropdown-btn1 color">
-                        <img src="~/Image/tests.png" style="width:30px" />
-
-                        <h6> TESTS</h6>
-                    </a>
-                    <div class="dropdown1-container" style="        background-color: #A9A9A9 !important">
-                        <a href="/Home/TestSuite" class="list-group-item list-group-item-action bg-light Admin color " id="MenuSuites">
-                            <img src="~/login icon/test suite.png" style="width:30px" />
-                            <h6>TEST SUITE</h6>
-                        </a>
-                        <a href="/Suites/Suite" class="list-group-item list-group-item-action bg-light Admin color" id="MenuTestApproach">
-                            <img src="~/login icon/test approach.png" style="width:30px" />
-                            <h6>TEST APPROACH</h6>
-                        </a>
-                        <a class="list-group-item list-group-item-action bg-light1  dropdown-btn2">
-                            <img src="~/login icon/testcase.png" style="width:30px" />
-                            <h6>
-                                TEST CASES
-                            </h6>
-                        </a>
-                        <div class="dropdown2-container">
-                            <div href="#" class=" list-group-item-action bg-light Admin color" id="MenuTestcases">
-
-                                <a href="/Web/Web" style="        border-bottom: 1px solid 1px solid #ba9122;color: white">WEB</a><br />
-                                <a style="        border-bottom: 1px solid 1px solid #ba9122;color: white">API</a><br />
-                                <a href="/Home/Dbetl" style="        border-bottom: 1px solid 1px solid #ba9122;color: white">ETL/DB</a><br />
-                            </div>
-                            <a href="/DbConfig/RulesSet" class="list-group-item list-group-item-action bg-light Admin color" id="MenuEtlrules">
-                                <img src="~/Image/etl_rules.png" style="width:30px" />
-                                <h6>ETL/RULES</h6>
-                            </a>
-                        </div>
-                    </div>
-                    <a href="/Suites/Release" class="list-group-item list-group-item-action bg-light color" id="MenuRelease">
-                        <img src="~/login icon/release.png" style="width:30px" />
-                        <h6>RELEASE</h6>
-                    </a>
-                    <a href="/Execution/Execute" class="list-group-item list-group-item-action bg-light color" id="MenuExecution">
-                        <img src="~/Image/Picture1.png" style="width:30px" />
-                        <h6>EXECUTION</h6>
-                    </a>
-                    <a class="list-group-item list-group-item-action bg-light  dropdown-btn color">
-                        <img src="~/login icon/reports (1).png" style="width:30px" />
-                        <h6>
-                            REPORTS
-                        </h6>
-                    </a>
-                    <div class="dropdown-container" style="        background-color: #A9A9A9 !important">
-
-                        <a href="/Home/Report" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuTestReport">
-                            <img src="~/Image/Picture3.png" style="width:30px" />
-                            <h6>
-                                TEST REPORT
-                            </h6>
-                        </a>
-                        <a href="http://52.178.152.165:8080/" class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuAnaltics">
-                            <img src="~/Image/Picture3.png" style="width:30px" />
-                            <h6>
-                                ANALYTICS
-                            </h6>
-                        </a>
-                    </div>
-                    <a class="list-group-item list-group-item-action bg-light  dropdown-btn color" id="MenuUserMangment">
-                        <img src="~/Image/User_management.png" style="width:30px" />
-                        <h6>
-                            USER MANAGEMENT
-                        </h6>
-                    </a>
-                    <div class="dropdown-container" style=" background-color: #A9A9A9 !important">
-
-                        <a href="/UserManagement/Employee" class="list-group-item list-group-item-action bg-light  dropdown-btn color">
-
-                            <img src="~/Image/Layer 3.png" style="width:30px" />
-                            <h6>
-                                USER
-                            </h6>
-                        </a>
-                        <a href="/UserManagement/UserRole" class="list-group-item list-group-item-action bg-light  dropdown-btn color">
-
-                            <img src="~/Image/user-role.png" style="width:30px" />
-                            <h6>
-                                USER ROLE
-                            </h6>
-                        </a>
-                    </div>
-                    <a href="/Home/Index" class="list-group-item list-group-item-action bg-light color">
-                        <img src="~/Dash board Icon/logout up.png" style="width:30px" />
-                        <h6>LOGOUT</h6>
-                    </a>
-                </div>
-            </div>
-            <!-- /#sidebar-wrapper -->
-            <!-- Page Content -->
-
-
-            <div id="page-content-wrapper" style="        width: 100%;
-        background-color: #d5d5d5">
-
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style=" background-color: #261c1d !important;">
-                    <a id="menu-toggle">
-                        <img src="~/Dash board Icon/logo name-01.png" style=" width: 145px; " />
-                    </a>
-
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <li class="nav-item active" style="text-align:center">
-                                <a href="#">
-                                    <img src="~/login icon/Group 50.png" />
-                                    <p class="nav-link" style="color: white;padding:unset">Profile <span class="sr-only">(current)</span></p>
-                                </a>
-
-                            </li>
-                            <li class="nav-item" style="        text-align: center; padding-left: 15px;">
-                                <a href="/Home/Index">
-                                    <img src="~/login icon/sign-out-alt.png" />
-                                    <p class="nav-link" style=" color: white;padding:unset">Logout</p>
-                                </a>
-
-                            </li>
-
-                        </ul>
-                    </div>
-                </nav>
-                <h3 style="        color: #ba9122; padding: 14px; margin-left: 42px;">Test  Cases</h3>
-                <div class="container" style=" background-color: white; padding-bottom: unset;">
-                    <div class=" container-scroller">
-
-                        <div class="container-fluid page-body-wrapper">
-
-                            <div class="main-panel">
-                                <div class="content-wrapper" style="padding: 1.5rem .8rem .5rem 2rem;">
-
-                                    <form method="post" id="formid" enctype="multipart/form-data">
-                                        <div class="form">
-                                            <div class="row" style="padding-bottom: 20px;">
-                                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
-                                                    <label>Rule</label><br />
-                                                    <select asp-for="ProductId"
-                                                            class="form-control"
-                                                            asp-items="@(new SelectList(Model.Listofproducts,"Value", "Text"))">
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
-                                                    <label><span style="color: red;">* </span>Connections</label><br />
-
-                                                    <select asp-for="TestsuidId"
-                                                            class="form-control"
-                                                            asp-items="@(new SelectList(Model.TestSuiteList,"Value", "Text"))">
-                                                    </select>
-                                                </div>
-                                                @*<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: left;">
-                                                    <label>Rule</label><span style="color: red;">*</span><br />
-                                                    <select class="form-control" name="selectrule" id="selectrule">
-                                                    </select>
-                                                </div>*@
-                                                <div class="col-lg-3 col-xs-3 col-md-3 col-xs-3" style="text-align: left;">
-                                                    <label>Name</label><span style="color: red;">*</span><br />
-                                                    <input type="text" id="Name" name="Name" class="txt-input form-control" />
-                                                </div>
-                                                @*<div class="col-lg-3 col-xs-3 col-md-3 col-sm-3">
-                                                        <label>Rule Parameter</label><br />
-                                                        <input type="text" id="RuleParameter" name="RuleParameter" class="txt-input form-control" />
-                                                    </div>*@
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12 col-lg-12">
-                                                    <textarea type="text" disabled id="Testrule" class="hidden form-control"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div id="TestCaseuppend" class="row"></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row" style="padding-bottom: 20px;">
-
-                                                <div class="col-lg-3 col-lg-3 col-xs-6 col-sm-6" style="padding-top:1em;">
-                                                    <label>Expected Result</label><br />
-                                                    @*<input type="text" id="TestResult" cols="40" rows="3" name="testresult" class=" form-control txt-input" />*@
-                                                    <select asp-for="ExpectedResultVal"
-                                                            class="form-control"
-                                                            asp-items="@(new SelectList(Model.ExpectedResult,"Value", "Text"))">
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-3 col-lg-3 col-xs-6 col-sm-6" style="padding-top:1em;">
-                                                    <div id="ExpectedParameter"></div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="padding-top:1em;">
-                                                    <label>Description</label> <br />
-                                                    <input type="text" class="form-control" maxlength="50" placeholder="Description" id="Description" />
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12 col-md-12">
-                                                    <textarea type="text" disabled id="Testrulemodified" class="hidden form-control"></textarea>
-                                                </div>
-                                            </div>
-                                            <input type="hidden" id="Length" />
-
-                                            <div class="row" style="padding-top: 1rem;">
-
-                                                <input type="file" name="files" multiple class="button" style=" box-shadow: unset; background: unset; background-color: unset; color: unset;padding-left:15px" />
-
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-3 col-xs-12" style="padding-top:30px;">
-                                                    <button type="submit" class="button" style="color: white;background-color: #c9a642;" asp-controller="Home" asp-action="TestCASES">Upload </button>
-                                                </div>
-                                                <div class="col-lg-3 col-xs-12" style="padding-top:30px;">
-
-                                                    <button Id="Templete" type="submit" style="color: white;background-color: #c9a642" class=" button text-center center-block" asp-controller="Home" asp-action="Tescasetemplate"> Template</button>
-
-                                                </div>
-                                            </div>
-
-                                            <table id="exampleimport" border="1" style="display:none; border:1px solid">
-                                                <thead class="thead-bold" style="border: 1px solid black;">
-                                                    <tr style="background-color: #BFD0D8 !important;">
-                                                        
-                                                        <th class="th-bold">
-                                                            Rule Name
-
-                                                        </th>
-                                                        <th class="th-bold">
-                                                            Schema
-
-                                                        </th>
-                                                        <th class="th-bold">
-                                                            Table Name
-                                                        </th>
-                                                        <th class="th-bold">
-                                                            Column Name
-
-                                                        </th>
-                                                        <th class="th-bold">
-                                                        <th class="th-bold">
-
-                                                            Value
-                                                        </th>
-                                                        <th class="th-bold">
-                                                            Expected Result
-
-                                                        </th>
-                                                        <th class="th-bold">
-                                                            Expected Value
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody style="border: 1px solid black;">
-                                                </tbody>
-                                            </table>
-
+                            <form method="post" id="formid" enctype="multipart/form-data">
+                                <div class="form">
+                                    <div class="row" style="padding-bottom: 20px;">
+                                        <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
+                                            <label>Rule</label><br />
+                                            <select asp-for="ProductId"
+                                                    class="form-control"
+                                                    asp-items="@(new SelectList(Model.Listofproducts,"Value", "Text"))">
+                                            </select>
                                         </div>
-                                    </form>
-                                </div>
+                                        <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="text-align: left;">
+                                            <label><span style="color: red;">* </span>Connections</label><br />
+
+                                            <select asp-for="TestsuidId"
+                                                    class="form-control"
+                                                    asp-items="@(new SelectList(Model.TestSuiteList,"Value", "Text"))">
+                                            </select>
+                                        </div>
+                                        @*<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: left;">
+                                                <label>Rule</label><span style="color: red;">*</span><br />
+                                                <select class="form-control" name="selectrule" id="selectrule">
+                                                </select>
+                                            </div>*@
+                                        <div class="col-lg-3 col-xs-3 col-md-3 col-xs-3" style="text-align: left;">
+                                            <label>Name</label><span style="color: red;">*</span><br />
+                                            <input type="text" id="Name" name="Name" class="txt-input form-control" />
+                                        </div>
+                                        @*<div class="col-lg-3 col-xs-3 col-md-3 col-sm-3">
+                                                <label>Rule Parameter</label><br />
+                                                <input type="text" id="RuleParameter" name="RuleParameter" class="txt-input form-control" />
+                                            </div>*@
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12">
+                                            <textarea type="text" disabled id="Testrule" class="hidden" style="width:100%"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12">
+                                            <div id="TestCaseuppend" class="row"></div>
+                                        </div>
+                                    </div>
 
 
-                            </div>
-                        </div>
+                                    <div class="row" style="padding-bottom: 20px;">
 
-
-                    </div>
-                </div>
-                <div class="container" style="        background-color: #eeeeee;
-        padding: 10px;
-        padding-bottom: unset;
-        margin-top: 15px">
-                    <div class="row" style="        padding: 10px
-">
-                        <div class="col-lg-6 col-dm-6 col-xs-6 col-sm-6" style="text-align:left">
-                            <input type="checkbox" id="Status"> Set As active
-                            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                <label style="text-align:center;color:green " id="Success"></label>
-                                <label style="text-align:center;color:red " id="Error"></label>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-dm-6 col-xs-6 col-sm-6" style="text-align:right">
-                            <input type="button" class="text-center center-block" style="        color: white;background-color: #c9a642" id="Save" value="SAVE">
-                            <input type="button" class="text-center center-block hidden" style="       color: white;background-color: #c9a642" id="Update" value="Update">
-                            <input type="button" class="text-center center-block clear" style="   color: black;" id="Clear" value="Clear">
-                            <input type="hidden" id="updateis" />
-                            <input type="hidden" id="Etlstatus" />
-                        </div>
-
-                    </div>
-                </div>
-                <div class="container" style="        background-color: white;
-        padding: 10px;
-        padding-bottom: unset;
-        margin-top: 15px">
-
-                    <div class="container-fluid" style="        background-color: white;
-        padding: 20px;
-        padding-top: 15px;
-        padding-bottom: 100px;">
-                        <div class="row">
-                            <div class="col-lg-12 grid-margin">
-                                <div>
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-12 ">
-                                                <div class="">
-                                                    <div class="" style="        padding: 0;  overflow-y: scroll;">
-                                                        <div class="col-lg-12 form-inline"
-                                                             style="border: 1px solid #9c9fa6; padding: 5px;background-color: #f0f0f1">
-                                                            <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3"></div>
-                                                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 " style="padding-right:0px;">
-
-                                                                <div style=" position: absolute;">
-                                                                    <div class="">
-                                                                        <input type="text" id="search" name="search" />
-                                                                        <button id="Searchlist" class="button" style=" margin: unset;   background-color: #c9a642; margin-left: 10px" value="Search">Search</button>
-                                                                    </div>
-
-                                                                </div>
-
-                                                                <div class="form-group" style="        position: absolute;right: 41%; width: 22%">
-                                                                    @*<div class="input-group">
-                                                                        <select asp-for="ProductSearchId"
-                                                                                class="form-control"
-                                                                                asp-items="@(new SelectList(Model.ProductSearchList,"Value", "Text"))">
-                                                                        </select>
-                                                                    </div>*@
-                                                                </div>
-
-
-                                                                <div class="form-group" style="padding-left:60%;">
-                                                                    <div class="input-group">
-                                                                        <!-- <label style="padding-right: 25px;">Search</label> -->
-                                                                        @*<select asp-for="RulesId"
-                                                                                    class="form-control"
-                                                                                    asp-items="@(new SelectList(Model.RuleList,"Value", "Text"))">
-                                                                            </select>*@
-                                                                         <select asp-for="ProductSearchId"
-                                                                                class="form-control"
-                                                                                asp-items="@(new SelectList(Model.ProductSearchList,"Value", "Text"))">
-                                                                        </select>
-                                                                        <!-- <input type="text" class="form-control"
-                                                                            placeholder="Search..." aria-label="Search..."
-                                                                            aria-describedby="basic-addon2">
-                                                                        <div class="input-group-append">
-                                                                            <button class="btn btn-sm btn-gradient-danger"
-                                                                                type="button">Search</button>
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div>
-                                                                        <button id="InActive" OnClick='Bindrid("0")' class="button" style="margin: unset; background-color: #c9a642;  margin-left: 10px;" value="Inactive">
-                                                                            Inactive
-                                                                        </button>
-                                                                        <button id="Active" OnClick='Bindrid("1")' class="button hidden" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Active">
-                                                                            Active
-                                                                        </button>
-                                                                    </div>
-                                                                    @*<button type="button" class="btn btn-sm ">
-                                                                            <img src="../../assets/ExportPDF.png" />
-                                                                        </button>*@
-                                                                    <button type="button" id="excel" class="btn  btn-sm">
-
-                                                                        <img src="~/ExportExcel.png" />
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="col-sm-12 mat-elevation-z8"
-                                                             style="box-shadow: unset;padding: 0px ;">
-                                                            <table id="example" class="table table-hover" style="width: 100%;" border="1">
-                                                                <thead style=" background-color: gray; color: white;">
-                                                                    <tr>
-                                                                        <td class="th-bold">
-                                                                            Name
-
-                                                                        </td>
-                                                                        <td style="width:50px">
-                                                                            Rule Name
-                                                                        </td>
-                                                                        @*<td style="width:50px">
-                                                                            Test Approach
-                                                                        </td>*@
-                                                                        <td style="width:300px">
-                                                                            Description
-
-                                                                        </td>
-                                                                        <td style="width:100px">
-                                                                            Test Data
-                                                                        </td>
-                                                                        <td style="width:100px">
-                                                                            Expected Result
-
-                                                                        </td>
-
-                                                                        <td style="width:50px">
-                                                                            Status
-                                                                        </td>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody id="tblAuthgrid"></tbody>
-
-                                                            </table>
-
-                                                        </div>
+                                        <div class="col-lg-3 col-lg-3 col-xs-6 col-sm-6" style="padding-top:1em;">
+                                            <label>Expected Result</label><br />
+                                            @*<input type="text" id="TestResult" cols="40" rows="3" name="testresult" class=" form-control txt-input" />*@
+                                            <select asp-for="ExpectedResultVal"
+                                                    class="form-control"
+                                                    asp-items="@(new SelectList(Model.ExpectedResult,"Value", "Text"))">
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-3 col-lg-3 col-xs-6 col-sm-6" style="padding-top:1em;">
+                                            <div id="ExpectedParameter"></div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="padding-top:1em;">
+                                            <label>Description</label> <br />
+                                            <input type="text" class="form-control" maxlength="50" placeholder="Description" id="Description" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            <textarea disabled id="Testrulemodified" class=" hidden" style="width:100%">
 
 
 
-                                                    </div>
 
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4"></div>
-                                            <div class="col-lg-4"></div>
-                                            <div class="col-lg-4">
-                                                <!-- <p class="text-primary" style="float:right"><i>
-                                                &nbsp;</i>Page 1,2,3,4<i>&nbsp;></i></p> -->
-                                            </div>
+</textarea>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="Length" />
+
+                                    <div class="row" style="padding-top: 1rem;">
+
+                                        <input type="file" name="files" multiple class="button" style=" box-shadow: unset; background: unset; background-color: unset; color: unset;padding-left:15px" />
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-xs-12" style="padding-top:30px;">
+                                            <button type="submit" class="button" style="color: white;background-color: #c9a642;" asp-controller="Home" asp-action="ETLTestCASES">Upload </button>
+                                        </div>
+                                        <div class="col-lg-3 col-xs-12" style="padding-top:30px;">
+
+                                            <button Id="Templete" type="submit" style="color: white;background-color: #c9a642" class=" button text-center center-block"  asp-controller="Home" asp-action="etldbtemplate"> Template</button>
 
                                         </div>
                                     </div>
 
+                                    <table id="exampleimport" border="1" style="display:none; border:1px solid">
+                                        <thead class="thead-bold" style="border: 1px solid black;">
+                                            <tr style="background-color: #BFD0D8 !important;">
+
+                                                <th class="th-bold">
+                                                    Rule Name
+
+                                                </th>
+                                                <th class="th-bold">
+                                                    Schema
+
+                                                </th>
+                                                <th class="th-bold">
+                                                    Table Name
+                                                </th>
+                                                <th class="th-bold">
+                                                    Column Name
+
+                                                </th>
+                                                <th class="th-bold">
+                                                <th class="th-bold">
+
+                                                    Value
+                                                </th>
+                                                <th class="th-bold">
+                                                    Expected Result
+
+                                                </th>
+                                                <th class="th-bold">
+                                                    Expected Value
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="border: 1px solid black;">
+                                        </tbody>
+                                    </table>
+
                                 </div>
-                            </div>
+                            </form>
                         </div>
+
+
                     </div>
                 </div>
 
-            </div>
-            <!-- partial:../../partials/_footer.html -->
 
+            </div>
         </div>
+        <div class="container" style="        background-color: #eeeeee;
+        padding: 10px;
+        padding-bottom: unset;
+        margin-top: 15px">
+            <div class="row" style="        padding: 10px
+">
+                <div class="col-lg-6 col-dm-6 col-xs-6 col-sm-6" style="text-align:left">
+                    <input type="checkbox" id="Status"> Set As active
+                    <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                        <label style="text-align:center;color:green " id="Success"></label>
+                        <label style="text-align:center;color:red " id="Error"></label>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-dm-6 col-xs-6 col-sm-6" style="text-align:right">
+                    <input type="button" class="text-center center-block" style="        color: white;background-color: #c9a642" id="Save" value="SAVE">
+                    <input type="button" class="text-center center-block hidden" style="       color: white;background-color: #c9a642" id="Update" value="Update">
+                    <input type="button" class="text-center center-block clear" style="   color: black;" id="Clear" value="Clear">
+                    <input type="hidden" id="updateis" />
+                    <input type="hidden" id="Etlstatus" />
+                </div>
+
+            </div>
+        </div>
+        <div class="container" style="        background-color: white;
+        padding: 10px;
+        padding-bottom: unset;
+        margin-top: 15px">
+
+            <div class="container-fluid" style="        background-color: white;
+        padding: 20px;
+        padding-top: 15px;
+        padding-bottom: 100px;">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin">
+                        <div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-12 ">
+                                        <div class="">
+                                            <div class="" style="        padding: 0;">
+                                                <div class="col-lg-12 form-inline"
+                                                     style=" padding: 5px;">
+                                                    <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3"></div>
+                                                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 " style="padding-right:0px;">
+
+                                                        @*<div style=" position: absolute;">
+                                                                <div class="">
+                                                                    <input type="text" id="search" name="search" />
+                                                                    <button id="Searchlist" class="button" style=" margin: unset;   background-color: #c9a642; margin-left: 10px" value="Search">Search</button>
+                                                                </div>
+
+                                                            </div>*@
+
+                                                        @*<div class="form-group" style="        position: absolute;right: 41%; width: 22%">
+                                                                <div class="input-group">
+                                                                    <select asp-for="ProductSearchId"
+                                                                            class="form-control"
+                                                                            asp-items="@(new SelectList(Model.ProductSearchList,"Value", "Text"))">
+                                                                    </select>
+                                                                </div>
+                                                            </div>*@
+
+
+                                                        <div class="form-group" style="        padding-left: 55%;">
+                                                            <div class="input-group">
+                                                                <!-- <label style="padding-right: 25px;">Search</label> -->
+                                                                @*<select asp-for="RulesId"
+                                                                            class="form-control"
+                                                                            asp-items="@(new SelectList(Model.RuleList,"Value", "Text"))">
+                                                                    </select>*@
+                                                                <select asp-for="ProductSearchId"
+                                                                        class="form-control"
+                                                                        asp-items="@(new SelectList(Model.ProductSearchList,"Value", "Text"))">
+                                                                </select>
+                                                                <!-- <input type="text" class="form-control"
+                                                                    placeholder="Search..." aria-label="Search..."
+                                                                    aria-describedby="basic-addon2">
+                                                                <div class="input-group-append">
+                                                                    <button class="btn btn-sm btn-gradient-danger"
+                                                                        type="button">Search</button>
+                                                                </div> -->
+                                                            </div>
+
+
+                                                    <button type="button" class="btn  btn-sm" id="excel">
+                                                        <img src="~/ExportExcel.png"
+                                                             style="cursor: pointer;" />
+                                                    </button>
+                                                            @*<div>
+                                                                    <button id="InActive" OnClick='Bindrid("0")' class="button" style="margin: unset; background-color: #c9a642;  margin-left: 10px;" value="Inactive">
+                                                                        Inactive
+                                                                    </button>
+                                                                    <button id="Active" OnClick='Bindrid("1")' class="button hidden" style=" margin: unset; background-color: #c9a642; margin-left: 10px" value="Active">
+                                                                        Active
+                                                                    </button>
+                                                                </div>*@
+                                                            @*<button type="button" class="btn btn-sm ">
+                                                                    <img src="../../assets/ExportPDF.png" />
+                                                                </button>*@
+                                                            @*<button type="button" id="excel" class="btn  btn-sm">
+
+                                                                    <img src="~/ExportExcel.png" />
+                                                                </button>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                             
+
+                                                <div class="col-sm-12 mat-elevation-z8"
+                                                     style="box-shadow: unset;padding: 0px ;">
+                                                    <table id="example" class="table table-hover" style="width: 100%;" border="1">
+                                                        <thead style=" background-color: gray; color: white;">
+                                                            <tr>
+                                                                <td class="th-bold">
+                                                                    TC Id
+
+                                                                </td>
+                                                                <td class="th-bold">
+                                                                    Name
+
+                                                                </td>
+                                                                <td style="width:50px">
+                                                                    Rule Name
+                                                                </td>
+                                                                @*<td style="width:50px">
+            Test Approach
+        </td>*@
+                                                                <td style="width:300px">
+                                                                    Description
+
+                                                                </td>
+                                                                <td style="width:100px">
+                                                                    Test Data
+                                                                </td>
+                                                                <td style="width:100px">
+                                                                    Expected Result
+
+                                                                </td>
+
+                                                                <td style="width:50px">
+                                                                    Status
+                                                                </td>
+                                                                <td>
+                                                                    Delete
+                                                                </td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tblAuthgrid"></tbody>
+
+                                                    </table>
+
+                                                </div>
+
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4"></div>
+                                    <div class="col-lg-4"></div>
+                                    <div class="col-lg-4">
+                                        <!-- <p class="text-primary" style="float:right"><i>
+                                        &nbsp;</i>Page 1,2,3,4<i>&nbsp;></i></p> -->
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- partial:../../partials/_footer.html -->
+    </div>
     </div>
 
     </div>
     <!-- /#page-content-wrapper -->
     <!-- /#wrapper -->
     <!-- Bootstrap core JavaScript -->
-    <script src="http://52.178.152.165:5000/vendor/jquery/jquery.min.js"></script>
-    <script src="http://52.178.152.165:5000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/vendor/jquery/jquery.min.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <!-- Menu Toggle Script -->
     <script>
         $("#menu-toggle").click(function (e) {
@@ -1807,6 +1530,5 @@
             $("#wrapper").toggleClass("toggled");
         });
     </script>
-    </div>
 </body>
 </html>

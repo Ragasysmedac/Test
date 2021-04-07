@@ -2,7 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>0f097c82-158d-4a53-a99e-3b3342e82f1b</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <Compile Remove="File\**" />
+    <Content Remove="bin\**" />
+    <Content Remove="File\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="File\**" />
+    <None Remove="bin\**" />
+    <None Remove="File\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Assets\Login.css" />
@@ -45,6 +59,7 @@
     <PackageReference Include="chosen.jquery" Version="1.2.0" />
     <PackageReference Include="ClosedXML" Version="0.95.4" />
     <PackageReference Include="DotNetZip" Version="1.15.0" />
+    <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
@@ -55,16 +70,23 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Owin.Cors" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Cors" Version="4.0.0" />
     <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.1.1" />
     <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
     <PackageReference Include="NEST" Version="7.10.1" />
     <PackageReference Include="NPOI" Version="2.5.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.4" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="TimeZoneConverter" Version="3.3.0" />
     <PackageReference Include="UmbracoCms.Core" Version="8.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="LogBackUp\" />
+    <Folder Include="wwwroot\js\NewFolder\" />
+<Folder Include="Files\" />
+
   </ItemGroup>
 
 </Project>

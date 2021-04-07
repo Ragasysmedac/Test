@@ -79,6 +79,18 @@
       "jQuery/1.4.1": {
         "type": "package"
       },
+      "log4net/2.0.12": {
+        "type": "package",
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/log4net.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/log4net.dll": {}
+        }
+      },
       "Microsoft.AspNet.Cors/5.0.0": {
         "type": "package",
         "compile": {
@@ -774,18 +786,18 @@
           "lib/net45/Microsoft.Owin.dll": {}
         }
       },
-      "Microsoft.Owin.Cors/4.1.1": {
+      "Microsoft.Owin.Cors/4.0.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNet.Cors": "5.0.0",
-          "Microsoft.Owin": "4.1.1",
+          "Microsoft.Owin": "4.0.0",
           "Owin": "1.0.0"
         },
         "compile": {
-          "lib/net45/Microsoft.Owin.Cors.dll": {}
+          "lib/net451/Microsoft.Owin.Cors.dll": {}
         },
         "runtime": {
-          "lib/net45/Microsoft.Owin.Cors.dll": {}
+          "lib/net451/Microsoft.Owin.Cors.dll": {}
         }
       },
       "Microsoft.Owin.Host.SystemWeb/4.1.1": {
@@ -829,11 +841,11 @@
           "lib/net45/Microsoft.Owin.Security.OAuth.dll": {}
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration/3.1.4": {
+      "Microsoft.VisualStudio.Web.CodeGeneration/3.1.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "3.1.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore": "3.1.4"
+          "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore": "3.1.5"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.dll": {}
@@ -842,7 +854,7 @@
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.dll": {}
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Contracts/3.1.4": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Contracts/3.1.5": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "11.0.2"
@@ -854,11 +866,11 @@
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll": {}
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Core/3.1.4": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Core/3.1.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "3.1.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Templating": "3.1.4",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Templating": "3.1.5",
           "Newtonsoft.Json": "11.0.2"
         },
         "compile": {
@@ -868,10 +880,10 @@
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Core.dll": {}
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design/3.1.4": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design/3.1.5": {
         "type": "package",
         "dependencies": {
-          "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": "3.1.4"
+          "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": "3.1.5"
         },
         "compile": {
           "lib/netcoreapp3.1/dotnet-aspnet-codegenerator-design.dll": {}
@@ -880,10 +892,10 @@
           "lib/netcoreapp3.1/dotnet-aspnet-codegenerator-design.dll": {}
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/3.1.4": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/3.1.5": {
         "type": "package",
         "dependencies": {
-          "Microsoft.VisualStudio.Web.CodeGeneration.Core": "3.1.4"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Core": "3.1.5"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll": {}
@@ -892,14 +904,14 @@
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll": {}
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Templating/3.1.4": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Templating/3.1.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Razor.Language": "3.1.0",
           "Microsoft.AspNetCore.Razor.Runtime": "2.2.0",
           "Microsoft.CodeAnalysis.CSharp": "3.3.1",
           "Microsoft.CodeAnalysis.Razor": "3.1.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Utils": "3.1.4"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Utils": "3.1.5"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll": {}
@@ -908,11 +920,11 @@
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll": {}
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Utils/3.1.4": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Utils/3.1.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "3.3.1",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Contracts": "3.1.4",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Contracts": "3.1.5",
           "Newtonsoft.Json": "11.0.2",
           "NuGet.Frameworks": "4.7.0"
         },
@@ -923,10 +935,10 @@
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll": {}
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/3.1.4": {
+      "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/3.1.5": {
         "type": "package",
         "dependencies": {
-          "Microsoft.VisualStudio.Web.CodeGeneration": "3.1.4"
+          "Microsoft.VisualStudio.Web.CodeGeneration": "3.1.5"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll": {}
@@ -2807,6 +2819,34 @@
         "jquery.nuspec"
       ]
     },
+    "log4net/2.0.12": {
+      "sha512": "9P67BCftJ7KG+B7rNOM1A9KczUwyEDed6zbAddy5Cj/73xVkzi+rEAHeOgUnW5wDqy1JFlY8+oTP0m1PgJ03Tg==",
+      "type": "package",
+      "path": "log4net/2.0.12",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/log4net.dll",
+        "lib/net20/log4net.xml",
+        "lib/net35-client/log4net.dll",
+        "lib/net35-client/log4net.xml",
+        "lib/net35/log4net.dll",
+        "lib/net35/log4net.xml",
+        "lib/net40-client/log4net.dll",
+        "lib/net40-client/log4net.xml",
+        "lib/net40/log4net.dll",
+        "lib/net40/log4net.xml",
+        "lib/net45/log4net.dll",
+        "lib/net45/log4net.xml",
+        "lib/netstandard1.3/log4net.dll",
+        "lib/netstandard1.3/log4net.xml",
+        "lib/netstandard2.0/log4net.dll",
+        "lib/netstandard2.0/log4net.xml",
+        "log4net.2.0.12.nupkg.sha512",
+        "log4net.nuspec",
+        "package-icon.png"
+      ]
+    },
     "Microsoft.AspNet.Cors/5.0.0": {
       "sha512": "jNwFhEnm0jRlaRCgHEk52hJQltVoM2Bllysv2NtPYrgsVWyS3r5BOtCXkM/lEZ5AdUUBOvha+4QAVcVp1MZp5g==",
       "type": "package",
@@ -3636,16 +3676,16 @@
         "microsoft.owin.nuspec"
       ]
     },
-    "Microsoft.Owin.Cors/4.1.1": {
-      "sha512": "2ht49uWT7zytE0Xy53dfgkUtWyhVPiMyiqenaS5HZ8TmnMSXEP12HG+L0EL44DGqYR9pZtxURUhq5/Za3PaZpg==",
+    "Microsoft.Owin.Cors/4.0.0": {
+      "sha512": "eHEqyQbLgDCu2sg1H5iEh5syKGHk0X3wBkwrkLQ0mrEkr73F2/b3NtswdI+99QmECrqN4UXZmoIIjOdy/miZLw==",
       "type": "package",
-      "path": "microsoft.owin.cors/4.1.1",
+      "path": "microsoft.owin.cors/4.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net45/Microsoft.Owin.Cors.XML",
-        "lib/net45/Microsoft.Owin.Cors.dll",
-        "microsoft.owin.cors.4.1.1.nupkg.sha512",
+        "lib/net451/Microsoft.Owin.Cors.XML",
+        "lib/net451/Microsoft.Owin.Cors.dll",
+        "microsoft.owin.cors.4.0.0.nupkg.sha512",
         "microsoft.owin.cors.nuspec"
       ]
     },
@@ -3688,52 +3728,52 @@
         "microsoft.owin.security.oauth.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration/3.1.4": {
-      "sha512": "fZjXps4+YILDLMha17katCu/DRuaRoFR4YUvCmMRBhj9cPnM5VIISn/W3ZfCu0LTESTc2shiKHMuc9ObEYmEDw==",
+    "Microsoft.VisualStudio.Web.CodeGeneration/3.1.5": {
+      "sha512": "KSXhD6QzyoyNc52blbf5DJ7QNtul1VXcpOcYO5svlbFRRWjcB3+lpYTr5n9I6fcgMDGkhb4mndLZuXSTz0ukaA==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration/3.1.4",
+      "path": "microsoft.visualstudio.web.codegeneration/3.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.dll",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.xml",
-        "microsoft.visualstudio.web.codegeneration.3.1.4.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.3.1.5.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Contracts/3.1.4": {
-      "sha512": "81MO4s4Ztxz1x76fpZaWZucx1pZnJN/CyLSPnOwsThgQoZy3F5mlknWvpXE5SxYrbfBQNPI73KVTiqXYbt9wgA==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Contracts/3.1.5": {
+      "sha512": "mwtlStv7cvgmOC7zM9ZGV/9KN5gtYpDW1w0oOx675nPT/CECsftaCBRfxP0D3Ho8bj1+UgiI7hVLwyYud58E9g==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.contracts/3.1.4",
+      "path": "microsoft.visualstudio.web.codegeneration.contracts/3.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Contracts.xml",
-        "microsoft.visualstudio.web.codegeneration.contracts.3.1.4.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.contracts.3.1.5.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.contracts.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Core/3.1.4": {
-      "sha512": "LKkea7U0F+hjKW7X6usUMPZtRNQQ9/6rlst3ATWLuWFV3dwlMEh2Spu2ptLi1JYQAUrpBs3uGLz0yypPUkicLQ==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Core/3.1.5": {
+      "sha512": "VWSQrOR9ayVTe7tv1IghlyRCdxVHt3cFBH3p1gmDaF1wNHwFfFJvZ3NT6HeqeNqysLftvQdJKVmRckfoaOuqMQ==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.core/3.1.4",
+      "path": "microsoft.visualstudio.web.codegeneration.core/3.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Core.dll",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Core.xml",
-        "microsoft.visualstudio.web.codegeneration.core.3.1.4.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.core.3.1.5.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.core.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Design/3.1.4": {
-      "sha512": "V0P0dAn1/cAFs4/ioIS3/oLiGrhyb1YzgtjPiwh/TXNuFzv7zqwT/gMcQjmlKLDpzDsuq8L3VI7G41GxIC4jNw==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Design/3.1.5": {
+      "sha512": "OtcAfUxX/etRLVIVEk5PpVt1hChZosqNKkhLjLuubdpCIX5P7OCihVScYMzdjXfvD3tNkWcNed2nvpLd61wBYA==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.design/3.1.4",
+      "path": "microsoft.visualstudio.web.codegeneration.design/3.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3741,7 +3781,7 @@
         "lib/net461/dotnet-aspnet-codegenerator-design.xml",
         "lib/netcoreapp3.1/dotnet-aspnet-codegenerator-design.dll",
         "lib/netcoreapp3.1/dotnet-aspnet-codegenerator-design.xml",
-        "microsoft.visualstudio.web.codegeneration.design.3.1.4.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.design.3.1.5.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.design.nuspec",
         "runtimes/win-arm/lib/net461/dotnet-aspnet-codegenerator-design.exe",
         "runtimes/win-arm/lib/net461/dotnet-aspnet-codegenerator-design.xml",
@@ -3753,10 +3793,10 @@
         "runtimes/win7-x86/lib/net461/dotnet-aspnet-codegenerator-design.xml"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/3.1.4": {
-      "sha512": "/SxCjG9Oy1Is3TTSBYr+b+/CTIyKX+9cTETZJeSn7Xy41eDvmJRfbt6JONY9/gumPeJ9ONRS+rjokRkZtQhT1A==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/3.1.5": {
+      "sha512": "7ABg+Xc56gxWlmId+vCAdf5sGY9+GZiBi2LB5epaufvoaww4n74zv+FzQUP0jApurmA0RDiJzQ8u8XL+Cl8VcQ==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.entityframeworkcore/3.1.4",
+      "path": "microsoft.visualstudio.web.codegeneration.entityframeworkcore/3.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3764,42 +3804,42 @@
         "Templates/DbContext/NewLocalDbContext.cshtml",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.xml",
-        "microsoft.visualstudio.web.codegeneration.entityframeworkcore.3.1.4.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.entityframeworkcore.3.1.5.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Templating/3.1.4": {
-      "sha512": "MvYDCioBdKgDqN4cNLbxnsJuMfJy4B9WTi6GycETcETLAVvZQwnYa5WejS7olWpYuov4DYGZEvzEvIBgZHN46Q==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Templating/3.1.5": {
+      "sha512": "fYdTlypZex1lkrZif924cp4StqzAXehIdgYiRXre7HpjnRVMH6dHWEW4n7vY2IAnXI3dmp+ekD10k6z98YLTwA==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.templating/3.1.4",
+      "path": "microsoft.visualstudio.web.codegeneration.templating/3.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Templating.xml",
-        "microsoft.visualstudio.web.codegeneration.templating.3.1.4.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.templating.3.1.5.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.templating.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Utils/3.1.4": {
-      "sha512": "rVhjGM5qoiTniacHqYdPq/ZHQURlknybUkUdIgh3JUN9SRjnZpsfoPOD/Z7ZWl+GdruV3OUmlpVyW+Xyc3KoYg==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Utils/3.1.5": {
+      "sha512": "vSEMlRifsRn4VYoaqWcTeJvrKfKfuZZlMZblKWMUP/cwAAZkDweJqfA6E7trvcuRsyauQyEPsKicElqbZHRnzg==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.utils/3.1.4",
+      "path": "microsoft.visualstudio.web.codegeneration.utils/3.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Utils.xml",
-        "microsoft.visualstudio.web.codegeneration.utils.3.1.4.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.utils.3.1.5.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.utils.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/3.1.4": {
-      "sha512": "W+F07AWMXek8Ed5pwNfTE6cpHMLSqlTV+5g3LUJVk2QyA7MvY+bRV5gbpgsxtQtX8MYCECOseKg8fUOXXpXPAg==",
+    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/3.1.5": {
+      "sha512": "w1yGWLgGbZJ8Dz8+4CP4tlwIHpQ/ZaOLWHV0gZo2m1+yU6u/zo2z1Ro7/CHkVWVd04vievsN5UQ19lcWLSfqBw==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegenerators.mvc/3.1.4",
+      "path": "microsoft.visualstudio.web.codegenerators.mvc/3.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4094,7 +4134,7 @@
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGenerators.Mvc.xml",
         "lib/netstandard2.0/bootstrap3_identitygeneratorfilesconfig.json",
         "lib/netstandard2.0/bootstrap4_identitygeneratorfilesconfig.json",
-        "microsoft.visualstudio.web.codegenerators.mvc.3.1.4.nupkg.sha512",
+        "microsoft.visualstudio.web.codegenerators.mvc.3.1.5.nupkg.sha512",
         "microsoft.visualstudio.web.codegenerators.mvc.nuspec"
       ]
     },
@@ -8516,10 +8556,10 @@
       "Microsoft.EntityFrameworkCore >= 3.1.9",
       "Microsoft.EntityFrameworkCore.Design >= 3.1.9",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.9",
-      "Microsoft.Owin.Cors >= 4.1.1",
+      "Microsoft.Owin.Cors >= 4.0.0",
       "Microsoft.Owin.Host.SystemWeb >= 4.1.1",
       "Microsoft.Owin.Security.OAuth >= 4.1.1",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.4",
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5",
       "NEST >= 7.10.1",
       "NPOI >= 2.5.1",
       "Pomelo.EntityFrameworkCore.MySql >= 3.2.4",
@@ -8527,7 +8567,8 @@
       "TimeZoneConverter >= 3.3.0",
       "UmbracoCms.Core >= 8.10.0",
       "chosen >= 1.2.0",
-      "chosen.jquery >= 1.2.0"
+      "chosen.jquery >= 1.2.0",
+      "log4net >= 2.0.12"
     ]
   },
   "packageFolders": {
@@ -8538,11 +8579,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
+      "projectUniqueName": "D:\\Abinesh\\Xautomatedocker\\Xautomate_docker\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
       "projectName": "XAutomateMVC",
-      "projectPath": "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
+      "projectPath": "D:\\Abinesh\\Xautomatedocker\\Xautomate_docker\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\obj\\",
+      "outputPath": "D:\\Abinesh\\Xautomatedocker\\Xautomate_docker\\XAutomateMVC\\XAutomateMVC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -8604,7 +8645,7 @@
           },
           "Microsoft.Owin.Cors": {
             "target": "Package",
-            "version": "[4.1.1, )"
+            "version": "[4.0.0, )"
           },
           "Microsoft.Owin.Host.SystemWeb": {
             "target": "Package",
@@ -8616,7 +8657,7 @@
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
-            "version": "[3.1.4, )"
+            "version": "[3.1.5, )"
           },
           "NEST": {
             "target": "Package",
@@ -8649,6 +8690,10 @@
           "chosen.jquery": {
             "target": "Package",
             "version": "[1.2.0, )"
+          },
+          "log4net": {
+            "target": "Package",
+            "version": "[2.0.12, )"
           }
         },
         "imports": [
@@ -8698,7 +8743,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Microsoft.Owin.Cors 4.1.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "message": "Package 'Microsoft.Owin.Cors 4.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
       "libraryId": "Microsoft.Owin.Cors",
       "targetGraphs": [
         ".NETCoreApp,Version=v3.1"

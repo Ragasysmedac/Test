@@ -7,6 +7,7 @@ namespace XAutomateMVC.Models.DBModels
     {
         public TestSuite()
         {
+            KpiTotal = new HashSet<KpiTotal>();
             TestApproach = new HashSet<TestApproach>();
         }
 
@@ -16,6 +17,9 @@ namespace XAutomateMVC.Models.DBModels
         public string Status { get; set; }
         public DateTime? CreatedDate { get; set; }
 
+        public int Excepttestcase { get; set; }
+
+        public virtual ICollection<KpiTotal> KpiTotal { get; set; }
         public virtual ICollection<TestApproach> TestApproach { get; set; }
     }
 }

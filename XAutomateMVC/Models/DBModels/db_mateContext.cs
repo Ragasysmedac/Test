@@ -1,23 +1,49 @@
 ﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace XAutomateMVC.Models.DBModels
 {
     public partial class db_mateContext : DbContext
     {
+
+        public IConfiguration Configuration { get; }
+        private string connectionString;
+        private string InternalIP;
+        private string Internalport;
+        private string Internaldb;
+        private string Internaluser;
+        private string Internalpassword;
         public db_mateContext()
         {
-        }
 
-        public db_mateContext(DbContextOptions<db_mateContext> options)
+            var builder = new ConfigurationBuilder();
+            builder.AddJsonFile("appsettings.json", optional: false);
+
+            var configuration = builder.Build();
+            var test = configuration.GetValue<string>("ReportPortalUid");
+            connectionString = configuration.GetValue<string>("MysqlConnectionString");
+            InternalIP = configuration.GetValue<string>("InternaldbIp");
+            Internalport = configuration.GetValue<string>("Internaldbport");
+            Internaldb = configuration.GetValue<string>("Internaldbname");
+            Internaluser = configuration.GetValue<string>("Internaldbuserame");
+            Internalpassword = configuration.GetValue<string>("Internaldbpassword");
+        }
+        
+        public db_mateContext(DbContextOptions<db_mateContext> options, IConfiguration configuration)
             : base(options)
         {
+
         }
 
         public virtual DbSet<DbConfig> DbConfig { get; set; }
         public virtual DbSet<Exceute> Exceute { get; set; }
         public virtual DbSet<ExpectedResult> ExpectedResult { get; set; }
+        public virtual DbSet<KpiAttributeTotal> KpiAttributeTotal { get; set; }
+        public virtual DbSet<KpiRuns> KpiRuns { get; set; }
+        public virtual DbSet<KpiTotal> KpiTotal { get; set; }
         public virtual DbSet<Login> Login { get; set; }
         public virtual DbSet<ReleaseNo> ReleaseNo { get; set; }
         public virtual DbSet<Role> Role { get; set; }
@@ -30,15 +56,20 @@ namespace XAutomateMVC.Models.DBModels
         public virtual DbSet<TestSuite> TestSuite { get; set; }
         public virtual DbSet<TokenValue> TokenValue { get; set; }
         public virtual DbSet<WebFiles> WebFiles { get; set; }
+        public virtual DbSet<WebFilesTechnology> WebFilesTechnology { get; set; }
         public virtual DbSet<WebTestcases> WebTestcases { get; set; }
         public virtual DbSet<Webtestcaselist> Webtestcaselist { get; set; }
+
+
+        private IConfiguration configuration;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=52.178.152.165;port=3310;database=db_mate;user id=root;password=password;sslmode=none", x => x.ServerVersion("8.0.23-mysql"));
+                optionsBuilder.UseMySql("server="+ InternalIP + ";port="+ Internalport + ";database="+ Internaldb + ";user id="+ Internaluser + ";password="+ Internalpassword + ";sslmode=none", x => x.ServerVersion("8.0.23-mysql"));
             }
         }
 
@@ -138,6 +169,78 @@ namespace XAutomateMVC.Models.DBModels
                     .HasColumnType("varchar(450)")
                     .HasCharSet("latin1")
                     .HasCollation("latin1_swedish_ci");
+            });
+
+            modelBuilder.Entity<KpiAttributeTotal>(entity =>
+            {
+                entity.ToTable("kpi_attribute_total");
+
+                entity.Property(e => e.KpiAttributeTotalid).HasColumnName("kpi_attribute_totalid");
+
+                entity.Property(e => e.RemianingAttributes).HasColumnName("remianing_attributes");
+
+                entity.Property(e => e.TotalAttributes).HasColumnName("total_attributes");
+
+                entity.Property(e => e.UniqueAttributes).HasColumnName("unique_attributes");
+
+                entity.Property(e => e.UsedAttribute).HasColumnName("used_attribute");
+            });
+
+            modelBuilder.Entity<KpiRuns>(entity =>
+            {
+                entity.ToTable("Kpi_runs");
+
+                entity.HasIndex(e => e.KpiTotalid)
+                    .HasName("kpi_totalid_idx");
+
+                entity.Property(e => e.KpiRunsid).HasColumnName("kpi_runsid");
+
+                entity.Property(e => e.ExecuteDate)
+                    .HasColumnName("execute_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.KpiTotalid).HasColumnName("kpi_totalid");
+
+                entity.Property(e => e.Passed).HasColumnName("passed");
+
+                entity.Property(e => e.PercentageRatio)
+                    .HasColumnName("percentage_ratio")
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.RunTestcase).HasColumnName("run_testcase");
+
+                entity.HasOne(d => d.KpiTotal)
+                    .WithMany(p => p.KpiRuns)
+                    .HasForeignKey(d => d.KpiTotalid)
+                    .HasConstraintName("kpi_totalid");
+            });
+
+            modelBuilder.Entity<KpiTotal>(entity =>
+            {
+                entity.ToTable("kpi_total");
+
+                entity.HasIndex(e => e.TestSuiteId)
+                    .HasName("TestSuiteIds_idx");
+
+                entity.Property(e => e.KpiTotalid).HasColumnName("kpi_totalid");
+
+                entity.Property(e => e.LastupdatedDate)
+                    .HasColumnName("Lastupdated_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Suitename)
+                    .HasColumnType("varchar(450)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.TotalTestcase).HasColumnName("Total_testcase");
+
+                entity.HasOne(d => d.TestSuite)
+                    .WithMany(p => p.KpiTotal)
+                    .HasForeignKey(d => d.TestSuiteId)
+                    .HasConstraintName("TestSuiteIds");
             });
 
             modelBuilder.Entity<Login>(entity =>
@@ -266,7 +369,7 @@ namespace XAutomateMVC.Models.DBModels
             modelBuilder.Entity<Rules>(entity =>
             {
                 entity.HasIndex(e => e.DbConfigId)
-                    .HasName("DbConfigids_idx");
+                    .HasName("dbcong_idx");
 
                 entity.HasIndex(e => e.TestApproachid)
                     .HasName("TestApproachid_idx");
@@ -294,6 +397,11 @@ namespace XAutomateMVC.Models.DBModels
                     .HasCollation("latin1_swedish_ci");
 
                 entity.Property(e => e.Status)
+                    .HasColumnType("varchar(450)")
+                    .HasCharSet("latin1")
+                    .HasCollation("latin1_swedish_ci");
+
+                entity.Property(e => e.SuiteName)
                     .HasColumnType("varchar(450)")
                     .HasCharSet("latin1")
                     .HasCollation("latin1_swedish_ci");
@@ -367,7 +475,7 @@ namespace XAutomateMVC.Models.DBModels
                     .HasCollation("latin1_swedish_ci");
 
                 entity.Property(e => e.SuiteIds)
-                    .HasColumnType("varchar(100)")
+                    .HasColumnType("varchar(450)")
                     .HasCharSet("latin1")
                     .HasCollation("latin1_swedish_ci");
 
@@ -499,6 +607,9 @@ namespace XAutomateMVC.Models.DBModels
 
             modelBuilder.Entity<WebFiles>(entity =>
             {
+                entity.HasIndex(e => e.WebFilesTechnologyid)
+                    .HasName("WebFilesTechnology_idx");
+
                 entity.Property(e => e.Description)
                     .HasColumnType("varchar(450)")
                     .HasCharSet("utf8mb4")
@@ -519,8 +630,31 @@ namespace XAutomateMVC.Models.DBModels
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
+                entity.Property(e => e.Technology)
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
                 entity.Property(e => e.WebFilesPath)
                     .HasColumnType("varchar(1000)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.HasOne(d => d.WebFilesTechnology)
+                    .WithMany(p => p.WebFiles)
+                    .HasForeignKey(d => d.WebFilesTechnologyid)
+                    .HasConstraintName("WebFilesTechnologyid");
+            });
+
+            modelBuilder.Entity<WebFilesTechnology>(entity =>
+            {
+                entity.Property(e => e.Technology)
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.WebfileTechnologyFoler)
+                    .HasColumnType("varchar(45)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
             });

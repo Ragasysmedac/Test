@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj": {}
+    "D:\\Abinesh\\Xautomatedocker\\Xautomate_docker\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj": {}
   },
   "projects": {
-    "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj": {
+    "D:\\Abinesh\\Xautomatedocker\\Xautomate_docker\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
+        "projectUniqueName": "D:\\Abinesh\\Xautomatedocker\\Xautomate_docker\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
         "projectName": "XAutomateMVC",
-        "projectPath": "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
+        "projectPath": "D:\\Abinesh\\Xautomatedocker\\Xautomate_docker\\XAutomateMVC\\XAutomateMVC\\XAutomateMVC.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Abinesh-learn\\XAutomatetest\\XAutomateMVC\\XAutomateMVC\\obj\\",
+        "outputPath": "D:\\Abinesh\\Xautomatedocker\\Xautomate_docker\\XAutomateMVC\\XAutomateMVC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -73,7 +73,7 @@
             },
             "Microsoft.Owin.Cors": {
               "target": "Package",
-              "version": "[4.1.1, )"
+              "version": "[4.0.0, )"
             },
             "Microsoft.Owin.Host.SystemWeb": {
               "target": "Package",
@@ -85,7 +85,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.5, )"
             },
             "NEST": {
               "target": "Package",
@@ -118,6 +118,10 @@
             "chosen.jquery": {
               "target": "Package",
               "version": "[1.2.0, )"
+            },
+            "log4net": {
+              "target": "Package",
+              "version": "[2.0.12, )"
             }
           },
           "imports": [
